@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Constraints &amp; Bottlenecks — INFF Nigeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --brand:#532B70; --brand-dk:#3a1a52; --brand-l:#f7f4fb; --brand-bd:#d4c8e8;
+  --amber:#F8981D; --amber-l:#fef6ea; --amber-dk:#c4710a;
+  --gap:#B83232;   --gap-l:#fdf0f0;
+  --ink:#1C1C2E;   --ink-md:#4a4a62; --ink-lt:#8888a0;
+  --border:#e4e2dc; --bg:#f4f3f0;    --surf:#ffffff;
+  --radius:10px;
+
+  /* Muted qualitative chart palette */
+  --c1:#5B9FA6; /* dusty teal      */
+  --c2:#D4956A; /* warm sand       */
+  --c3:#7AAF8A; /* sage green      */
+  --c4:#6B8CAE; /* dusty blue      */
+  --c5:#B08AC9; /* soft lavender   */
+  --c6:#C9956A; /* terracotta      */
+  --c7:#8AAFAA; /* seafoam         */
+  --c8:#A89F7A; /* warm olive      */
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5;}
+
+.topnav{background:var(--brand);height:56px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:500;box-shadow:0 2px 12px rgba(0,0,0,.18);}
+.nav-brand{display:flex;flex-direction:row;align-items:center;gap:12px;margin-right:auto;text-decoration:none;}
+.nav-brand-logos{display:flex;align-items:center;gap:10px;}
+.nav-brand-logos img{height:48px;width:auto;}
+.nav-brand-text{display:flex;flex-direction:column;}
+.nav-brand .nb-title{font-family:'Literata',serif;font-size:16px;font-weight:700;color:#fff;line-height:1;}
+.nav-brand .nb-sub{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{font-size:12px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border-radius:6px;transition:all .15s;white-space:nowrap;}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.1);}
+.nav-links a.active{color:#fff;font-weight:700;border-bottom:2px solid var(--amber);border-radius:0;padding-bottom:4px;}
+
+.breadbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:8px 24px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-lt);}
+.breadbar a{color:var(--brand);text-decoration:none;font-weight:500;}
+.breadbar a:hover{text-decoration:underline;}
+
+.page-header{background:var(--brand);padding:28px 24px 26px;border-bottom:3px solid var(--amber);}
+.ph-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px;}
+.ph-title{font-family:'Literata',serif;font-size:30px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px;}
+.ph-desc{font-size:12px;color:rgba(255,255,255,.65);max-width:640px;line-height:1.75;}
+
+.fbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:10px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.fb-group{display:flex;align-items:center;gap:7px;}
+.fb-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);}
+select{font-family:'Sora',sans-serif;font-size:12px;color:var(--ink);background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:5px 28px 5px 9px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath d='M0 0l4.5 5L9 0z' fill='%238888a0'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;cursor:pointer;}
+select:focus{outline:none;border-color:var(--brand);}
+.fb-div{width:1px;height:20px;background:var(--border);}
+.btn-reset{font-family:'Sora',sans-serif;font-size:11px;font-weight:600;color:var(--brand);background:var(--surf);border:1px solid var(--brand-bd);border-radius:6px;padding:5px 12px;cursor:pointer;transition:all .15s;}
+.btn-reset:hover{background:var(--brand);color:#fff;}
+.fb-status{margin-left:auto;font-size:11px;color:var(--ink-lt);}
+.fb-status strong{color:var(--c1);}
+
+.wrap{max-width:1400px;margin:0 auto;padding:28px 24px 64px;}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+.ctitle{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
+.csub{font-size:11px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5;}
+.cval{font-family:'Literata',serif;font-size:26px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1;}
+.cval-sm{font-family:'Literata',serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1;}
+
+.krow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.kcard{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px 20px 16px;position:relative;overflow:hidden;}
+.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
+.kc-1::before{background:var(--c1);}
+.kc-2::before{background:var(--c2);}
+.kc-3::before{background:var(--c3);}
+.kc-4::before{background:var(--c4);}
+.kc-5::before{background:var(--c5);}
+.kc-gap::before{background:var(--gap);}
+.klabel{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:8px;line-height:1.4;}
+.kvalue{font-family:'Literata',serif;font-size:30px;font-weight:700;line-height:1;margin-bottom:4px;}
+.kc-1 .kvalue{color:var(--c1);}
+.kc-2 .kvalue{color:var(--c2);}
+.kc-3 .kvalue{color:var(--c3);}
+.kc-4 .kvalue{color:var(--c4);}
+.kc-5 .kvalue{color:var(--c5);}
+.kc-gap .kvalue{color:var(--gap);}
+.ksub{font-size:11px;color:var(--ink-lt);line-height:1.4;}
+.kdelta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px;}
+.kd-good{background:#eaf4f5;color:#3a7a80;}
+.kd-bad {background:var(--gap-l);color:#8c1f1f;}
+.kd-warn{background:var(--amber-l);color:var(--amber-dk);}
+.kd-info{background:var(--brand-l);color:var(--brand);}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;}
+.g2-1{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
+.ch-xs{position:relative;height:90px;}
+.ch-sm{position:relative;height:130px;}
+.ch-md{position:relative;height:185px;}
+.ch-lg{position:relative;height:230px;}
+.sdiv{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-md);}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.pbar-list{display:flex;flex-direction:column;gap:9px;}
+.pbar-meta{display:flex;justify-content:space-between;margin-bottom:3px;font-size:11px;}
+.pbar-name{font-weight:600;color:var(--ink);}
+.pbar-val{color:var(--ink-lt);}
+.pbar-track{height:7px;background:var(--bg);border-radius:4px;overflow:hidden;}
+.pbar-fill{height:100%;border-radius:4px;background:var(--c1);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+
+.opt-c-strip{position:sticky;top:56px;z-index:470;}
+.opt-c-row1{background:#3d2960;padding:7px 24px;display:flex;align-items:center;gap:6px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.08);}
+.opt-c-jumplabel{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);flex-shrink:0;margin-right:6px;}
+.opt-c-bb-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .15s;}
+.opt-c-bb-chip:hover{border-color:rgba(255,255,255,.4);color:#fff !important;}
+.opt-c-row2{background:#f0ecf8;padding:5px 24px;display:flex;align-items:center;gap:2px;flex-wrap:wrap;border-bottom:1px solid #d4c8e8;}
+.opt-c-sec-link{font-size:11px;color:#6b5b8a;padding:4px 10px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all .12s;}
+.opt-c-sec-link:hover{color:#532B70;background:rgba(83,43,112,.08);}
+.opt-c-sec-link.active{color:#532B70;font-weight:700;background:rgba(83,43,112,.1);}
+.opt-c-sep{color:#c4b8d8;padding:0 2px;font-size:10px;}
+
+.uc-wrap {
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  min-height:60vh; padding:48px 24px;
+  text-align:center;
+}
+.uc-icon {
+  font-size:48px; margin-bottom:20px; line-height:1;
+}
+.uc-title {
+  font-family:'Literata',serif;
+  font-size:28px; font-weight:700;
+  color:var(--ink); margin-bottom:8px;
+}
+.uc-sub {
+  font-size:13px; color:var(--ink-lt);
+  margin-bottom:28px;
+}
+.uc-back {
+  font-family:'Sora',sans-serif;
+  font-size:12px; font-weight:700;
+  color:#fff; background:var(--brand);
+  padding:10px 22px; border-radius:8px;
+  text-decoration:none;
+}
+.uc-back:hover { opacity:.88; }
+/* ── site footer (matches landing screenshot) ── */
+.site-footer{background:#d9c8f2;margin-top:36px;padding:22px 0;border-top:1px solid rgba(0,0,0,.06);}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 80px;}
+.footer-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr .9fr;gap:28px;align-items:start;}
+.footer-logos{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.footer-logos img{height:32px;width:auto;}
+.footer-logos img.footer-inff-logo{height:50px;width:auto;}
+.footer-brand h3{font-size:18px;font-weight:800;margin:4px 0 6px 0;color:var(--ink);}
+.footer-brand p{max-width:360px;color:rgba(0,0,0,.62);font-size:12px;line-height:1.45;}
+.footer-copy{margin-top:18px;color:rgba(0,0,0,.55);font-size:11px;}
+.footer-col h4{font-size:14px;font-weight:900;letter-spacing:.02em;margin-bottom:10px;color:rgba(0,0,0,.85);}
+.footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;}
+.footer-col a{color:rgba(0,0,0,.65);text-decoration:none;font-size:12px;}
+.footer-col a:hover{color:rgba(0,0,0,.9);text-decoration:underline;}
+.footer-contact{color:rgba(0,0,0,.65);font-size:12px;line-height:1.5;}
+.footer-contact a{color:rgba(0,0,0,.65);text-decoration:none;}
+.footer-contact a:hover{text-decoration:underline;color:rgba(0,0,0,.9);}
+.footer-social{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.footer-social .soc{width:32px;height:32px;border-radius:999px;background:#171717;display:grid;place-items:center;text-decoration:none;}
+.footer-social .soc svg{width:16px;height:16px;fill:#fff;}
+@media (max-width: 980px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:18px;}
+}
+@media (max-width: 560px){
+  .footer-grid{grid-template-columns:1fr;}
+}
+
+
+/* ── header logos ── */
+.nav-brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;}
+.nav-logos{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.nav-logos img{height:28px;width:auto;object-fit:contain;filter:brightness(1.05);}
+.nav-brand-text{display:flex;flex-direction:column;line-height:1;}
+
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a href="landing.html" class="nav-brand with-logos">
+  <div class="nav-logos" aria-label="Partner logos">
+    <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
+    <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png">
+  </div>
+  <div class="nav-brand-text">
+    <span class="nb-title">INFF Nigeria</span>
+    <span class="nb-sub">Monitoring Dashboard</span>
+  </div>
+</a>
+  <div class="nav-links">
+    <a href="overview.html" id="nav-overview">Overview</a>
+    <a href="building-blocks.html" id="nav-bb">Building Blocks</a>
+    <a href="analytics.html" id="nav-analytics">Analytics &amp; Reports</a>
+    <a href="knowledge.html" id="nav-knowledge">Knowledge &amp; Updates</a>
+    <a href="downloads.html" id="nav-downloads">Downloads</a>
+  </div>
+</nav>
+<div class="breadbar">
+  <a href="overview.html">Home</a> <span>›</span>
+  <span>Constraints &amp; Bottlenecks</span>
+</div>
+<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link ">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link ">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link ">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link active">Constraints & Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link ">Data Sources & Integrity</a></div></div>
+<div class="uc-wrap">
+  <div class="uc-icon">🚧</div>
+  <div class="uc-title">Under Construction</div>
+  <div class="uc-sub">Constraints &amp; Bottlenecks</div>
+  <a href="overview.html" class="uc-back">← Back to Overview</a>
+</div>
+<script>
+document.getElementById('nav-bb').classList.add('active');
+</script>
+
+
+
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logos" aria-label="Partner logos">
+        <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
+        <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png">
+        <img alt="INFF" src="assets/images/INFF_Logo.png" class="footer-inff-logo">
+        <img alt="European Union" src="assets/images/EU_Flag.png">
+        <img alt="UNDP" src="assets/images/UNDP-Logo-Blue.png">
+      </div>
+      <h3>INFF Nigeria</h3>
+      <p>Authoritative, living source of INFF implementation data in Nigeria.</p>
+      <div class="footer-copy">© 2026 INFF Nigeria • All rights reserved</div>
+    </div>
+
+    <div class="footer-col">
+      <h4>BUILDING BLOCKS</h4>
+      <ul>
+        <li><a href="p1-landscape.html">Assessment &amp; Diagnostics</a></li>
+        <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
+        <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
+        <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>QUICK LINKS</h4>
+      <ul>
+        <li><a href="p1-gap.html">View Financing Gaps</a></li>
+        <li><a href="p2-reforms.html">Track Reforms</a></li>
+        <li><a href="knowledge.html">Latest INFF Updates</a></li>
+        <li><a href="p4-subnational.html">Subnational SDG Scorecards</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>CONTACT</h4>
+      <div class="footer-contact">
+        <a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a><br>
+        Abuja, Nigeria
+      </div>
+      <div class="footer-social" aria-label="Social links">
+        <a class="soc" href="#" aria-label="Website">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20Zm7.6 9H17a15.6 15.6 0 00-1.2-6A8.03 8.03 0 0119.6 11ZM12 4c1.1 1.6 2 3.8 2.4 7H9.6C10 7.8 10.9 5.6 12 4ZM4.4 13H7a15.6 15.6 0 001.2 6A8.03 8.03 0 014.4 13ZM7 11H4.4A8.03 8.03 0 018.2 5c-.5 1.2-.9 2.7-1.2 6Zm2.6 2h4.8c-.4 3.2-1.3 5.4-2.4 7-1.1-1.6-2-3.8-2.4-7Zm7.2 0h2.6a8.03 8.03 0 01-3.8 6c.5-1.2.9-2.7 1.2-6Zm-.2-2h-4.8c.4-3.2 1.3-5.4 2.4-7 1.1 1.6 2 3.8 2.4 7Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.3l.7-3H13V9c0-.6.4-1 1-1Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 2H21l-6.4 7.3L22 22h-6.7l-5.2-6.7L4.3 22H2l7-8L2 2h6.8l4.7 6.1L18.3 2Zm-1.2 18h1.5L7 3.9H5.4L17.1 20Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.8A2.3 2.3 0 116.5 2a2.3 2.3 0 010 4.8ZM5 22V9h3v13H5Zm6 0V9h2.9v1.8h.1c.4-.8 1.5-2 3.4-2 3.6 0 4.3 2.4 4.3 5.5V22h-3v-6.3c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V22h-3Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

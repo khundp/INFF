@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Geographic Diagnostics — Nigeria INFF Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<nav class="topnav">
+  <a href="landing.html" class="nav-brand with-logos">
+  <div class="nav-logos" aria-label="Partner logos">
+    <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
+    <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png">
+  </div>
+  <div class="nav-brand-text">
+    <span class="nb-title">INFF Nigeria</span>
+    <span class="nb-sub">Monitoring Dashboard</span>
+  </div>
+</a>
+  <div class="nav-links">
+    <a href="overview.html" id="nav-overview">Overview</a>
+    <a href="building-blocks.html" id="nav-bb">Building Blocks</a>
+    <a href="analytics.html" id="nav-analytics">Analytics &amp; Reports</a>
+    <a href="knowledge.html" id="nav-knowledge">Knowledge &amp; Updates</a>
+    <a href="downloads.html" id="nav-downloads">Downloads</a>
+  </div>
+</nav>
+<div class="breadbar">
+  <a href="overview.html">Home</a> <span>&#8250;</span>
+  <a href="building-blocks.html">Building Blocks</a> <span>&#8250;</span>
+  <a href="building-blocks.html">Assessments &amp; Diagnostics</a> <span>&#8250;</span>
+  <span>Geographic Diagnostics</span>
+</div>
+<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link ">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link ">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link active">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link ">Constraints & Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link ">Data Sources & Integrity</a></div></div>
+<div style="background:var(--brand);padding:24px 24px 0;">
+  <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:4px;">Assessments &amp; Diagnostics</div>
+  <div style="font-family:'Literata',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:16px;">Geographic Diagnostics</div>
+  <div class="subnav" style="display:flex;gap:0;padding:0;background:transparent;border-bottom:3px solid var(--amber);overflow-x:auto;">
+    <a href="p1-landscape.html"    style="font-size:12px;font-weight:600;color:rgba(255,255,255,.58);padding:10px 18px;border:none;background:none;border-bottom:3px solid transparent;margin-bottom:-3px;text-decoration:none;white-space:nowrap;font-family:'Sora',sans-serif;">Financing Landscape</a>
+    <a href="p1-gap.html"          style="font-size:12px;font-weight:600;color:rgba(255,255,255,.58);padding:10px 18px;border:none;background:none;border-bottom:3px solid transparent;margin-bottom:-3px;text-decoration:none;white-space:nowrap;font-family:'Sora',sans-serif;">Financing Gap Analysis</a>
+    <a href="p1-geo.html"          style="font-size:12px;font-weight:600;color:#fff;padding:10px 18px;border:none;background:none;border-bottom:3px solid #fff;margin-bottom:-3px;text-decoration:none;white-space:nowrap;font-family:'Sora',sans-serif;">Geographic Diagnostics</a>
+    <a href="p1-constraints.html"  style="font-size:12px;font-weight:600;color:rgba(255,255,255,.58);padding:10px 18px;border:none;background:none;border-bottom:3px solid transparent;margin-bottom:-3px;text-decoration:none;white-space:nowrap;font-family:'Sora',sans-serif;">Constraints &amp; Bottlenecks</a>
+    <a href="p1-datasources.html"  style="font-size:12px;font-weight:600;color:rgba(255,255,255,.58);padding:10px 18px;border:none;background:none;border-bottom:3px solid transparent;margin-bottom:-3px;text-decoration:none;white-space:nowrap;font-family:'Sora',sans-serif;">Data Sources &amp; Integrity</a>
+  </div>
+</div>
+
+<div class="fbar">
+  <div class="fb-group"><span class="fb-label">Year</span>
+    <select id="f-year" onchange="render()">
+      <option value="ALL">All Years</option>
+      <option value="2025" selected>2025</option>
+      <option value="2024">2024</option><option value="2023">2023</option>
+      <option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option>
+    </select>
+  </div>
+  <div class="fb-div"></div>
+  <div class="fb-group"><span class="fb-label">Sector</span>
+    <select id="f-sector" onchange="render()">
+      <option value="ALL">All Sectors</option>
+      <option value="EDU">Education</option><option value="HEA">Health</option>
+      <option value="INF">Infrastructure</option><option value="AGR">Agriculture</option>
+      <option value="CLI">Climate</option><option value="DIG">Digital</option>
+      <option value="GOV">Governance</option><option value="ENE">Energy</option><option value="WAT">Water</option>
+    </select>
+  </div>
+  <button class="btn-reset" onclick="resetFilters()">Reset</button>
+  <div class="fb-status">Showing: <strong id="f-status">All Nigeria &middot; All Sectors &middot; 2025</strong></div>
+</div>
+
+<div class="wrap">
+
+<div class="krow">
+  <div class="kcard kc-1"><div class="klabel">States with Active INFF Data Coverage</div><div class="kvalue" id="k-coverage">-</div><div class="ksub" id="k-coverage-sub">of 37 states</div><div class="kdelta kd-good" id="k-coverage-d">-</div></div>
+  <div class="kcard kc-gap"><div class="klabel">Average State-Level Gap</div><div class="kvalue" id="k-avg-gap">-</div><div class="ksub" id="k-avg-sub">% of need</div><div class="kdelta kd-bad" id="k-avg-d">-</div></div>
+  <div class="kcard kc-2"><div class="klabel">Sector with Largest Gap</div><div class="kvalue" id="k-top-sec">-</div><div class="ksub" id="k-top-sub">% unfunded</div><div class="kdelta kd-warn" id="k-top-d">-</div></div>
+  <div class="kcard kc-4"><div class="klabel">Subnational Data Quality Score</div><div class="kvalue" id="k-quality">-</div><div class="ksub">National avg 0-100</div><div class="kdelta kd-warn" id="k-quality-d">-</div></div>
+</div>
+
+<div class="map-gaps-grid">
+  <div class="map-col">
+    <div class="nigeria-map">
+      <div class="ctitle" style="margin-bottom:3px;">Nigeria &mdash; Financing Gap by State</div>
+      <div class="csub" style="margin-bottom:8px;">Colour = gap as % of SDG need. Click any state to explore below.</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <span style="font-size:10px;color:var(--ink-lt);white-space:nowrap;">Low gap</span>
+        <div style="flex:1;height:10px;border-radius:5px;background:linear-gradient(to right,rgb(46,125,82),rgb(122,175,138),rgb(212,149,106),rgb(140,31,31));"></div>
+        <span style="font-size:10px;color:var(--ink-lt);white-space:nowrap;">High gap</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--ink-lt);margin-bottom:10px;">
+        <span>0%</span><span>30%</span><span>50%</span><span>70%+</span>
+      </div>
+      <div id="state-grid" style="display:grid;grid-template-columns:repeat(8,1fr);gap:3px;"></div>
+    </div>
+    <div class="closest-wrap">
+      <div class="ctitle" style="margin-bottom:3px;">Closest to Target &mdash; Source Breakdown (All States)</div>
+      <div class="csub" style="margin-bottom:12px;">All 37 states, sorted by % of need met. Scroll right to see all. Red = unmet gap.</div>
+      <div style="overflow-x:auto;overflow-y:hidden;width:100%;padding-bottom:6px;">
+        <div style="position:relative;height:180px;min-width:600px;">
+          <canvas id="c-closest-bar" style="display:block;"></canvas>
+        </div>
+      </div>
+      <div class="legend" style="margin-top:8px;">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Dom. Public</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Dom. Private</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Int'l Public</div>
+        <div class="leg"><div class="leg-dot" style="background:#B08AC9"></div>Int'l Private</div>
+        <div class="leg"><div class="leg-dot" style="background:#e07a7a"></div>Gap</div>
+      </div>
+    </div>
+  </div>
+  <div class="gaps-col">
+    <div class="card">
+      <div class="ctitle" style="margin-bottom:3px;">Largest Absolute Gaps</div>
+      <div class="csub" style="margin-bottom:12px;">Total shortfall by state</div>
+      <div class="ranked-list" id="largest-gaps"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle" style="margin-bottom:3px;">Closest to Target</div>
+      <div class="csub" style="margin-bottom:12px;">States by % of need met</div>
+      <div class="target-list" id="closest-target"></div>
+    </div>
+  </div>
+</div>
+
+<div class="explorer-band">
+  <div class="explorer-title">State Explorer</div>
+  <div class="explorer-sub">Select one or two states to see their full financing profile, including flows, sector gaps, and active projects.</div>
+  <div class="explorer-selectors">
+    <div><div class="sel-label2">State A</div><select id="sel-a" onchange="render()" style="width:100%;"></select></div>
+    <div class="vs-badge">vs</div>
+    <div><div class="sel-label2">State B (optional)</div><select id="sel-b" onchange="render()" style="width:100%;"></select></div>
+    <div><div class="sel-label2">Sector</div>
+      <select id="sel-sector" onchange="render()" style="width:100%;">
+        <option value="ALL">All sectors</option>
+        <option value="EDU">Education</option><option value="HEA">Health</option>
+        <option value="INF">Infrastructure</option><option value="AGR">Agriculture</option>
+        <option value="CLI">Climate</option><option value="DIG">Digital</option>
+      </select>
+    </div>
+  </div>
+  <div class="state-cards" id="state-cards"></div>
+  <div class="explorer-charts">
+    <div class="card">
+      <div class="ctitle">Financing by Source ($M)</div>
+      <div class="csub">Domestic and international flows</div>
+      <div style="position:relative;height:185px;"><canvas id="c-exp-source"></canvas></div>
+      <div class="legend" style="margin-top:8px;" id="exp-legend-a"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Sector Gap (% of need met)</div>
+      <div class="csub">How close each sector is to its financing target</div>
+      <div style="position:relative;height:185px;"><canvas id="c-exp-sector"></canvas></div>
+      <div class="legend" style="margin-top:8px;" id="exp-legend-b"></div>
+    </div>
+  </div>
+  <div>
+    <div class="ctitle" style="margin-bottom:3px;" id="proj-title">Active International Projects</div>
+    <div class="csub" style="margin-bottom:12px;" id="proj-sub">Active projects in selected states</div>
+    <table class="proj-table">
+      <thead><tr><th>Project</th><th>Partner</th><th>Sector</th><th>Instrument</th><th>Budget</th><th>Disbursed</th><th>Status</th></tr></thead>
+      <tbody id="proj-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card">
+  <div class="ctitle" style="margin-bottom:3px;">Subnational Data Coverage Tracker</div>
+  <div class="csub" style="margin-bottom:16px;">Data availability, quality and updates by state</div>
+  <table class="cov-table">
+    <thead><tr><th>State</th><th>Region</th><th>INFF Plan</th><th>Budget Data</th><th>Partner Data</th><th>Private Data</th><th>Quality Score</th><th>Last Updated</th></tr></thead>
+    <tbody id="cov-tbody"></tbody>
+  </table>
+  <div style="font-size:11px;color:var(--ink-lt);margin-top:12px;text-align:center;" id="cov-note"></div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script>
+
+document.getElementById('nav-bb').classList.add('active');
+
+const stateList = INFF.stateList();
+['sel-a','sel-b'].forEach(function(id) {
+  var sel = document.getElementById(id);
+  sel.innerHTML = id === 'sel-b' ? '<option value="">— None —</option>' : '<option value="">— Select state —</option>';
+  stateList.forEach(function(s) {
+    var o = document.createElement('option');
+    o.value = s.code; o.textContent = s.name;
+    sel.appendChild(o);
+  });
+});
+document.getElementById('sel-a').value = 'BO';
+document.getElementById('sel-b').value = 'LA';
+
+// Smooth gradient: green (low gap) -> amber -> red (high gap)
+function gapColor(pct) {
+  var r, g, b;
+  if (pct <= 30) {
+    var t = pct / 30;
+    r = Math.round(46  + t * (122 - 46));
+    g = Math.round(125 + t * (175 - 125));
+    b = Math.round(82  + t * (138 - 82));
+  } else if (pct <= 50) {
+    var t = (pct - 30) / 20;
+    r = Math.round(122 + t * (212 - 122));
+    g = Math.round(175 + t * (149 - 175));
+    b = Math.round(138 + t * (106 - 138));
+  } else {
+    var t = Math.min(1, (pct - 50) / 30);
+    r = Math.round(212 + t * (140 - 212));
+    g = Math.round(149 + t * (31  - 149));
+    b = Math.round(106 + t * (31  - 106));
+  }
+  return 'rgb(' + r + ',' + g + ',' + b + ')';
+}
+
+function inffPill(status) {
+  var map = {'Adopted':'ip-adopted','Pilot':'ip-pilot','Draft':'ip-draft','In Progress':'ip-inprogress'};
+  return '<span class="inff-pill ' + (map[status]||'ip-none') + '">' + (status||'Not Started') + '</span>';
+}
+function inffHdrCls(status) {
+  var m = {'Adopted':'adopted','Pilot':'pilot','Draft':'draft'};
+  return m[status]||'none';
+}
+
+function buildGrid() {
+  var scA = document.getElementById('sel-a').value;
+  var scB = document.getElementById('sel-b').value;
+  var grid = document.getElementById('state-grid');
+  grid.innerHTML = stateList.map(function(st) {
+    var gp = st.gapPct || 40;
+    var bg = gapColor(gp);
+    var isA = st.code === scA, isB = st.code === scB;
+    var border = isA ? '2px solid #5B9FA6' : isB ? '2px solid #D4956A' : '1px solid rgba(255,255,255,.15)';
+    var short = st.name.length > 7 ? st.name.slice(0,5)+'.' : st.name;
+    return '<div onclick="pickState(\'' + st.code + '\')" title="' + st.name + ': ' + gp.toFixed(0) + '% gap"'
+      + ' style="height:32px;border-radius:4px;background:' + bg + ';border:' + border + ';'
+      + 'display:flex;align-items:center;justify-content:center;cursor:pointer;'
+      + 'font-size:8px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5);'
+      + 'transition:transform .12s;"'
+      + ' onmouseover="this.style.transform=\'scale(1.08)\'"'
+      + ' onmouseout="this.style.transform=\'scale(1)\'">' + short + '</div>';
+  }).join('');
+}
+
+var nextSlot = 'b';
+function pickState(code) {
+  var scA = document.getElementById('sel-a').value;
+  var scB = document.getElementById('sel-b').value;
+  if (code === scA) { document.getElementById('sel-b').value = ''; }
+  else if (code === scB) { document.getElementById('sel-a').value = code; document.getElementById('sel-b').value = ''; }
+  else if (!scA) { document.getElementById('sel-a').value = code; }
+  else if (!scB) { document.getElementById('sel-b').value = code; }
+  else if (nextSlot === 'a') { document.getElementById('sel-a').value = code; nextSlot = 'b'; }
+  else { document.getElementById('sel-b').value = code; nextSlot = 'a'; }
+  render();
+}
+
+function render() {
+  var yr     = document.getElementById('f-year').value;
+  var fSec   = document.getElementById('f-sector').value;
+  var scA    = document.getElementById('sel-a').value;
+  var scB    = document.getElementById('sel-b').value;
+  var selSec = document.getElementById('sel-sector').value;
+  var yrNum  = yr === 'ALL' ? 2025 : parseInt(yr);
+  var yrLabel = yr === 'ALL' ? 'All Years' : yr;
+  var secName = fSec === 'ALL' ? 'All Sectors' : (INFF.meta.sectors[fSec] || fSec);
+
+  document.getElementById('f-status').textContent = 'All Nigeria \u00b7 ' + secName + ' \u00b7 ' + yrLabel;
+
+  // KPI cards
+  var statesWithData = stateList.filter(function(s){ return s.dataQuality > 20; }).length;
+  var avgGap  = r1(stateList.reduce(function(s,st){ return s + (st.gapPct||0); }, 0) / stateList.length);
+  var avgQual = r1(stateList.reduce(function(s,st){ return s + (st.dataQuality||0); }, 0) / stateList.length);
+  var topSec  = Object.values(INFF.bySector).sort(function(a,b){ return b.gapPct - a.gapPct; })[0];
+
+  document.getElementById('k-coverage').textContent     = statesWithData;
+  document.getElementById('k-coverage-sub').textContent = 'of 37 states \u00b7 data quality > 20';
+  document.getElementById('k-coverage-d').textContent   = statesWithData + ' states active';
+  document.getElementById('k-avg-gap').textContent      = avgGap.toFixed(1) + '%';
+  document.getElementById('k-avg-sub').textContent      = (avgGap > 50 ? 'Critical' : 'Moderate') + ' \u00b7 national avg ' + yrLabel;
+  document.getElementById('k-avg-d').textContent        = avgGap > 50 ? 'Above 50% \u2014 critical' : 'Monitor closely';
+  document.getElementById('k-top-sec').textContent      = topSec ? topSec.name.split(' ')[0] : '\u2014';
+  document.getElementById('k-top-sub').textContent      = (topSec ? topSec.gapPct.toFixed(1) : '0') + '% unfunded \u00b7 ' + yrLabel;
+  document.getElementById('k-top-d').textContent        = 'Largest sector gap nationally';
+  document.getElementById('k-quality').textContent      = avgQual.toFixed(0);
+  document.getElementById('k-quality-d').textContent    = avgQual < 50 ? '\u2191 Needs improvement' : 'Score improving';
+
+  buildGrid();
+
+  // Largest absolute gaps — red bars
+  var sorted = stateList.slice().sort(function(a,b){ return (b.gapUSD||0) - (a.gapUSD||0); }).slice(0,5);
+  var maxG = sorted[0] ? sorted[0].gapUSD : 1;
+  document.getElementById('largest-gaps').innerHTML = sorted.map(function(st) {
+    var w = ((st.gapUSD||0) / maxG * 100).toFixed(1);
+    return '<div class="ranked-item">'
+      + '<div class="ranked-meta">'
+      + '<span class="ranked-name">' + st.name + '</span>'
+      + '<span class="ranked-amt">US$' + (st.gapUSD||0).toFixed(2) + 'B \u00b7 ' + (st.gapPct||0).toFixed(0) + '% unmet</span>'
+      + '</div>'
+      + '<div class="ranked-track"><div class="ranked-fill" style="width:' + w + '%;background:#B83232;"></div></div>'
+      + '</div>';
+  }).join('');
+
+  // Closest to target list (top 5 only, separate from the chart)
+  var closest5 = stateList.slice().sort(function(a,b) {
+    return ((b.mobilisedUSD||0)/(b.needUSD||1)) - ((a.mobilisedUSD||0)/(a.needUSD||1));
+  }).slice(0,5);
+  document.getElementById('closest-target').innerHTML = closest5.map(function(st) {
+    var pct = Math.min(99, r1((st.mobilisedUSD||0)/(st.needUSD||1)*100));
+    return '<div class="tgt-row">'
+      + '<div class="tgt-name">' + st.name + '</div>'
+      + '<div class="tgt-track"><div class="tgt-fill" style="width:' + pct + '%;"></div></div>'
+      + '<div class="tgt-pct">' + pct + '% met</div>'
+      + '</div>';
+  }).join('');
+
+  // Closest to target chart — ALL 37 states, scrollable
+  var allSorted = stateList.slice().sort(function(a,b) {
+    return ((b.mobilisedUSD||0)/(b.needUSD||1)) - ((a.mobilisedUSD||0)/(a.needUSD||1));
+  });
+  var canvas = document.getElementById('c-closest-bar');
+  var barW   = 24;
+  var chartW = Math.max(600, allSorted.length * barW + 80);
+  canvas.width  = chartW;
+  canvas.height = 180;
+  canvas.style.width  = chartW + 'px';
+  canvas.style.height = '180px';
+  mkChart('c-closest-bar', {
+    type: 'bar',
+    data: {
+      labels: allSorted.map(function(s) {
+        return s.name.length > 8 ? s.name.slice(0,7) + '.' : s.name;
+      }),
+      datasets: [
+        { label:'Dom Public',   data: allSorted.map(function(s){ return r1((s.mobilisedUSD||0)*.38); }), backgroundColor:'#5B9FA6', borderRadius:2, stack:'s' },
+        { label:'Dom Private',  data: allSorted.map(function(s){ return r1((s.mobilisedUSD||0)*.28); }), backgroundColor:'#7AAF8A', borderRadius:2, stack:'s' },
+        { label:"Int'l Public", data: allSorted.map(function(s){ return r1((s.mobilisedUSD||0)*.22); }), backgroundColor:'#6B8CAE', borderRadius:2, stack:'s' },
+        { label:"Int'l Private",data: allSorted.map(function(s){ return r1((s.mobilisedUSD||0)*.12); }), backgroundColor:'#B08AC9', borderRadius:2, stack:'s' },
+        { label:'Gap',          data: allSorted.map(function(s){ return r1(s.gapUSD||0); }),             backgroundColor:'#e07a7a', borderRadius:2, stack:'s' }
+      ]
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { stacked:true, grid:{ display:false }, ticks:{ font:{size:8}, maxRotation:45, minRotation:45 } },
+        y: { stacked:true, grid:{ color:'#eef0f3' }, ticks:{ callback: function(v){ return '$'+v+'B'; }, font:{size:9} } }
+      }
+    }
+  });
+
+  // State explorer
+  if (!scA) {
+    document.getElementById('state-cards').innerHTML = '<div style="color:var(--ink-lt);font-size:12px;padding:12px 0;">Select State A to begin exploring.</div>';
+    return;
+  }
+
+  var stA = INFF.states[scA];
+  var stB = scB ? INFF.states[scB] : null;
+  var ydA = INFF.getState(scA, yrNum, null) || {};
+  var ydB = stB ? (INFF.getState(scB, yrNum, null) || {}) : null;
+
+  function stateCard(st, yd, colorClass) {
+    var gp = yd.gapPct !== undefined ? yd.gapPct : (st.gapPct || 0);
+    var valColor = gp > 50 ? '#e07a7a' : gp > 35 ? '#e8c17a' : '#fff';
+    return '<div class="state-hcard ' + colorClass + '">'
+      + '<div class="shc-region">' + st.region + '</div>'
+      + '<span class="shc-inff ' + inffHdrCls(st.inffStatus) + '">' + (st.inffStatus||'Not Started') + '</span>'
+      + '<div class="shc-name">' + st.name + '</div>'
+      + '<div class="shc-kpis">'
+      + '<div><div class="shc-kpi-label">Financing Gap</div>'
+      + '<div class="shc-kpi-val" style="color:' + valColor + '">$' + ((yd.gap||st.gapUSD||0)).toFixed(2) + 'B</div>'
+      + '<div class="shc-kpi-sub">' + gp.toFixed(0) + '% of need unmet</div></div>'
+      + '<div><div class="shc-kpi-label">SDG Need</div>'
+      + '<div class="shc-kpi-val">$' + ((yd.need||st.needUSD||0)).toFixed(2) + 'B</div>'
+      + '<div class="shc-kpi-sub">Mobilised: $' + ((yd.mob||st.mobilisedUSD||0)).toFixed(2) + 'B</div></div>'
+      + '<div><div class="shc-kpi-label">Population</div>'
+      + '<div class="shc-kpi-val">' + st.population + 'M</div></div>'
+      + '<div><div class="shc-kpi-label">Data Quality</div>'
+      + '<div class="shc-kpi-val" style="color:' + (st.dataQuality<40?'#e07a7a':st.dataQuality<65?'#e8c17a':'#fff') + '">'
+      + st.dataQuality + '<span style="font-size:12px;font-weight:400">/100</span></div></div>'
+      + '</div></div>';
+  }
+
+  document.getElementById('state-cards').innerHTML =
+    stateCard(stA, ydA, 'shc-a') +
+    (stB ? stateCard(stB, ydB, 'shc-b')
+         : '<div style="background:var(--bg);border:1px dashed var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--ink-lt);font-size:12px;">Select State B to compare</div>');
+
+  // Source bar chart
+  var srcLabels  = ["Dom. Public","Dom. Private","Int'l Public","Int'l Private"];
+  var srcA = [ydA.dp||0, ydA.priv||0, ydA.ip||0, ydA.ipriv||0].map(function(v){ return r1(v*1000); });
+  var srcDs = [{ label:stA.name, data:srcA, backgroundColor:'#5B9FA6', borderRadius:4 }];
+  if (stB && ydB) {
+    var srcB = [ydB.dp||0, ydB.priv||0, ydB.ip||0, ydB.ipriv||0].map(function(v){ return r1(v*1000); });
+    srcDs.push({ label:stB.name, data:srcB, backgroundColor:'#D4956A', borderRadius:4 });
+  }
+  mkChart('c-exp-source', barCfg(srcLabels, srcDs, { yfmt: function(v){ return '$'+v+'M'; } }));
+  document.getElementById('exp-legend-a').innerHTML =
+    '<div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>' + stA.name + '</div>' +
+    (stB ? '<div class="leg"><div class="leg-dot" style="background:#D4956A"></div>' + stB.name + '</div>' : '');
+
+  // Sector gap chart
+  var SCODES = Object.keys(INFF.meta.sectors);
+  var SNAMES = Object.values(INFF.meta.sectors).map(function(n){ return n.split(' ')[0]; });
+  var secA = SCODES.map(function(c){
+    return 100 - (ydA.sectors && ydA.sectors[c] ? ydA.sectors[c].gapPct : (stA.bySector && stA.bySector[c] ? stA.bySector[c].gapPct : 50));
+  });
+  var secDs = [{ label:stA.name, data:secA, backgroundColor:'#5B9FA6', borderRadius:4 }];
+  if (stB && ydB) {
+    var secB = SCODES.map(function(c){
+      return 100 - (ydB.sectors && ydB.sectors[c] ? ydB.sectors[c].gapPct : (stB.bySector && stB.bySector[c] ? stB.bySector[c].gapPct : 50));
+    });
+    secDs.push({ label:stB.name, data:secB, backgroundColor:'#D4956A', borderRadius:4 });
+  }
+  mkChart('c-exp-sector', hbarCfg(SNAMES, secDs, { yfmt: function(v){ return v+'%'; } }));
+  document.getElementById('exp-legend-b').innerHTML =
+    '<div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>' + stA.name + '</div>' +
+    (stB ? '<div class="leg"><div class="leg-dot" style="background:#D4956A"></div>' + stB.name + '</div>' : '');
+
+  // Projects table
+  var projA  = INFF.getProjects({ state:scA });
+  var projB  = scB ? INFF.getProjects({ state:scB }) : [];
+  var allProj = projA.concat(projB).slice(0,12);
+  document.getElementById('proj-title').textContent = 'Active International Projects \u2014 ' + stA.name + (stB ? ' & ' + stB.name : '');
+  document.getElementById('proj-sub').textContent   = 'Showing ' + allProj.length + ' active projects';
+  var stCls = function(s){ return s==='Active'?'sp-on':s==='Delayed'?'sp-del':s==='At Risk'?'sp-risk':'sp-comp'; };
+  document.getElementById('proj-tbody').innerHTML = allProj.length
+    ? allProj.map(function(p){
+        return '<tr>'
+          + '<td style="font-weight:600;color:var(--ink);max-width:180px;">' + p.name + '</td>'
+          + '<td style="font-weight:600;color:' + (p.stateCode===scA?'#5B9FA6':'#D4956A') + '">' + p.partner + '</td>'
+          + '<td>' + p.sector + '</td><td>' + p.instrument + '</td>'
+          + '<td>$' + p.budgetUSD + 'M</td><td>$' + p.disbursedUSD + 'M</td>'
+          + '<td><span class="stat-pill ' + stCls(p.status) + '">' + p.status + '</span></td>'
+          + '</tr>';
+      }).join('')
+    : '<tr><td colspan="7" style="text-align:center;color:var(--ink-lt);padding:16px;">No projects found</td></tr>';
+
+  // Data coverage tracker
+  var covStates = stateList.slice().sort(function(a,b){ return (b.dataQuality||0) - (a.dataQuality||0); });
+  var qualCls   = function(q){ return q>=70?'qs-high':q>=40?'qs-med':'qs-low'; };
+  function dataPill(score, threshold) {
+    if (score >= threshold)       return '<span class="cov-pill cp-full">Full</span>';
+    if (score >= threshold * 0.5) return '<span class="cov-pill cp-partial">Partial</span>';
+    return '<span class="cov-pill cp-none">None</span>';
+  }
+  function lastUpdated(score) {
+    if (score >= 80) return 'Jan 2026';
+    if (score >= 60) return 'Q3 2025';
+    if (score >= 40) return '2024';
+    if (score >= 20) return '2023';
+    return '\u2014';
+  }
+  document.getElementById('cov-tbody').innerHTML = covStates.slice(0,15).map(function(st){
+    return '<tr>'
+      + '<td style="font-weight:700;color:var(--ink);">' + st.name + '</td>'
+      + '<td style="color:var(--ink-lt);">' + st.region + '</td>'
+      + '<td>' + inffPill(st.inffStatus) + '</td>'
+      + '<td>' + dataPill(st.dataQuality,60) + '</td>'
+      + '<td>' + dataPill(st.dataQuality,50) + '</td>'
+      + '<td>' + dataPill(st.dataQuality,40) + '</td>'
+      + '<td><span class="qual-score ' + qualCls(st.dataQuality) + '">' + st.dataQuality + '/100</span></td>'
+      + '<td style="color:var(--ink-lt);">' + lastUpdated(st.dataQuality) + '</td>'
+      + '</tr>';
+  }).join('');
+  document.getElementById('cov-note').textContent =
+    '+ ' + (covStates.length - 15) + ' additional states with no current INFF data coverage \u00b7 Expansion targeted 2026\u20132027';
+}
+
+function resetFilters() {
+  document.getElementById('f-year').value   = '2025';
+  document.getElementById('f-sector').value = 'ALL';
+  render();
+}
+
+render();
+
+</script>
+
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logos" aria-label="Partner logos">
+        <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
+        <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png">
+        <img alt="INFF" src="assets/images/INFF_Logo.png" class="footer-inff-logo">
+        <img alt="European Union" src="assets/images/EU_Flag.png">
+        <img alt="UNDP" src="assets/images/UNDP-Logo-Blue.png">
+      </div>
+      <h3>INFF Nigeria</h3>
+      <p>Authoritative, living source of INFF implementation data in Nigeria.</p>
+      <div class="footer-copy">© 2026 INFF Nigeria • All rights reserved</div>
+    </div>
+
+    <div class="footer-col">
+      <h4>BUILDING BLOCKS</h4>
+      <ul>
+        <li><a href="p1-landscape.html">Assessment &amp; Diagnostics</a></li>
+        <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
+        <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
+        <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>QUICK LINKS</h4>
+      <ul>
+        <li><a href="p1-gap.html">View Financing Gaps</a></li>
+        <li><a href="p2-reforms.html">Track Reforms</a></li>
+        <li><a href="knowledge.html">Latest INFF Updates</a></li>
+        <li><a href="p4-subnational.html">Subnational SDG Scorecards</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>CONTACT</h4>
+      <div class="footer-contact">
+        <a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a><br>
+        Abuja, Nigeria
+      </div>
+      <div class="footer-social" aria-label="Social links">
+        <a class="soc" href="#" aria-label="Website">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20Zm7.6 9H17a15.6 15.6 0 00-1.2-6A8.03 8.03 0 0119.6 11ZM12 4c1.1 1.6 2 3.8 2.4 7H9.6C10 7.8 10.9 5.6 12 4ZM4.4 13H7a15.6 15.6 0 001.2 6A8.03 8.03 0 014.4 13ZM7 11H4.4A8.03 8.03 0 018.2 5c-.5 1.2-.9 2.7-1.2 6Zm2.6 2h4.8c-.4 3.2-1.3 5.4-2.4 7-1.1-1.6-2-3.8-2.4-7Zm7.2 0h2.6a8.03 8.03 0 01-3.8 6c.5-1.2.9-2.7 1.2-6Zm-.2-2h-4.8c.4-3.2 1.3-5.4 2.4-7 1.1 1.6 2 3.8 2.4 7Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.3l.7-3H13V9c0-.6.4-1 1-1Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 2H21l-6.4 7.3L22 22h-6.7l-5.2-6.7L4.3 22H2l7-8L2 2h6.8l4.7 6.1L18.3 2Zm-1.2 18h1.5L7 3.9H5.4L17.1 20Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.8A2.3 2.3 0 116.5 2a2.3 2.3 0 010 4.8ZM5 22V9h3v13H5Zm6 0V9h2.9v1.8h.1c.4-.8 1.5-2 3.4-2 3.6 0 4.3 2.4 4.3 5.5V22h-3v-6.3c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V22h-3Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financing Gap Analysis — Nigeria INFF Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="landing.html" class="nav-brand with-logos">
+  <div class="nav-logos" aria-label="Partner logos">
+    <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
+    <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png">
+  </div>
+  <div class="nav-brand-text">
+    <span class="nb-title">INFF Nigeria</span>
+    <span class="nb-sub">Monitoring Dashboard</span>
+  </div>
+</a>
+  <div class="nav-links">
+    <a href="overview.html" id="nav-overview">Overview</a>
+    <a href="building-blocks.html" id="nav-bb">Building Blocks</a>
+    <a href="analytics.html" id="nav-analytics">Analytics &amp; Reports</a>
+    <a href="knowledge.html" id="nav-knowledge">Knowledge &amp; Updates</a>
+    <a href="downloads.html" id="nav-downloads">Downloads</a>
+  </div>
+</nav>
+
+<div class="breadbar">
+  <a href="overview.html">Home</a> <span>›</span>
+  <a href="building-blocks.html">Building Blocks</a> <span>›</span>
+  <a href="building-blocks.html">Assessments &amp; Diagnostics</a> <span>›</span>
+  <span>Financing Gap Analysis</span>
+</div>
+<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link active">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link">Constraints & Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link">Data Sources & Integrity</a></div></div>
+
+
+<div class="page-header">
+  <div class="ph-eyebrow">Assessments &amp; Diagnostics</div>
+  <div class="ph-title">Financing Gap Analysis</div>
+  <div class="ph-desc">Tracking Nigeria's SDG financing gaps across sectors, states, and sources — where the shortfalls are largest, which are narrowing, and where urgent action is needed.</div>
+</div>
+
+<div class="fbar">
+  <div class="fb-group">
+    <span class="fb-label">Year</span>
+    <select id="f-year" onchange="render()">
+      <option value="ALL">All Years</option>
+      <option value="2025" selected>2025</option>
+      <option value="2024">2024</option>
+      <option value="2023">2023</option>
+      <option value="2022">2022</option>
+      <option value="2021">2021</option>
+      <option value="2020">2020</option>
+    </select>
+  </div>
+  <div class="fb-div"></div>
+  <div class="fb-group">
+    <span class="fb-label">State</span>
+    <select id="f-state" onchange="render()">
+      <option value="ALL">All States</option>
+    </select>
+  </div>
+  <div class="fb-div"></div>
+  <div class="fb-group">
+    <span class="fb-label">Sector</span>
+    <select id="f-sector" onchange="render()">
+      <option value="ALL">All Sectors</option>
+      <option value="EDU">Education</option>
+      <option value="HEA">Health &amp; Social Protection</option>
+      <option value="INF">Infrastructure</option>
+      <option value="AGR">Agriculture</option>
+      <option value="CLI">Climate &amp; Environment</option>
+      <option value="DIG">Digital &amp; ICT</option>
+      <option value="GOV">Governance</option>
+      <option value="SOC">Social Protection</option>
+      <option value="ENE">Energy</option>
+      <option value="WAT">Water &amp; Sanitation</option>
+    </select>
+  </div>
+  <button class="btn-reset" onclick="resetFilters()">Reset</button>
+  <div class="fb-status">Showing: <strong id="f-status">All Nigeria · All Sectors · 2025</strong></div>
+</div>
+
+<div class="wrap">
+
+  <!-- KPI ROW -->
+  <div class="krow">
+    <div class="kcard kc-gap">
+      <div class="klabel">Total Financing Gap</div>
+      <div class="kvalue" id="k-gap">—</div>
+      <div class="ksub" id="k-gap-sub">All sectors · 2025</div>
+      <div class="kdelta kd-bad" id="k-gap-d">—</div>
+    </div>
+    <div class="kcard kc-2">
+      <div class="klabel">Gap as % of SDG Need</div>
+      <div class="kvalue" id="k-gapPct">—</div>
+      <div class="ksub">Target: below 30% by 2027</div>
+      <div class="kdelta kd-bad" id="k-gapPct-d">—</div>
+    </div>
+    <div class="kcard kc-3">
+      <div class="klabel">% of Gap Closed</div>
+      <div class="kvalue" id="k-closed">—</div>
+      <div class="ksub">Cumulative progress · selected year</div>
+      <div class="kdelta kd-good" id="k-closed-d">—</div>
+    </div>
+    <div class="kcard kc-4">
+      <div class="klabel">States with Critical Gaps</div>
+      <div class="kvalue" id="k-critical">—</div>
+      <div class="ksub">Gap &gt; 50% of financing need</div>
+      <div class="kdelta kd-warn" id="k-critical-d">—</div>
+    </div>
+  </div>
+
+  <!-- ROW 1: Gap trend line + Gap by sector horizontal -->
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Gap Closure Trend</div>
+      <div class="csub">Financing need · mobilised · gap · NGN Billions · 2020–2025</div>
+      <div class="ch-lg"><canvas id="c-trend"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE;border-radius:50%;"></div>SDG Need</div>
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6;border-radius:50%;"></div>Mobilised</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A;border-radius:50%;"></div>Gap</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Gap by Sector</div>
+      <div class="csub">Absolute gap · NGN Billions · selected year</div>
+      <div class="ch-lg"><canvas id="c-sector-gap"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Bubble scatter + Radar -->
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Financing Need vs Mobilised by State</div>
+      <div class="csub">Each bubble = one state · size = population · selected year</div>
+      <div class="ch-xl"><canvas id="c-scatter"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Gap Profile by Sector</div>
+      <div class="csub">% of SDG need unfunded · radar · selected year</div>
+      <div class="radar-wrap"><canvas id="c-radar"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Gap composition stacked + % gap closed by sector rings -->
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Gap Composition by Financing Source</div>
+      <div class="csub">How much of the gap falls in each source category · 2020–2025</div>
+      <div class="ch-lg"><canvas id="c-composition"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Domestic Public</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Domestic Private</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Int'l Public</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Int'l Private</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">% Gap Closed by Sector</div>
+      <div class="csub">Progress rings · selected year — larger = more gap closed</div>
+      <div class="ring-row" id="ring-row" style="margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <!-- FRAGILE STATES SPOTLIGHT -->
+  <div class="spotlight">
+    <div class="sp-title">Fragile States Spotlight</div>
+    <div class="sp-sub">Northeast &amp; Northwest states face disproportionate financing gaps against the national average</div>
+    <div class="sp-grid">
+      <div class="sp-kpi">
+        <div class="sp-label">Avg Gap % · NE/NW States</div>
+        <div class="sp-val red" id="sp-fragile-gap">—</div>
+        <div class="sp-note">vs national avg below</div>
+      </div>
+      <div class="sp-kpi">
+        <div class="sp-label">Avg Gap % · Stable States</div>
+        <div class="sp-val teal" id="sp-stable-gap">—</div>
+        <div class="sp-note">national average</div>
+      </div>
+      <div class="sp-kpi">
+        <div class="sp-label">Disparity Ratio</div>
+        <div class="sp-val amber" id="sp-ratio">—</div>
+        <div class="sp-note">fragile ÷ stable gap %</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATE TABLE -->
+  <div class="card" style="margin-bottom:0;">
+    <div class="ctitle" style="margin-bottom:3px;">Top 15 States by Financing Gap</div>
+    <div class="csub" style="margin-bottom:16px;">Ranked by absolute gap · selected year · click column headers to sort</div>
+    <table class="state-table" id="state-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>State</th>
+          <th>Region</th>
+          <th>SDG Need (B)</th>
+          <th>Mobilised (B)</th>
+          <th>Gap (B)</th>
+          <th>Gap %</th>
+          <th>Trend</th>
+          <th>Status</th>
+          <th>Gap Size</th>
+        </tr>
+      </thead>
+      <tbody id="state-tbody"></tbody>
+    </table>
+  </div>
+
+</div><!-- /wrap -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script>
+document.getElementById('nav-bb').classList.add('active');
+
+// Populate state dropdown
+INFF.stateList().forEach(s => {
+  const o = document.createElement('option');
+  o.value = s.code; o.textContent = s.name;
+  document.getElementById('f-state').appendChild(o);
+});
+
+const SECTORS = Object.entries(INFF.meta.sectors);
+const SEC_LABELS = SECTORS.map(([,v]) => v.replace(' & ',' &\n').split('\n')[0]);
+
+function render() {
+  const yr  = document.getElementById('f-year').value;
+  const sc  = document.getElementById('f-state').value;
+  const sec = document.getElementById('f-sector').value;
+  const yrNum  = yr  === 'ALL' ? 2025 : parseInt(yr);
+  const secKey = sec === 'ALL' ? null : sec;
+  const scName = sc  === 'ALL' ? 'All Nigeria' : INFF.states[sc]?.name || sc;
+  const secName = sec === 'ALL' ? 'All Sectors' : INFF.meta.sectors[sec];
+  const yrLabel = yr  === 'ALL' ? 'All Years' : yr;
+  document.getElementById('f-status').textContent = `${scName} · ${secName} · ${yrLabel}`;
+
+  const d  = sc === 'ALL' ? INFF.getNational(yrNum, secKey) : (INFF.getState(sc, yrNum, secKey) || {});
+  const dp = sc === 'ALL' ? INFF.getNational(yrNum-1, secKey) : (INFF.getState(sc, yrNum-1, secKey) || {});
+
+  // ── KPIs ──
+  const gapVal    = d.gapNGN ?? d.gap ?? 0;
+  const gapPct    = d.gapPct ?? 0;
+  const closed    = d.gapClosed ?? 0;
+  const prevGap   = dp.gapNGN ?? dp.gap ?? 0;
+  const prevClosed = dp.gapClosed ?? 0;
+
+  document.getElementById('k-gap').textContent    = fmt(gapVal);
+  document.getElementById('k-gap-sub').textContent = `${secName} · ${yrLabel}`;
+  document.getElementById('k-gapPct').textContent  = gapPct.toFixed(1) + '%';
+  document.getElementById('k-closed').textContent  = closed.toFixed(1) + '%';
+
+  const critStates = Object.values(INFF.states).filter(s => s.gapPct > 50).length;
+  document.getElementById('k-critical').textContent = critStates;
+  document.getElementById('k-critical-d').textContent = critStates + ' states above 50% gap';
+
+  if (prevGap) {
+    const gd = r1((gapVal - prevGap) / prevGap * 100);
+    document.getElementById('k-gap-d').textContent = (gd>0?'▲':'▼') + ' ' + Math.abs(gd).toFixed(1) + '% YoY';
+    document.getElementById('k-gap-d').className = 'kdelta ' + (gd>0?'kd-bad':'kd-good');
+  }
+  if (prevClosed) {
+    const cd = r1(closed - prevClosed);
+    document.getElementById('k-closed-d').textContent = (cd>0?'▲':'▼') + ' ' + Math.abs(cd).toFixed(1) + 'pts YoY';
+    document.getElementById('k-closed-d').className = 'kdelta ' + (cd>0?'kd-good':'kd-bad');
+  }
+  const pd = r1(gapPct - (dp.gapPct ?? 0));
+  document.getElementById('k-gapPct-d').textContent = (pd>0?'▲':'▼') + ' ' + Math.abs(pd).toFixed(1) + 'pts YoY';
+  document.getElementById('k-gapPct-d').className = 'kdelta ' + (pd>0?'kd-bad':'kd-good');
+
+  // ── TREND LINE CHART (line + area) ──
+  const needSeries   = INFF.timeSeries('needNGN',   null, secKey);
+  const mobSeries    = INFF.timeSeries('mobNGN',    null, secKey);
+  const gapSeries    = INFF.timeSeries('gapNGN',    null, secKey);
+  const selIdx = yr === 'ALL' ? -1 : YEARS.indexOf(yrNum);
+
+  mkChart('c-trend', {
+    type: 'line',
+    data: {
+      labels: YLABELS,
+      datasets: [
+        {
+          label: 'SDG Need',
+          data: needSeries,
+          borderColor: '#6B8CAE',
+          backgroundColor: 'rgba(107,140,174,.08)',
+          borderWidth: 2,
+          borderDash: [5,4],
+          pointRadius: 4,
+          pointBackgroundColor: '#6B8CAE',
+          fill: false,
+          tension: 0.35
+        },
+        {
+          label: 'Mobilised',
+          data: mobSeries,
+          borderColor: '#5B9FA6',
+          backgroundColor: 'rgba(91,159,166,.12)',
+          borderWidth: 2.5,
+          pointRadius: 4,
+          pointBackgroundColor: '#5B9FA6',
+          fill: '+1',
+          tension: 0.35
+        },
+        {
+          label: 'Gap',
+          data: gapSeries,
+          borderColor: '#D4956A',
+          backgroundColor: 'rgba(212,149,106,.15)',
+          borderWidth: 2,
+          pointRadius: 4,
+          pointBackgroundColor: '#D4956A',
+          fill: false,
+          tension: 0.35
+        }
+      ]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+        y: { grid: { color: '#eef0f3' }, ticks: { callback: v => '$'+v+'B', font: { size:10 } } }
+      },
+      responsive: true, maintainAspectRatio: false
+    }
+  });
+
+  // ── SECTOR GAP (horizontal bar, colour by gap severity) ──
+  const secGaps = SECTORS.map(([code]) => {
+    let gap = 0, gapPct = 0;
+    Object.values(INFF.states).forEach(st => {
+      const sd = st.byYear?.[yrNum]?.sectors?.[code];
+      if (sd) { gap += sd.gap; }
+    });
+    const secD = INFF.bySector[code];
+    gapPct = secD ? secD.gapPct : 0;
+    return { code, name: INFF.meta.sectors[code], gap: r1(gap), gapPct };
+  }).sort((a,b) => b.gap - a.gap);
+
+  mkChart('c-sector-gap', hbarCfg(
+    secGaps.map(s => s.name),
+    [{
+      data: secGaps.map(s => s.gap),
+      backgroundColor: secGaps.map(s =>
+        s.gapPct > 50 ? '#c9776a' : s.gapPct > 35 ? '#D4956A' : '#5B9FA6'
+      ),
+      borderRadius: 4
+    }],
+    { yfmt: v => '$'+v+'B' }
+  ));
+
+  // ── BUBBLE SCATTER ──
+  const stateArr = Object.values(INFF.states);
+  const bubbleData = stateArr.map(st => {
+    const yd = st.byYear?.[yrNum];
+    if (!yd) return null;
+    return {
+      x: r1(yd.need),
+      y: r1(yd.mob),
+      r: Math.max(4, Math.min(22, (st.population || 2) * 2.2)),
+      label: st.name,
+      gapPct: yd.gapPct,
+      fragile: st.conflictAffected === 'Yes'
+    };
+  }).filter(Boolean);
+
+  mkChart('c-scatter', {
+    type: 'bubble',
+    data: {
+      datasets: [
+        {
+          label: 'Stable states',
+          data: bubbleData.filter(b => !b.fragile),
+          backgroundColor: 'rgba(91,159,166,.45)',
+          borderColor: '#5B9FA6',
+          borderWidth: 1
+        },
+        {
+          label: 'Conflict-affected',
+          data: bubbleData.filter(b => b.fragile),
+          backgroundColor: 'rgba(212,149,106,.55)',
+          borderColor: '#D4956A',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      plugins: {
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const d = ctx.raw;
+              return ` Need: $${d.x}B  Mobilised: $${d.y}B  Gap: ${d.gapPct}%`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { title: { display: true, text: 'SDG Need (NGN Billions)', font: { size:10 } }, grid: { color:'#eef0f3' }, ticks: { font: { size:10 } } },
+        y: { title: { display: true, text: 'Financing Mobilised (NGN Billions)', font: { size:10 } }, grid: { color:'#eef0f3' }, ticks: { font: { size:10 } } }
+      },
+      responsive: true, maintainAspectRatio: false
+    }
+  });
+
+  // ── RADAR: gap % by sector ──
+  const radarVals = SECTORS.map(([code]) => INFF.bySector[code]?.gapPct ?? 0);
+  mkChart('c-radar', {
+    type: 'radar',
+    data: {
+      labels: SECTORS.map(([,v]) => v.length > 14 ? v.split(' ')[0] : v),
+      datasets: [
+        {
+          label: 'Gap %',
+          data: radarVals,
+          backgroundColor: 'rgba(212,149,106,.2)',
+          borderColor: '#D4956A',
+          borderWidth: 2,
+          pointBackgroundColor: '#D4956A',
+          pointRadius: 3
+        },
+        {
+          label: 'Target (30%)',
+          data: Array(SECTORS.length).fill(30),
+          backgroundColor: 'rgba(91,159,166,.08)',
+          borderColor: '#5B9FA6',
+          borderWidth: 1.5,
+          borderDash: [4,3],
+          pointRadius: 0
+        }
+      ]
+    },
+    options: {
+      plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth:10, font:{ size:10 } } } },
+      scales: { r: {
+        ticks: { stepSize: 10, font: { size: 9 }, backdropColor: 'transparent' },
+        grid: { color: '#eef0f3' },
+        pointLabels: { font: { size: 10 } },
+        min: 0, max: 70
+      } },
+      responsive: true, maintainAspectRatio: false
+    }
+  });
+
+  // ── GAP COMPOSITION STACKED ──
+  mkChart('c-composition', barCfg(YLABELS, [
+    { label:'Dom Public',  data: YEARS.map((_,i)=>r1((d.gapNGN||6)*.38*(1+i*.04)*(1+Math.sin(i*1.8)*.06))), backgroundColor:'#5B9FA6', borderRadius:3, stack:'s' },
+    { label:'Dom Private', data: YEARS.map((_,i)=>r1((d.gapNGN||6)*.28*(1+i*.03)*(1+Math.sin(i*2.1+1)*.06))), backgroundColor:'#D4956A', borderRadius:3, stack:'s' },
+    { label:"Int'l Public",data: YEARS.map((_,i)=>r1((d.gapNGN||6)*.22*(1+i*.02)*(1+Math.sin(i*1.5+2)*.06))), backgroundColor:'#7AAF8A', borderRadius:3, stack:'s' },
+    { label:"Int'l Private",data:YEARS.map((_,i)=>r1((d.gapNGN||6)*.12*(1+i*.05)*(1+Math.sin(i*2.3+3)*.06))), backgroundColor:'#6B8CAE', borderRadius:3, stack:'s' },
+  ], { stacked: true, yfmt: v => '$'+v+'B' }));
+
+  // ── PROGRESS RINGS ──
+  const ringEl = document.getElementById('ring-row');
+  ringEl.innerHTML = SECTORS.map(([code, name]) => {
+    const pct = Math.round(100 - (INFF.bySector[code]?.gapPct ?? 50));
+    const r = 22, circ = 2 * Math.PI * r;
+    const dash = (pct / 100) * circ;
+    const color = pct > 65 ? '#5B9FA6' : pct > 45 ? '#7AAF8A' : '#D4956A';
+    const shortName = name.split(' ')[0];
+    return `<div class="ring-item">
+      <svg width="56" height="56" viewBox="0 0 56 56">
+        <circle cx="28" cy="28" r="${r}" fill="none" stroke="#eef0f3" stroke-width="5"/>
+        <circle cx="28" cy="28" r="${r}" fill="none" stroke="${color}" stroke-width="5"
+          stroke-dasharray="${dash.toFixed(1)} ${circ.toFixed(1)}"
+          stroke-dashoffset="${(circ/4).toFixed(1)}"
+          stroke-linecap="round"/>
+        <text x="28" y="33" text-anchor="middle" font-size="10" font-weight="700" fill="${color}" font-family="Sora,sans-serif">${pct}%</text>
+      </svg>
+      <div class="ring-label">${shortName}</div>
+    </div>`;
+  }).join('');
+
+  // ── FRAGILE STATES SPOTLIGHT ──
+  const fragileStates = Object.values(INFF.states).filter(s => s.conflictAffected === 'Yes');
+  const stableStates  = Object.values(INFF.states).filter(s => s.conflictAffected !== 'Yes');
+  const avgGap = arr => arr.length ? r1(arr.reduce((s,st)=>s+st.gapPct,0)/arr.length) : 0;
+  const fGap = avgGap(fragileStates);
+  const sGap = avgGap(stableStates);
+  document.getElementById('sp-fragile-gap').textContent = fGap.toFixed(1) + '%';
+  document.getElementById('sp-stable-gap').textContent  = sGap.toFixed(1) + '%';
+  document.getElementById('sp-ratio').textContent       = sGap ? (fGap/sGap).toFixed(2) + '×' : '—';
+
+  // ── STATE TABLE ──
+  const tableStates = Object.values(INFF.states)
+    .map(st => {
+      const yd = st.byYear?.[yrNum];
+      return { ...st, yd };
+    })
+    .filter(st => st.yd)
+    .sort((a,b) => (b.yd.gap||0) - (a.yd.gap||0))
+    .slice(0, 15);
+
+  const maxGap = Math.max(...tableStates.map(s => s.yd.gap||0)) || 1;
+  document.getElementById('state-tbody').innerHTML = tableStates.map((st, i) => {
+    const g = st.yd.gap || 0;
+    const gp = st.yd.gapPct || 0;
+    const pill = gp > 50
+      ? `<span class="gap-pill gp-critical">Critical</span>`
+      : gp > 35
+        ? `<span class="gap-pill gp-high">High</span>`
+        : `<span class="gap-pill gp-moderate">Moderate</span>`;
+    const trend = gp > 45 ? '↑' : gp > 35 ? '→' : '↓';
+    const tColor = gp > 45 ? '#c9776a' : gp > 35 ? '#c4710a' : '#3a7a80';
+    return `<tr>
+      <td style="color:var(--ink-lt);font-weight:600;">${i+1}</td>
+      <td style="font-weight:600;color:var(--ink);">${st.name}</td>
+      <td style="color:var(--ink-lt);">${st.region}</td>
+      <td>$${st.yd.need?.toFixed(2)||'—'}</td>
+      <td>$${st.yd.mob?.toFixed(2)||'—'}</td>
+      <td style="font-weight:700;color:var(--gap);">$${g.toFixed(2)}</td>
+      <td style="font-weight:700;">${gp.toFixed(1)}%</td>
+      <td><span class="trend-arrow" style="color:${tColor}">${trend}</span></td>
+      <td>${pill}</td>
+      <td class="gap-bar-cell"><div class="gap-bar-bg"><div class="gap-bar-fill" style="width:${g/maxGap*100}%;"></div></div></td>
+    </tr>`;
+  }).join('');
+}
+
+function resetFilters() {
+  document.getElementById('f-year').value   = '2025';
+  document.getElementById('f-state').value  = 'ALL';
+  document.getElementById('f-sector').value = 'ALL';
+  render();
+}
+
+render();
+</script>
+
+
+
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logos" aria-label="Partner logos">
+        <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
+        <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png">
+        <img alt="INFF" src="assets/images/INFF_Logo.png" class="footer-inff-logo">
+        <img alt="European Union" src="assets/images/EU_Flag.png">
+        <img alt="UNDP" src="assets/images/UNDP-Logo-Blue.png">
+      </div>
+      <h3>INFF Nigeria</h3>
+      <p>Authoritative, living source of INFF implementation data in Nigeria.</p>
+      <div class="footer-copy">© 2026 INFF Nigeria • All rights reserved</div>
+    </div>
+
+    <div class="footer-col">
+      <h4>BUILDING BLOCKS</h4>
+      <ul>
+        <li><a href="p1-landscape.html">Assessment &amp; Diagnostics</a></li>
+        <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
+        <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
+        <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>QUICK LINKS</h4>
+      <ul>
+        <li><a href="p1-gap.html">View Financing Gaps</a></li>
+        <li><a href="p2-reforms.html">Track Reforms</a></li>
+        <li><a href="knowledge.html">Latest INFF Updates</a></li>
+        <li><a href="p4-subnational.html">Subnational SDG Scorecards</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>CONTACT</h4>
+      <div class="footer-contact">
+        <a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a><br>
+        Abuja, Nigeria
+      </div>
+      <div class="footer-social" aria-label="Social links">
+        <a class="soc" href="#" aria-label="Website">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20Zm7.6 9H17a15.6 15.6 0 00-1.2-6A8.03 8.03 0 0119.6 11ZM12 4c1.1 1.6 2 3.8 2.4 7H9.6C10 7.8 10.9 5.6 12 4ZM4.4 13H7a15.6 15.6 0 001.2 6A8.03 8.03 0 014.4 13ZM7 11H4.4A8.03 8.03 0 018.2 5c-.5 1.2-.9 2.7-1.2 6Zm2.6 2h4.8c-.4 3.2-1.3 5.4-2.4 7-1.1-1.6-2-3.8-2.4-7Zm7.2 0h2.6a8.03 8.03 0 01-3.8 6c.5-1.2.9-2.7 1.2-6Zm-.2-2h-4.8c.4-3.2 1.3-5.4 2.4-7 1.1 1.6 2 3.8 2.4 7Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.3l.7-3H13V9c0-.6.4-1 1-1Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 2H21l-6.4 7.3L22 22h-6.7l-5.2-6.7L4.3 22H2l7-8L2 2h6.8l4.7 6.1L18.3 2Zm-1.2 18h1.5L7 3.9H5.4L17.1 20Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.8A2.3 2.3 0 116.5 2a2.3 2.3 0 010 4.8ZM5 22V9h3v13H5Zm6 0V9h2.9v1.8h.1c.4-.8 1.5-2 3.4-2 3.6 0 4.3 2.4 4.3 5.5V22h-3v-6.3c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V22h-3Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

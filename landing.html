@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nigeria INFF — Integrated National Financing Framework</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,600;0,7..72,700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root { --brand:#532B70; --amber:#F8981D; --ink:#1C1C2E; --ink-lt:#6B7280; }
+html, body { height:100%; font-family:'Sora',sans-serif; overflow:hidden; }
+.scroll-container {
+  height:100vh; overflow-y:scroll;
+  scroll-snap-type:y mandatory; scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+}
+.slide {
+  height:100vh; scroll-snap-align:start;
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.band { flex-shrink:0; height:26vh; overflow:hidden; }
+.card {
+  flex:1; background:#fff;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:16px 48px; position:relative;
+}
+/* ── logos row (copied from INFF_portal_Main) ── */
+.landing-logos {
+  display:flex; align-items:center; justify-content:center;
+  gap:18px; margin-bottom:22px; flex-wrap:wrap;
+}
+.landing-logos img {
+  /* partner logos */
+  height:clamp(44px,5.2vw,72px);
+  width:auto; object-fit:contain;
+}
+.landing-logos img.inff-logo{
+  /* make INFF logo clearly larger (middle logo) */
+  height:clamp(80px,8vw,150px);
+}
+/* ── title ── */
+.title {
+  font-family:'Literata',serif;
+  font-size:clamp(24px,3.6vw,48px);
+  font-weight:700; color:var(--ink);
+  text-align:center; line-height:1.18;
+}
+.title em { color:var(--brand); font-style:normal; }
+.sub {
+  font-size:clamp(9px,1vw,12px); font-weight:600;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink-lt); text-align:center; margin-top:10px;
+}
+/* ── scroll hint ── */
+.hint {
+  position:absolute; bottom:12px; left:50%;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:0px;
+  cursor:pointer; animation:bob 2s ease-in-out infinite;
+}
+.hint svg  { width:28px; height:28px; stroke:var(--brand); fill:none; stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; }
+@keyframes bob {
+  0%,100%{ transform:translateX(-50%) translateY(0); }
+  50%    { transform:translateX(-50%) translateY(5px); }
+}
+/* ── slide 2 ── */
+.desc {
+  font-family:'Literata',serif;
+  font-size:clamp(14px,1.45vw,18px);
+  color:var(--ink); text-align:center;
+  line-height:1.82; max-width:660px;
+}
+.enter-btn {
+  margin-top:24px;
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Sora',sans-serif; font-size:13px; font-weight:700;
+  color:#fff; background:var(--brand);
+  padding:12px 28px; border-radius:10px; text-decoration:none;
+  box-shadow:0 4px 16px rgba(83,43,112,.35);
+  transition:transform .18s, box-shadow .18s;
+}
+.enter-btn:hover { transform:translateY(-2px); box-shadow:0 6px 22px rgba(83,43,112,.45); }
+.enter-btn svg { width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+/* ── floating explore (same cursor-follow behaviour as INFF_portal_Main) ── */
+.explore {
+  position:fixed; z-index:999;
+  width:68px; height:68px; border-radius:50%;
+  background:var(--brand); color:#fff;
+  font-family:'Sora',sans-serif; font-size:11px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  text-decoration:none;
+  box-shadow:0 4px 20px rgba(83,43,112,.5);
+  transition:transform .2s, box-shadow .2s;
+  /* left/top are set by JS */
+  left:78vw;
+  top:55vh;
+
+  /* hidden until the user scrolls */
+  opacity:0;
+  pointer-events:none;
+}
+.explore:hover { transform:scale(1.1); }
+
+/* When Explore is active, hide the system cursor so only the circle is visible */
+body.explore-active, body.explore-active * { cursor:none !important; }
+nav { display:none !important; }
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a href="landing.html" class="nav-brand">
+    <span class="nb-title">INFF Nigeria</span>
+    <span class="nb-sub">Monitoring Dashboard</span>
+  </a>
+  <div class="nav-links">
+    <a href="overview.html" id="nav-overview">Overview</a>
+    <a href="building-blocks.html" id="nav-bb">Building Blocks</a>
+    <a href="analytics.html" id="nav-analytics">Analytics &amp; Reports</a>
+    <a href="knowledge.html" id="nav-knowledge">Knowledge &amp; Updates</a>
+    <a href="downloads.html" id="nav-downloads">Downloads</a>
+  </div>
+</nav>
+<a href="overview.html" class="explore" id="landingExplore" aria-label="Explore dashboard"><span>Explore</span></a>
+
+<div class="scroll-container" id="sc">
+
+  <!-- SLIDE 1 -->
+  <div class="slide" id="s1">
+    <div class="band"><img src="assets/pattern.svg" style="width:100%;height:100%;object-fit:cover;display:block;" alt=""></div>
+    <div class="card">
+
+      <!-- Partner logos (copied from INFF_portal_Main) -->
+      <div class="landing-logos" aria-label="Partner logos">
+        <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png"/>
+        <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png"/>
+        <img class="inff-logo" alt="INFF" src="assets/images/INFF_Logo.png"/>
+        <img alt="European Union" src="assets/images/EU_Flag.png"/>
+        <img alt="UNDP" src="assets/images/UNDP-Logo-Blue.png"/>
+      </div>
+
+      <div class="title">Nigeria's <em>Integrated National<br>Financing Framework</em></div>
+      <div class="sub">Monitoring &amp; Coordination Platform</div>
+
+      <div class="hint" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="band"><img src="assets/pattern.svg" style="width:100%;height:100%;object-fit:cover;display:block;" alt=""></div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide" id="s2">
+    <div class="band"><img src="assets/pattern.svg" style="width:100%;height:100%;object-fit:cover;display:block;" alt=""></div>
+    <div class="card">
+      <div class="desc">
+        This platform is Nigeria's integrated national system for tracking, analysing, and coordinating financing for sustainable development. It brings together financing flows, reforms, and results under the INFF — aligning investments with national priorities and the SDGs. Designed as a living system, it supports interactive analysis, on-demand reporting, and transparent communication across government, development partners, and the private sector.
+      </div>
+      <!-- Enter button removed; Explore circle handles navigation -->
+    </div>
+    <div class="band"><img src="assets/pattern.svg" style="width:100%;height:100%;object-fit:cover;display:block;" alt=""></div>
+  </div>
+
+</div>
+<script>
+  // Keyboard scroll between slides
+  document.addEventListener('keydown', function(e) {
+    if (e.key==='ArrowDown'||e.key==='PageDown') document.getElementById('s2').scrollIntoView({behavior:'smooth'});
+    if (e.key==='ArrowUp'  ||e.key==='PageUp')   document.getElementById('s1').scrollIntoView({behavior:'smooth'});
+  });
+
+  // Landing interaction to match INFF_portal_Main:
+  // 1) First click anywhere (including Explore) goes to the description slide.
+  // 2) After that, clicking anywhere navigates to the dashboard.
+  (function () {
+    const sc = document.getElementById('sc');
+    const s1 = document.getElementById('s1');
+    const s2 = document.getElementById('s2');
+    const explore = document.getElementById('landingExplore');
+    const hint = document.querySelector('.hint');
+    if (!sc || !s1 || !s2 || !explore) return;
+
+    const DASHBOARD_URL = 'overview.html';
+
+    let stage = 0; // 0 = slide 1, 1 = slide 2 (description)
+
+    function showDescription() {
+      if (stage !== 0) return;
+      stage = 1;
+      s2.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function goDashboard() {
+      window.location.href = DASHBOARD_URL;
+    }
+
+    function setExploreVisible(visible) {
+      if (visible) {
+        explore.style.opacity = '1';
+        explore.style.pointerEvents = 'auto';
+        document.body.classList.add('explore-active');
+        if (hint) hint.style.display = 'none';
+      } else {
+        explore.style.opacity = '0';
+        explore.style.pointerEvents = 'none';
+        document.body.classList.remove('explore-active');
+        if (hint) hint.style.display = '';
+      }
+    }
+
+    // Keep stage synced + show Explore only after user starts scrolling
+    function syncStage() {
+      const mid = sc.scrollTop + (sc.clientHeight / 2);
+      stage = mid >= sc.clientHeight ? 1 : 0;
+
+      // Explore appears only after the user scrolls down a bit
+      setExploreVisible(sc.scrollTop > 10);
+    }
+    sc.addEventListener('scroll', syncStage, { passive: true });
+    // initial state (no Explore until scroll)
+    setExploreVisible(false);
+
+    // Prevent Explore from navigating on first click; it should just trigger slide swap.
+    explore.addEventListener('click', (e) => {
+      if (stage === 0) {
+        e.preventDefault();
+        showDescription();
+      }
+    });
+
+    // Clicking anywhere:
+    // - first click: scroll to description
+    // - subsequent clicks: go to dashboard
+    document.addEventListener('click', (e) => {
+      // Ignore clicks on the Explore circle: handled above.
+      if (e.target === explore || explore.contains(e.target)) return;
+      if (stage === 0) {
+        showDescription();
+      } else {
+        goDashboard();
+      }
+    });
+
+    // Explore circle follows the cursor across the whole landing page (same behaviour as INFF_portal_Main).
+    let targetX = window.innerWidth * 0.78;
+    let targetY = window.innerHeight * 0.55;
+    let x = targetX, y = targetY;
+
+    function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
+
+    function updateTarget(e) {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    }
+
+    function bounds() {
+      const r = explore.getBoundingClientRect();
+      const pad = 10;
+      const halfW = r.width / 2;
+      const halfH = r.height / 2;
+      return {
+        minX: halfW + pad,
+        maxX: window.innerWidth - halfW - pad,
+        minY: halfH + pad,
+        maxY: window.innerHeight - halfH - pad
+      };
+    }
+
+    function tick() {
+      const b = bounds();
+      x = clamp(targetX, b.minX, b.maxX);
+      y = clamp(targetY, b.minY, b.maxY);
+      explore.style.left = x.toFixed(1) + 'px';
+      explore.style.top  = y.toFixed(1) + 'px';
+      requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('mousemove', updateTarget, { passive: true });
+    window.addEventListener('resize', () => {
+      const b = bounds();
+      x = clamp(x, b.minX, b.maxX);
+      y = clamp(y, b.minY, b.maxY);
+      targetX = clamp(targetX, b.minX, b.maxX);
+      targetY = clamp(targetY, b.minY, b.maxY);
+    });
+
+    explore.style.left = x + 'px';
+    explore.style.top  = y + 'px';
+    requestAnimationFrame(tick);
+  })();
+</script>
+</body>
+</html>

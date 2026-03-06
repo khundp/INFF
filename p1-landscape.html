@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financing Landscape — Nigeria INFF Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body class="page-landscape">
+
+<nav class="topnav">
+  <a href="landing.html" class="nav-brand with-logos">
+  <div class="nav-logos" aria-label="Partner logos">
+    <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
+    <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png">
+  </div>
+  <div class="nav-brand-text">
+    <span class="nb-title">INFF Nigeria</span>
+    <span class="nb-sub">Monitoring Dashboard</span>
+  </div>
+</a>
+  <div class="nav-links">
+    <a href="overview.html" id="nav-overview">Overview</a>
+    <a href="building-blocks.html" id="nav-bb">Building Blocks</a>
+    <a href="analytics.html" id="nav-analytics">Analytics &amp; Reports</a>
+    <a href="knowledge.html" id="nav-knowledge">Knowledge &amp; Updates</a>
+    <a href="downloads.html" id="nav-downloads">Downloads</a>
+  </div>
+</nav>
+
+<div class="breadbar">
+  <a href="overview.html">Home</a> <span>›</span>
+  <a href="building-blocks.html">Building Blocks</a> <span>›</span>
+  <a href="building-blocks.html">Assessments &amp; Diagnostics</a> <span>›</span>
+  <span>Financing Landscape</span>
+</div>
+<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link active">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link">Constraints & Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link">Data Sources & Integrity</a></div></div>
+
+
+<div class="ph-header">
+  <div class="ph-eyebrow">Assessments &amp; Diagnostics</div>
+  <div class="ph-title">Financing Landscape</div>
+  <div class="ph-desc">Explore Nigeria's full financing picture across domestic public, domestic private, international public, and international private flows.</div>
+  <div class="subnav">
+    <button class="subnav-tab active" onclick="switchTab('dp',this)">Domestic Public</button>
+    <button class="subnav-tab" onclick="switchTab('dpr',this)">Domestic Private</button>
+    <button class="subnav-tab" onclick="switchTab('ip',this)">Int'l Public</button>
+    <button class="subnav-tab" onclick="switchTab('ipr',this)">Int'l Private</button>
+  </div>
+</div>
+
+<div class="fbar">
+  <div class="fb-group">
+    <span class="fb-label">Year</span>
+    <select id="f-year" onchange="render()">
+      <option value="ALL">All Years</option>
+      <option value="2025" selected>2025</option>
+      <option value="2024">2024</option>
+      <option value="2023">2023</option>
+      <option value="2022">2022</option>
+      <option value="2021">2021</option>
+      <option value="2020">2020</option>
+    </select>
+  </div>
+  <div class="fb-div"></div>
+  <div class="fb-group">
+    <span class="fb-label">State</span>
+    <select id="f-state" onchange="render()">
+      <option value="ALL">All States</option>
+    </select>
+  </div>
+  <div class="fb-div"></div>
+  <div class="fb-group">
+    <span class="fb-label">Sector</span>
+    <select id="f-sector" onchange="render()">
+      <option value="ALL">All Sectors</option>
+      <option value="EDU">Education</option>
+      <option value="HEA">Health &amp; Social Protection</option>
+      <option value="INF">Infrastructure</option>
+      <option value="AGR">Agriculture</option>
+      <option value="CLI">Climate &amp; Environment</option>
+      <option value="DIG">Digital &amp; ICT</option>
+      <option value="GOV">Governance</option>
+      <option value="SOC">Social Protection</option>
+      <option value="ENE">Energy</option>
+      <option value="WAT">Water &amp; Sanitation</option>
+    </select>
+  </div>
+  <button class="btn-reset" onclick="resetFilters()">Reset</button>
+  <div class="fb-status">Showing: <strong id="f-status">All Nigeria · All Sectors · 2025</strong></div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════
+     TAB 1 — DOMESTIC PUBLIC
+══════════════════════════════════ -->
+<div class="tab-panel active" id="tab-dp">
+  <div class="krow">
+    <div class="kcard kc-1"><div class="klabel">Total Public Revenue</div><div class="kvalue" id="dp-k1">—</div><div class="ksub">Against SDG need · selected year</div><div class="kdelta kd-good" id="dp-k1d">—</div></div>
+    <div class="kcard kc-2"><div class="klabel">Tax Revenue</div><div class="kvalue" id="dp-k2">—</div><div class="ksub">Est. share of total public revenue</div><div class="kdelta kd-good">▲ 8% since prior year</div></div>
+    <div class="kcard kc-gap"><div class="klabel">Domestic Debt to GDP</div><div class="kvalue">38.4%</div><div class="ksub">Public debt sustainability indicator</div><div class="kdelta kd-warn">▲ 2pts YoY</div></div>
+    <div class="kcard kc-4"><div class="klabel">SOE Contributions</div><div class="kvalue" id="dp-k4">—</div><div class="ksub">5 major state-owned entities</div><div class="kdelta kd-warn">1 reform at risk</div></div>
+  </div>
+
+  <div class="sdiv">Revenue Overview</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Revenue Composition</div>
+      <div class="csub">Tax · Non-Tax · Oil &amp; Gas · selected year</div>
+      <div class="cval" id="dp-rev-val">—</div>
+      <div class="ch-sm"><canvas id="dp-donut"></canvas></div>
+      <div class="legend" style="justify-content:center;margin-top:10px;">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Tax Revenue</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Non-Tax</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Oil &amp; Gas</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Revenue Trend by Type</div>
+      <div class="csub">NGN Billions · 2020–2025</div>
+      <div class="ch-lg"><canvas id="dp-trend"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Tax</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Non-Tax</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Oil &amp; Gas</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sdiv">Domestic Borrowing</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Borrowing by Instrument</div>
+      <div class="csub">NGN Billions · 2020–2025</div>
+      <div class="ch-lg"><canvas id="dp-borrow"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Treasury Bills</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Commercial Loan</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Sukuk</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Bond</div>
+        <div class="leg"><div class="leg-dot" style="background:#B08AC9"></div>Other</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Oil, Gas &amp; Natural Resource Revenues</div>
+      <div class="csub">NGN Billions · 2020–2025</div>
+      <div class="ch-lg"><canvas id="dp-oil"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Dividends</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Royalties</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Licenses</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Fees</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sdiv">State-Owned Enterprises &amp; Earmarked Funds</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">SOE Financial Flows</div>
+      <div class="csub">Retained · Transfers · Surplus · Dividends · 2020–2025</div>
+      <div class="ch-md"><canvas id="dp-soe"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Earmarked Funds &amp; Special Accounts</div>
+      <div class="csub">Infrastructure · Education · Health · Social · SWF · 2020–2025</div>
+      <div class="ch-md"><canvas id="dp-earmark"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TAB 2 — DOMESTIC PRIVATE
+══════════════════════════════════ -->
+<div class="tab-panel" id="tab-dpr">
+  <div class="krow">
+    <div class="kcard kc-1"><div class="klabel">Total Domestic Private Investment</div><div class="kvalue" id="dpr-k1">—</div><div class="ksub">Against SDG need · selected year</div><div class="kdelta kd-good">▲ 3.1% YoY</div></div>
+    <div class="kcard kc-2"><div class="klabel">FDI Inflows</div><div class="kvalue" id="dpr-k2">—</div><div class="ksub">Est. share of total private finance</div><div class="kdelta kd-good">▲ 8% since prior year</div></div>
+    <div class="kcard kc-3"><div class="klabel">SDG-Aligned Private Investment</div><div class="kvalue">43%</div><div class="ksub">Share with explicit SDG tagging</div><div class="kdelta kd-good">▲ 2pts YoY</div></div>
+    <div class="kcard kc-4"><div class="klabel">Capital Market Mobilisation</div><div class="kvalue" id="dpr-k4">—</div><div class="ksub">Bonds · Equities · Commercial Paper</div><div class="kdelta kd-warn">1 reform at risk</div></div>
+  </div>
+
+  <div class="sdiv">Private Investment Flows</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Private Investment by Source</div>
+      <div class="csub">NGN Billions · 2020–2025</div>
+      <div class="ch-lg"><canvas id="dpr-source"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>FDI</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Portfolio</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Private Equity</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Capital Market</div>
+        <div class="leg"><div class="leg-dot" style="background:#B08AC9"></div>Retained Earnings</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Private Investment by Sector</div>
+      <div class="csub">% share of total · selected year</div>
+      <div class="ch-lg"><canvas id="dpr-sector"></canvas></div>
+    </div>
+  </div>
+
+  <div class="sdiv">Capital Market &amp; FDI Detail</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">FDI by Origin Region</div>
+      <div class="csub">NGN Billions · 2020–2025</div>
+      <div class="ch-md"><canvas id="dpr-fdi"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Europe</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Asia</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>N. America</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Other</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Capital Market Instruments</div>
+      <div class="csub">NGN Billions · 2020–2025</div>
+      <div class="ch-md"><canvas id="dpr-cap"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Bonds</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Equities</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Comm. Paper</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Derivatives</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TAB 3 — INT'L PUBLIC
+══════════════════════════════════ -->
+<div class="tab-panel" id="tab-ip">
+  <div class="krow">
+    <div class="kcard kc-1"><div class="klabel">Total Int'l Public Finance</div><div class="kvalue" id="ip-k1">—</div><div class="ksub">Against SDG need · selected year</div><div class="kdelta kd-bad">▼ 6.8% since prior year</div></div>
+    <div class="kcard kc-3"><div class="klabel">Grants</div><div class="kvalue" id="ip-k2">—</div><div class="ksub">Est. share of ODA · selected year</div><div class="kdelta kd-good">▲ 8% since prior year</div></div>
+    <div class="kcard kc-2"><div class="klabel">Top 2 Partner Concentration</div><div class="kvalue">72%</div><div class="ksub">World Bank + AfDB combined share</div><div class="kdelta kd-warn">▲ 2pts YoY</div></div>
+    <div class="kcard kc-4"><div class="klabel">Avg Disbursement Rate</div><div class="kvalue">67%</div><div class="ksub">Disbursements as % of committed</div><div class="kdelta kd-warn">Below 75% target</div></div>
+  </div>
+
+  <div class="sdiv">Partner Overview</div>
+  <div class="g3">
+    <div class="card">
+      <div class="ctitle">Int'l Public Share of Total</div>
+      <div class="csub">vs all other financing · selected year</div>
+      <div class="cval-sm" id="ip-total">—</div>
+      <div class="ch-xs"><canvas id="ip-share"></canvas></div>
+      <div class="legend" style="justify-content:center;margin-top:8px;">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Int'l Public</div>
+        <div class="leg"><div class="leg-dot" style="background:#e8e6e2"></div>Other</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Top Financing Partners</div>
+      <div class="csub">By committed amount · 2025</div>
+      <div class="pbar-list" id="ip-partners"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Financing by Instrument</div>
+      <div class="csub">Loans · Grants · Technical Assistance</div>
+      <div class="ch-sm"><canvas id="ip-instrument"></canvas></div>
+      <div class="legend" style="justify-content:center;margin-top:8px;">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Loans</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Grants</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Tech. Assistance</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sdiv">Trends &amp; Sectoral Breakdown</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Financing by Year</div>
+      <div class="csub">Total int'l public flows · NGN Billions · 2020–2025</div>
+      <div class="ch-md"><canvas id="ip-years"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Financing by Sector</div>
+      <div class="csub">% distribution across SDG sectors · selected year</div>
+      <div class="ch-md"><canvas id="ip-sectors"></canvas></div>
+    </div>
+  </div>
+
+  <div class="sdiv">Instrument Mix &amp; Disbursement Performance</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Instrument Mix by Year</div>
+      <div class="csub">Loans · Grants · TA · Budget Support · 2020–2025</div>
+      <div class="ch-lg"><canvas id="ip-mix"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Loans</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Grants</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Tech. Assistance</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Budget Support</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Disbursement Performance by Partner</div>
+      <div class="csub">Committed vs disbursed · top 6 partners · 2025</div>
+      <div class="ch-lg"><canvas id="ip-disb"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Committed</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Disbursed</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TAB 4 — INT'L PRIVATE
+══════════════════════════════════ -->
+<div class="tab-panel" id="tab-ipr">
+  <div class="krow">
+    <div class="kcard kc-1"><div class="klabel">Total Remittance Inflows</div><div class="kvalue" id="ipr-k1">—</div><div class="ksub">Against SDG need · selected year</div><div class="kdelta kd-good">▲ 3.1% YoY</div></div>
+    <div class="kcard kc-2"><div class="klabel">Foreign Direct Investment</div><div class="kvalue" id="ipr-k2">—</div><div class="ksub">Est. share of total int'l private</div><div class="kdelta kd-good">▲ 8% since prior year</div></div>
+    <div class="kcard kc-3"><div class="klabel">Portfolio Investment Flows</div><div class="kvalue" id="ipr-k3">—</div><div class="ksub">Equities · Bonds · Private Bonds</div><div class="kdelta kd-good">▲ 2pts YoY</div></div>
+    <div class="kcard kc-4"><div class="klabel">SDG-Directed Remittances</div><div class="kvalue">31%</div><div class="ksub">As % of total remittance inflows</div><div class="kdelta kd-warn">Target: 40%</div></div>
+  </div>
+
+  <div class="sdiv">Remittance &amp; FDI Overview</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Remittance Inflows by Channel</div>
+      <div class="csub">Formal · Informal · Diaspora Bonds · NGN Billions · 2020–2025</div>
+      <div class="ch-lg"><canvas id="ipr-remit"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Formal (Bank/MTO)</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Informal</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Diaspora Bonds</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">FDI Inflows by Sector</div>
+      <div class="csub">% distribution · selected year</div>
+      <div class="ch-lg"><canvas id="ipr-fdi"></canvas></div>
+    </div>
+  </div>
+
+  <div class="sdiv">Portfolio &amp; Blended Finance</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Portfolio Investment Trends</div>
+      <div class="csub">Equities · Bonds · Private Bonds · 2020–2025</div>
+      <div class="ch-md"><canvas id="ipr-port"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Equities</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Bonds</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Private Bonds</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Blended Finance Instruments</div>
+      <div class="csub">Guarantees · Concessional Tranches · First-Loss · 2020–2025</div>
+      <div class="ch-md"><canvas id="ipr-blend"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Guarantees</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Concessional Tranche</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>First-Loss</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script>
+document.getElementById('nav-bb').classList.add('active');
+
+// Populate state dropdown
+const stSel = document.getElementById('f-state');
+INFF.stateList().forEach(s => {
+  const o = document.createElement('option');
+  o.value = s.code; o.textContent = s.name;
+  stSel.appendChild(o);
+});
+
+let activeTab = 'dp';
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.subnav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  activeTab = id;
+  render();
+}
+
+function getFilters() {
+  const yr  = document.getElementById('f-year').value;
+  const sc  = document.getElementById('f-state').value;
+  const sec = document.getElementById('f-sector').value;
+  return { yr, sc, sec };
+}
+
+function getData(yr, sc, sec) {
+  const secKey = sec === 'ALL' ? null : sec;
+  const yrNum  = yr === 'ALL' ? 2025 : parseInt(yr);
+  let d, dp;
+  if (sc === 'ALL') {
+    d  = INFF.getNational(yrNum, secKey);
+    dp = INFF.getNational(yrNum - 1, secKey);
+  } else {
+    d  = INFF.getState(sc, yrNum, secKey) || {};
+    dp = INFF.getState(sc, yrNum - 1, secKey) || {};
+  }
+  return { d, dp, yrNum };
+}
+
+// Seeded stacked trend generator (reproducible)
+function sTrend(bases, seed) {
+  return bases.map((b, bi) =>
+    YEARS.map((_, i) => r1(b * (1 + 0.1 * i) * (1 + Math.sin(i * 1.9 + seed + bi) * 0.06)))
+  );
+}
+
+function stacked(labels, colors, seed, yfmt) {
+  const datasets = labels.map((lbl, i) => ({
+    label: lbl,
+    data: YEARS.map((_, j) => r1(
+      [4,2.5,1.8,1.2,0.8][i] * (1 + 0.1*j) * (1 + Math.sin(j*1.9+seed+i)*0.06)
+    )),
+    backgroundColor: colors[i],
+    borderRadius: 3,
+    stack: 's'
+  }));
+  return barCfg(YLABELS, datasets, { stacked: true, yfmt: yfmt || (v => '₦' + v + 'B') });
+}
+
+function render() {
+  const { yr, sc, sec } = getFilters();
+  const secName = sec === 'ALL' ? 'All Sectors' : INFF.meta.sectors[sec];
+  const scName  = sc  === 'ALL' ? 'All Nigeria' : INFF.states[sc]?.name || sc;
+  const yrLabel = yr  === 'ALL' ? 'All Years'   : yr;
+  document.getElementById('f-status').textContent = `${scName} · ${secName} · ${yrLabel}`;
+
+  const { d, dp, yrNum } = getData(yr, sc, sec);
+  const selIdx = yr === 'ALL' ? -1 : YEARS.indexOf(yrNum);
+  const hiBar  = (i) => selIdx < 0 || i === selIdx ? P[0] : P[0] + '55';
+
+  if (activeTab === 'dp')  renderDP(d, dp, selIdx, hiBar);
+  if (activeTab === 'dpr') renderDPR(d, dp, selIdx, hiBar);
+  if (activeTab === 'ip')  renderIP(d, dp, selIdx, hiBar);
+  if (activeTab === 'ipr') renderIPR(d, dp, selIdx, hiBar);
+}
+
+// ── TAB 1: DOMESTIC PUBLIC ──
+function renderDP(d, dp, selIdx, hiBar) {
+  const val = d.dp || 0;
+  document.getElementById('dp-k1').textContent = fmt(val);
+  document.getElementById('dp-k2').textContent = fmt(val * 0.62);
+  document.getElementById('dp-k4').textContent = fmt(val * 0.06);
+  document.getElementById('dp-rev-val').textContent = fmt(val);
+  if (dp?.dp) {
+    const delta = r1((val - dp.dp) / dp.dp * 100);
+    document.getElementById('dp-k1d').textContent = (delta>0?'▲':'▼') + ' ' + Math.abs(delta).toFixed(1) + '% YoY';
+    document.getElementById('dp-k1d').className = 'kdelta ' + (delta>0?'kd-good':'kd-bad');
+  }
+
+  mkChart('dp-donut', donutCfg([val*.55, val*.2, val*.25], [P[0], P[1], P[2]]));
+  mkChart('dp-trend', barCfg(YLABELS, [
+    {data: YEARS.map((_,i) => r1(val*.55*(1-i*.04+(Math.sin(i)*0.05)))), backgroundColor: P[0], borderRadius:3, stack:'s', label:'Tax'},
+    {data: YEARS.map((_,i) => r1(val*.20*(1-i*.02+(Math.sin(i+1)*0.05)))), backgroundColor: P[1], borderRadius:3, stack:'s', label:'Non-Tax'},
+    {data: YEARS.map((_,i) => r1(val*.25*(1-i*.03+(Math.sin(i+2)*0.05)))), backgroundColor: P[2], borderRadius:3, stack:'s', label:'Oil/Gas'},
+  ], {stacked:true, yfmt: v=>'₦'+v+'B'}));
+
+  mkChart('dp-borrow', stacked(['T-Bills','Comm Loan','Sukuk','Bond','Other'], P, 1));
+  mkChart('dp-oil',    stacked(['Dividends','Royalties','Licenses','Fees'],   P, 3));
+  mkChart('dp-soe',    stacked(['Retained','Transfer','Surplus','Dividend'],  P, 5));
+  mkChart('dp-earmark',stacked(['Infra','Education','Health','Social','SWF'], P, 7));
+}
+
+// ── TAB 2: DOMESTIC PRIVATE ──
+function renderDPR(d, dp, selIdx, hiBar) {
+  const val = d.priv || 0;
+  document.getElementById('dpr-k1').textContent = fmt(val);
+  document.getElementById('dpr-k2').textContent = fmt(val * 0.38);
+  document.getElementById('dpr-k4').textContent = fmt(val * 0.22);
+
+  mkChart('dpr-source', stacked(['FDI','Portfolio','Private Equity','Capital Market','Retained'], P, 2));
+  mkChart('dpr-sector', hbarCfg(
+    ['Infrastructure','Energy','Manufacturing','Digital','Agriculture','Health','Education'],
+    [{data:[28,22,18,14,9,5,4], backgroundColor: P.slice(0,7), borderRadius:4}],
+    {yfmt: v=>v+'%'}
+  ));
+  mkChart('dpr-fdi', stacked(['Europe','Asia','N. America','Other'], P, 4));
+  mkChart('dpr-cap', stacked(['Bonds','Equities','Comm Paper','Derivatives'], P, 6));
+}
+
+// ── TAB 3: INT'L PUBLIC ──
+function renderIP(d, dp, selIdx, hiBar) {
+  const val = d.ip || 0;
+  document.getElementById('ip-k1').textContent = fmt(val);
+  document.getElementById('ip-k2').textContent = fmt(val * 0.38);
+  document.getElementById('ip-total').textContent = fmt(val);
+
+  const tot = (d.dp||0)+(d.priv||0)+(d.ip||0)+(d.ipriv||0)||1;
+  const share = r1(val/tot*100);
+  mkChart('ip-share', donutCfg([share, 100-share], [P[0], '#e8e6e2']));
+
+  const partners = ['World Bank','AfDB','EU','GIZ','USAID','Green Climate','FCDO','JICA'];
+  const vals = [340,310,150,120,80,95,60,55];
+  const maxV = Math.max(...vals);
+  document.getElementById('ip-partners').innerHTML = partners.map((p,i) => `
+    <div class="pbar-item" style="margin-bottom:7px;">
+      <div class="pbar-meta"><span class="pbar-name">${p}</span><span class="pbar-val">$${vals[i]}M</span></div>
+      <div class="pbar-track"><div class="pbar-fill" style="width:${vals[i]/maxV*100}%;background:${P[i%P.length]};"></div></div>
+    </div>`).join('');
+
+  mkChart('ip-instrument', donutCfg([55,30,15], [P[0],P[1],P[2]]));
+  mkChart('ip-years', barCfg(YLABELS, [{
+    data: YEARS.map((_,i) => r1(val*(0.78+i*0.04)*(1+Math.sin(i)*0.04))),
+    backgroundColor: YLABELS.map((_,i) => hiBar(i)), borderRadius:4
+  }], {yfmt: v=>'₦'+v+'B'}));
+  mkChart('ip-sectors', hbarCfg(
+    ['Infrastructure','Health','Education','Agriculture','Climate','Energy','Digital'],
+    [{data:[35,22,16,12,8,5,2], backgroundColor:P.slice(0,7), borderRadius:4}],
+    {yfmt: v=>v+'%'}
+  ));
+  mkChart('ip-mix', stacked(['Loans','Grants','Tech Assistance','Budget Support'], P, 8));
+  mkChart('ip-disb', barCfg(
+    ['World Bank','AfDB','EU','USAID','JICA','GIZ'],
+    [
+      {label:'Committed', data:[340,310,150,80,65,55], backgroundColor:P[0], borderRadius:4},
+      {label:'Disbursed', data:[230,220,112,58,40,42], backgroundColor:P[1], borderRadius:4},
+    ], {yfmt: v=>'$'+v+'M'}
+  ));
+}
+
+// ── TAB 4: INT'L PRIVATE ──
+function renderIPR(d, dp, selIdx, hiBar) {
+  const val = d.ipriv || 0;
+  document.getElementById('ipr-k1').textContent = fmt(val);
+  document.getElementById('ipr-k2').textContent = fmt(val * 0.45);
+  document.getElementById('ipr-k3').textContent = fmt(val * 0.28);
+
+  mkChart('ipr-remit',  stacked(['Formal (Bank/MTO)','Informal','Diaspora Bonds'], P, 9));
+  mkChart('ipr-fdi', hbarCfg(
+    ['Infrastructure','Energy','Manufacturing','Financial Svcs','Agriculture','Digital'],
+    [{data:[30,25,18,12,10,5], backgroundColor:P.slice(0,6), borderRadius:4}],
+    {yfmt: v=>v+'%'}
+  ));
+  mkChart('ipr-port',  stacked(['Equities','Bonds','Private Bonds'],          P, 11));
+  mkChart('ipr-blend', stacked(['Guarantees','Concessional Tranche','First-Loss'], P, 13));
+}
+
+function resetFilters() {
+  document.getElementById('f-year').value   = '2025';
+  document.getElementById('f-state').value  = 'ALL';
+  document.getElementById('f-sector').value = 'ALL';
+  render();
+}
+
+// Handle ?tab= URL param
+const urlTab = new URLSearchParams(window.location.search).get('tab');
+if (urlTab) {
+  const map = {'domestic-public':'dp','domestic-private':'dpr','intl-public':'ip','intl-private':'ipr'};
+  const t = map[urlTab];
+  if (t) {
+    const btn = [...document.querySelectorAll('.subnav-tab')]
+      .find(b => b.getAttribute('onclick').includes("'"+t+"'"));
+    if (btn) switchTab(t, btn);
+  }
+}
+
+render();
+</script>
+
+
+
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logos" aria-label="Partner logos">
+        <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
+        <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png">
+        <img alt="INFF" src="assets/images/INFF_Logo.png" class="footer-inff-logo">
+        <img alt="European Union" src="assets/images/EU_Flag.png">
+        <img alt="UNDP" src="assets/images/UNDP-Logo-Blue.png">
+      </div>
+      <h3>INFF Nigeria</h3>
+      <p>Authoritative, living source of INFF implementation data in Nigeria.</p>
+      <div class="footer-copy">© 2026 INFF Nigeria • All rights reserved</div>
+    </div>
+
+    <div class="footer-col">
+      <h4>BUILDING BLOCKS</h4>
+      <ul>
+        <li><a href="p1-landscape.html">Assessment &amp; Diagnostics</a></li>
+        <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
+        <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
+        <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>QUICK LINKS</h4>
+      <ul>
+        <li><a href="p1-gap.html">View Financing Gaps</a></li>
+        <li><a href="p2-reforms.html">Track Reforms</a></li>
+        <li><a href="knowledge.html">Latest INFF Updates</a></li>
+        <li><a href="p4-subnational.html">Subnational SDG Scorecards</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>CONTACT</h4>
+      <div class="footer-contact">
+        <a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a><br>
+        Abuja, Nigeria
+      </div>
+      <div class="footer-social" aria-label="Social links">
+        <a class="soc" href="#" aria-label="Website">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20Zm7.6 9H17a15.6 15.6 0 00-1.2-6A8.03 8.03 0 0119.6 11ZM12 4c1.1 1.6 2 3.8 2.4 7H9.6C10 7.8 10.9 5.6 12 4ZM4.4 13H7a15.6 15.6 0 001.2 6A8.03 8.03 0 014.4 13ZM7 11H4.4A8.03 8.03 0 018.2 5c-.5 1.2-.9 2.7-1.2 6Zm2.6 2h4.8c-.4 3.2-1.3 5.4-2.4 7-1.1-1.6-2-3.8-2.4-7Zm7.2 0h2.6a8.03 8.03 0 01-3.8 6c.5-1.2.9-2.7 1.2-6Zm-.2-2h-4.8c.4-3.2 1.3-5.4 2.4-7 1.1 1.6 2 3.8 2.4 7Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.3l.7-3H13V9c0-.6.4-1 1-1Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 2H21l-6.4 7.3L22 22h-6.7l-5.2-6.7L4.3 22H2l7-8L2 2h6.8l4.7 6.1L18.3 2Zm-1.2 18h1.5L7 3.9H5.4L17.1 20Z"/></svg>
+        </a>
+        <a class="soc" href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.8A2.3 2.3 0 116.5 2a2.3 2.3 0 010 4.8ZM5 22V9h3v13H5Zm6 0V9h2.9v1.8h.1c.4-.8 1.5-2 3.4-2 3.6 0 4.3 2.4 4.3 5.5V22h-3v-6.3c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V22h-3Z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
