@@ -1,5 +1,5 @@
 /* ============================================================
-   INFF Nigeria — Data Module
+   Nigeria Integrated National Financing Framework — Data Module
    Auto-generated from INFF_Nigeria_Master_Data.xlsx
    
    HOW TO UPDATE DATA:
@@ -12,7 +12,7 @@
    ============================================================ */
 
 /**
- * INFF Nigeria Monitoring Dashboard — Data Module
+ * Nigeria Integrated National Financing Framework Monitoring & Coordination Platform — Data Module
  * Auto-generated from INFF_Nigeria_Master_Data.xlsx
  * Last generated: March 2026
  *

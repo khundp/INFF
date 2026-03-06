@@ -1,5 +1,5 @@
 /* ============================================================
-   INFF Nigeria — Shared JavaScript Helpers
+   Nigeria Integrated National Financing Framework — Shared JavaScript Helpers
    
    CONTAINS:
    - Chart.js default configuration
