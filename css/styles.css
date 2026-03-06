@@ -420,18 +420,8 @@ body.page-landscape .site-footer .footer-inner{
 }
 
 
-/* --- Fix gap under sticky header on Building Blocks pages (v21) --- */
-.opt-c-strip{
-  background:#1e2533;
-  top:56px;
-  margin-top:-1px;
-}
-.opt-c-row1{
-  margin-top:0;
-}
 
 
-/* --- Strong sticky seam fix for Building Blocks pages (v22) --- */
 /* Remove shadow seam and keep stacked sticky bars flush */
 .topnav{
   box-shadow:none !important;
@@ -454,34 +444,8 @@ body.page-landscape .site-footer .footer-inner{
 }
 
 
-/* --- Precise sticky stack fix for Building Blocks pages (v23) --- */
-.topnav{
-  height:56px !important;
-  box-shadow:none !important;
-}
-.breadbar{
-  position:sticky !important;
-  top:56px !important;
-  z-index:480 !important;
-  margin:0 !important;
-  min-height:30px !important;
-  padding-top:8px !important;
-  padding-bottom:8px !important;
-  box-sizing:border-box !important;
-}
-.opt-c-strip{
-  position:sticky !important;
-  top:86px !important; /* 56 nav + 30 breadbar */
-  z-index:470 !important;
-  margin:0 !important;
-  background:#1e2533 !important;
-}
-.opt-c-row1, .opt-c-row2{
-  margin:0 !important;
-}
 
 
-/* --- Sticky behavior fix to match reference (v24) --- */
 /* Keep only top nav + jump strip sticky. Breadcrumb scrolls away. */
 .topnav{
   height:56px !important;
@@ -511,7 +475,158 @@ body.page-landscape .site-footer .footer-inner{
 
 
 
-/* --- Keep Jump To bar flush under header with no white seam (v27) --- */
+
+/* --- Branding update layout tweaks (v28) --- */
+.topnav .nav-brand.with-logos{
+  gap:10px !important;
+}
+.topnav .nav-brand-text{
+  max-width: 430px;
+}
+.topnav .nb-title{
+  font-size: 20px !important;
+  line-height: 1.05 !important;
+  white-space: normal !important;
+}
+.topnav .nb-sub{
+  font-size: 11px !important;
+  letter-spacing: 1px !important;
+  white-space: normal !important;
+}
+.site-footer .footer-logos{
+  gap:12px !important;
+}
+@media (max-width: 1200px){
+  .topnav .nb-title{font-size:18px !important;}
+  .topnav .nb-sub{font-size:10px !important;}
+  .topnav .nav-brand-text{max-width:360px;}
+}
+
+
+
+/* Ensure page sections cannot scale header */
+.ph-header h1,
+.ph-header{
+  font-size:inherit !important;
+}
+
+
+
+/* Prevent Building Blocks page styles from changing header text */
+.breadbar ~ .ph-header,
+.breadbar ~ .opt-c-strip,
+.opt-c-strip,
+.ph-header,
+.ph-header *,
+.opt-c-row1,
+.opt-c-row2{
+  font-size:inherit;
+}
+
+
+/* --- Unified header across ALL pages (v31) --- */
+html body .topnav{
+  height:56px !important;
+  min-height:56px !important;
+  max-height:56px !important;
+  box-sizing:border-box !important;
+}
+html body .topnav .nav-brand.with-logos{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+}
+html body .topnav .nav-logos{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  flex:0 0 auto !important;
+}
+html body .topnav .nav-logos img{
+  height:40px !important;
+  width:auto !important;
+  min-height:40px !important;
+  max-height:40px !important;
+  object-fit:contain !important;
+  display:block !important;
+}
+html body .topnav .nav-brand-text{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  align-items:flex-start !important;
+  gap:4px !important;
+  line-height:1 !important;
+  transform:none !important;
+  font-size:initial !important;
+  max-width:560px !important;
+}
+html body .topnav .nb-title{
+  font-family:'Literata', serif !important;
+  font-size:20px !important;
+  font-weight:700 !important;
+  line-height:1 !important;
+  letter-spacing:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:none !important;
+  white-space:normal !important;
+}
+html body .topnav .nb-sub{
+  font-family:'Sora', sans-serif !important;
+  font-size:11px !important;
+  font-weight:600 !important;
+  line-height:1 !important;
+  letter-spacing:1px !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:none !important;
+  white-space:normal !important;
+}
+
+
+/* --- Final sticky fix for Assessments & Diagnostics pages (v34) --- */
+/* Keep only top nav + jump strip sticky. Breadcrumb scrolls away.
+   Put Jump To directly below the header and paint its own background
+   so it never slides under the header and never shows a white seam. */
+.topnav{
+  height:56px !important;
+  min-height:56px !important;
+  max-height:56px !important;
+  box-shadow:none !important;
+  z-index:500 !important;
+}
+.breadbar{
+  position:relative !important;
+  top:auto !important;
+  z-index:auto !important;
+  margin:0 !important;
+}
 .opt-c-strip{
-  top: 40px !important;
+  position:sticky !important;
+  top:56px !important;
+  z-index:490 !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:#4a2f6b !important;
+  border-top:none !important;
+}
+.opt-c-row1{
+  margin:0 !important;
+  border-top:none !important;
+}
+.opt-c-row2{
+  margin:0 !important;
+  border-top:none !important;
+}
+/* cover any seam between header and sticky strip */
+.opt-c-strip::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:-2px;
+  height:2px;
+  background:#4a2f6b;
+  pointer-events:none;
 }
