@@ -8,56 +8,108 @@
 <link rel="stylesheet" href="css/styles.css">
 
 
+
+<style>
+.rev-comp{display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:center;min-height:220px;margin-top:8px}
+.rev-ring{position:relative;width:220px;height:220px;border-radius:50%;margin:0 auto;background:#eee}
+.rev-ring::after{content:"";position:absolute;inset:32px;background:#fff;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.03)}
+.rev-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2}
+.rev-center .mini{font-size:11px;letter-spacing:1.2px;color:#7e7b90;text-transform:uppercase}
+.rev-center .big{font-size:20px;font-weight:800;color:#1d1a38;line-height:1.05;margin:3px 0}
+.rev-center .yr{font-size:12px;color:#7e7b90}
+.rev-bars{display:grid;grid-template-columns:repeat(6,minmax(56px,1fr));gap:14px;align-items:end;min-height:200px;padding:10px 6px 18px;position:relative}
+.rev-bars::before{content:"";position:absolute;left:0;right:0;top:18px;bottom:18px;background:repeating-linear-gradient(to top, transparent 0 27px, rgba(125,120,160,.12) 27px 28px);pointer-events:none}
+.rev-col{position:relative;height:165px;display:flex;align-items:flex-end;justify-content:center;gap:8px}
+.rev-pill{width:14px;border-radius:999px;position:relative;cursor:pointer;z-index:1;transition:transform .18s ease, filter .18s ease}
+.rev-pill:hover{transform:translateY(-3px) scale(1.03);filter:brightness(.98)}
+.rev-year{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;color:#8a84a8}
+.flow-toolbar{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;color:#4f4a68;margin:6px 0 10px}
+.flow-switch-wrap{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;color:#625d79}
+.flow-switch{width:44px;height:24px;border:none;border-radius:999px;background:#d9d5ea;position:relative;cursor:pointer;padding:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
+.flow-switch span{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s ease, background .2s ease}
+.flow-switch.on{background:#5c47f0}.flow-switch.on span{left:23px;background:#fff}
+.flow-wrap{position:relative;min-height:350px;border-radius:12px;overflow:hidden}
+.flow-wrap svg{width:100%;height:350px;display:block}
+.flow-node{fill:#8f82f3;stroke:#5c47f0;stroke-width:1px;rx:4;ry:4}
+.flow-node.gold{fill:#ead46d;stroke:#d4b74e}
+.flow-link-a{fill:none;stroke:url(#flowGradA);stroke-opacity:.55}.flow-link-b{fill:none;stroke:url(#flowGradB);stroke-opacity:.55}
+.flow-label{font: 12px Sora, sans-serif; fill:#18152f}
+.flow-tooltip{position:fixed;z-index:40;background:#1f1b3d;color:#fff;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.35;pointer-events:none;opacity:0;transform:translate(-50%,-120%);transition:opacity .12s ease}
+@media (max-width:900px){.rev-comp{grid-template-columns:1fr}.rev-bars{grid-template-columns:repeat(4,minmax(55px,1fr))}.flow-wrap{min-height:300px}.flow-wrap svg{height:300px}}
+
+.oil-redesign{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;min-height:240px;padding:18px 8px 8px;}
+.oil-pill-card{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:10px;min-width:0;position:relative;cursor:pointer;}
+.oil-pill-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:none;color:var(--ink);opacity:.9;line-height:1;white-space:nowrap;}
+.oil-pill-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;flex:1;}
+.oil-pill-value{font-size:18px;font-weight:800;color:var(--ink);line-height:1.1;text-align:center;white-space:nowrap;}
+.oil-pill{width:min(100%,72px);border-radius:20px 20px 18px 18px;position:relative;min-height:96px;box-shadow:inset 0 -10px 18px rgba(255,255,255,.18);transition:transform .14s ease, box-shadow .14s ease;}
+.oil-pill::before{content:"";position:absolute;top:0;left:0;right:0;height:12px;border-radius:20px 20px 0 0;background:rgba(255,255,255,.2);}
+.oil-pill-card:hover .oil-pill{transform:translateY(-4px);box-shadow:inset 0 -10px 18px rgba(255,255,255,.18),0 10px 20px rgba(31,27,61,.08);}
+.oil-pill-meta{font-size:11px;color:#6a6f85;text-align:center;line-height:1.2;}
+@media (max-width: 900px){.oil-redesign{gap:10px;overflow:auto;padding-bottom:12px}.oil-pill-card{min-width:120px}.oil-pill{width:56px}}
+
+
+.legend{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;margin-top:10px}
+.leg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-md)}
+.leg-dot{width:10px;height:10px;border-radius:999px;flex:0 0 10px}
+
+@keyframes growUp{from{transform:scaleY(.08);opacity:.35}to{transform:scaleY(1);opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes revPop{from{transform:scale(.92);opacity:.25}to{transform:scale(1);opacity:1}}
+@keyframes dashIn{to{stroke-dashoffset:0}}
+.rev-ring{animation:revPop .9s ease both; transform-origin:center}
+.rev-pill{transform-origin:bottom center}
+.flow-wrap svg [data-animate="node"]{opacity:0;animation:fadeUp .5s ease forwards}
+.flow-wrap svg [data-animate="link"]{stroke-dasharray:1000;stroke-dashoffset:1000;animation:dashIn 1.15s ease forwards}
+.oil-pill{transform-origin:bottom center}
+.oil-pill-card{opacity:0;animation:fadeUp .45s ease forwards}
+
+
+
+/* Footer upgrade */
+.portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
+.footer-container{max-width:1200px;margin:auto;padding:42px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.footer-col h4{margin-bottom:12px;font-size:14px;font-weight:600;color:#fff}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:8px;font-size:13px;color:#c9c9d6}
+.footer-col a{color:#c9c9d6;text-decoration:none}
+.footer-col a:hover{color:#fff}
+.footer-brand h3{margin-bottom:10px;font-size:18px}
+.footer-brand p{font-size:13px;line-height:1.7;color:#c9c9d6;max-width:420px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:16px;font-size:12px;color:#a9a9b6}
+@media (max-width:900px){.footer-container{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.footer-container{grid-template-columns:1fr}}
+
+
+.footer-logos{
+display:flex;
+gap:14px;
+margin-bottom:12px;
+align-items:center;
+}
+.footer-logos img{
+height:38px;
+width:auto;
+}
+
+</style>
 </head>
-<body class="page-landscape">
+<body class="page-landscape" data-nav="bb">
 
-<nav class="topnav" style="height:56px;min-height:56px;max-height:56px;box-sizing:border-box;">
-  <a href="landing.html" class="nav-brand with-logos" style="display:flex;align-items:center;gap:10px;">
-  <div class="nav-logos" style="display:flex;align-items:center;gap:10px;flex:0 0 auto;" aria-label="Partner logos">
-    <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png" style="height:40px;width:auto;min-height:40px;max-height:40px;object-fit:contain;display:block;">
-    <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png" style="height:40px;width:auto;min-height:40px;max-height:40px;object-fit:contain;display:block;">
-  </div>
-  <div class="nav-brand-text" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:4px;line-height:1;max-width:560px;">
-    <span class="nb-title" style="font-family:Literata,serif;font-size:18px;font-weight:700;line-height:1;margin:0;padding:0;letter-spacing:0;white-space:normal;">Nigeria Integrated National Financing Framework</span>
-    <span class="nb-sub" style="font-family:Sora,sans-serif;font-size:10px;font-weight:600;line-height:1;letter-spacing:1px;margin:0;padding:0;white-space:normal;">Monitoring & Coordination Platform</span>
-  </div>
-</a>
-  <div class="nav-links">
-    <a href="overview.html" id="nav-overview">Overview</a>
-    <a href="building-blocks.html" id="nav-bb">Building Blocks</a>
-    <a href="analytics.html" id="nav-analytics">Analytics &amp; Reports</a>
-    <a href="knowledge.html" id="nav-knowledge">Knowledge &amp; Updates</a>
-    <a href="downloads.html" id="nav-downloads">Downloads</a>
-  </div>
-</nav>
+<div id="nav-placeholder" data-include="assets/nav.html"></div>
 
-<div class="breadbar">
-  <a href="overview.html">Home</a> <span>›</span>
-  <a href="building-blocks.html">Building Blocks</a> <span>›</span>
-  <a href="building-blocks.html">Assessments &amp; Diagnostics</a> <span>›</span>
-  <span>Financing Landscape</span>
-</div>
+<div id="breadcrumb-placeholder" data-include="assets/partials/breadcrumbs/p1-landscape.html"></div>
 <div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link active">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link">Constraints & Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link">Data Sources & Integrity</a></div></div>
 
 
-<div class="ph-header">
-  <div class="ph-eyebrow">Assessments &amp; Diagnostics</div>
-  <div class="ph-title">Financing Landscape</div>
-  <div class="ph-desc">Explore Nigeria's full financing picture across domestic public, domestic private, international public, and international private flows.</div>
-  <div class="subnav">
-    <button class="subnav-tab active" onclick="switchTab('dp',this)">Domestic Public</button>
-    <button class="subnav-tab" onclick="switchTab('dpr',this)">Domestic Private</button>
-    <button class="subnav-tab" onclick="switchTab('ip',this)">Int'l Public</button>
-    <button class="subnav-tab" onclick="switchTab('ipr',this)">Int'l Private</button>
-  </div>
-</div>
+<div id="header-placeholder" data-include="assets/partials/headers/p1-landscape.html"></div>
 
 <div class="fbar">
   <div class="fb-group">
     <span class="fb-label">Year</span>
     <select id="f-year" onchange="render()">
-      <option value="ALL">All Years</option>
-      <option value="2025" selected>2025</option>
+      <option value="ALL" selected>All Years</option>
+      <option value="2025">2025</option>
       <option value="2024">2024</option>
       <option value="2023">2023</option>
       <option value="2022">2022</option>
@@ -90,7 +142,7 @@
     </select>
   </div>
   <button class="btn-reset" onclick="resetFilters()">Reset</button>
-  <div class="fb-status">Showing: <strong id="f-status">All Nigeria · All Sectors · 2025</strong></div>
+  <div class="fb-status">Showing: <strong id="f-status">All Nigeria · All Sectors · All Years</strong></div>
 </div>
 
 <div class="wrap">
@@ -110,24 +162,24 @@
   <div class="g2">
     <div class="card">
       <div class="ctitle">Revenue Composition</div>
-      <div class="csub">Tax · Non-Tax · Oil &amp; Gas · selected year</div>
+      <div class="csub" id="dp-comp-sub">Tax Revenue · Non-Tax Revenue · selected view</div>
       <div class="cval" id="dp-rev-val">—</div>
-      <div class="ch-sm"><canvas id="dp-donut"></canvas></div>
+      <div id="dp-composition" class="rev-comp"></div>
       <div class="legend" style="justify-content:center;margin-top:10px;">
         <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Tax Revenue</div>
-        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Non-Tax</div>
-        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Oil &amp; Gas</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Non-Tax Revenue</div>
       </div>
     </div>
     <div class="card">
       <div class="ctitle">Revenue Trend by Type</div>
-      <div class="csub">NGN Billions · 2020–2025</div>
-      <div class="ch-lg"><canvas id="dp-trend"></canvas></div>
-      <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Tax</div>
-        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Non-Tax</div>
-        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Oil &amp; Gas</div>
+      <div class="csub" id="dp-flow-sub">Filter-aware view · aligned with year, state and sector filters</div>
+      <div class="flow-toolbar">
+        <span>Type / Sector View</span>
+        <label class="flow-switch-wrap">BY SECTOR
+          <button type="button" id="flow-toggle" class="flow-switch" aria-pressed="false" onclick="toggleFlowMode()"><span></span></button>
+        </label>
       </div>
+      <div id="dp-flow" class="flow-wrap"></div>
     </div>
   </div>
 
@@ -147,14 +199,8 @@
     </div>
     <div class="card">
       <div class="ctitle">Oil, Gas &amp; Natural Resource Revenues</div>
-      <div class="csub">NGN Billions · 2020–2025</div>
-      <div class="ch-lg"><canvas id="dp-oil"></canvas></div>
-      <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Dividends</div>
-        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Royalties</div>
-        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Licenses</div>
-        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Fees</div>
-      </div>
+      <div class="csub" id="dp-oil-sub">NGN Billions · 2020–2025</div>
+      <div id="dp-oil-redesign" class="oil-redesign"></div>
     </div>
   </div>
 
@@ -164,11 +210,24 @@
       <div class="ctitle">SOE Financial Flows</div>
       <div class="csub">Retained · Transfers · Surplus · Dividends · 2020–2025</div>
       <div class="ch-md"><canvas id="dp-soe"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#C9956A"></div>Retained</div>
+        <div class="leg"><div class="leg-dot" style="background:#8AAFAA"></div>Transfer</div>
+        <div class="leg"><div class="leg-dot" style="background:#A89F7A"></div>Surplus</div>
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Dividend</div>
+      </div>
     </div>
     <div class="card">
       <div class="ctitle">Earmarked Funds &amp; Special Accounts</div>
       <div class="csub">Infrastructure · Education · Health · Social · SWF · 2020–2025</div>
       <div class="ch-md"><canvas id="dp-earmark"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#A89F7A"></div>Infrastructure</div>
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Education</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Health</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Social</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>SWF</div>
+      </div>
     </div>
   </div>
 </div>
@@ -372,8 +431,6 @@
 <script src="js/data.js"></script>
 <script src="js/shared.js"></script>
 <script>
-document.getElementById('nav-bb').classList.add('active');
-
 // Populate state dropdown
 const stSel = document.getElementById('f-state');
 INFF.stateList().forEach(s => {
@@ -400,18 +457,75 @@ function getFilters() {
   return { yr, sc, sec };
 }
 
+function sumMetrics(rows) {
+  const base = { need:0, mob:0, gap:0, dp:0, priv:0, ip:0, ipriv:0 };
+  rows.forEach(row => {
+    if (!row) return;
+    Object.keys(base).forEach(k => { base[k] += Number(row[k] || 0); });
+  });
+  return base;
+}
+
+function avgMetrics(rows) {
+  const valid = rows.filter(Boolean);
+  if (!valid.length) return {};
+  const sums = sumMetrics(valid);
+  const out = {};
+  Object.keys(sums).forEach(k => out[k] = r1(sums[k] / valid.length));
+  out.gapPct = out.need ? r1(out.gap / out.need * 100) : 0;
+  out.gapClosed = out.need ? r1(out.mob / out.need * 100) : 0;
+  out.year = 'ALL';
+  return out;
+}
+
+function getYearRecord(year, sc, secKey) {
+  if (sc === 'ALL') return INFF.getNational(year, secKey);
+  return INFF.getState(sc, year, secKey) || {};
+}
+
 function getData(yr, sc, sec) {
   const secKey = sec === 'ALL' ? null : sec;
-  const yrNum  = yr === 'ALL' ? 2025 : parseInt(yr);
-  let d, dp;
-  if (sc === 'ALL') {
-    d  = INFF.getNational(yrNum, secKey);
-    dp = INFF.getNational(yrNum - 1, secKey);
-  } else {
-    d  = INFF.getState(sc, yrNum, secKey) || {};
-    dp = INFF.getState(sc, yrNum - 1, secKey) || {};
+  if (yr === 'ALL') {
+    const rows = YEARS.map(y => getYearRecord(y, sc, secKey));
+    const d = sumMetrics(rows);
+    const dp = sumMetrics(rows.slice(0, -1));
+    return { d, dp, yrNum: null, isAllYears: true };
   }
-  return { d, dp, yrNum };
+  const yrNum = parseInt(yr);
+  const d = getYearRecord(yrNum, sc, secKey);
+  const dp = getYearRecord(yrNum - 1, sc, secKey);
+  return { d, dp, yrNum, isAllYears: false };
+}
+
+function codeHash(str) {
+  return String(str || 'ALL').split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+}
+
+function getRevenueTypeSeries(sc, sec) {
+  const secKey = sec === 'ALL' ? null : sec;
+  const stateBias = (codeHash(sc) % 7) * 0.004;
+  const sectorBias = (codeHash(sec) % 6) * 0.005;
+  return YEARS.map((year, idx) => {
+    const row = getYearRecord(year, sc, secKey) || {};
+    const total = Number(row.dp || 0);
+    const taxShare = Math.min(0.82, Math.max(0.58, 0.67 + idx * 0.018 + stateBias - sectorBias));
+    const tax = r1(total * taxShare);
+    const nonTax = r1(Math.max(0, total - tax));
+    return { year, total: r1(total), tax, nonTax };
+  });
+}
+
+function getRevenueTypeSnapshot(sc, sec, yr) {
+  const series = getRevenueTypeSeries(sc, sec);
+  if (yr === 'ALL') {
+    const totalAll = r1(series.reduce((a, b) => a + b.total, 0));
+    const taxAll = r1(series.reduce((a, b) => a + b.tax, 0));
+    const nonAll = r1(series.reduce((a, b) => a + b.nonTax, 0));
+    return { label: 'Total 2020–2025', total: totalAll, tax: taxAll, nonTax: nonAll, series };
+  }
+  const year = parseInt(yr);
+  const current = series.find(item => item.year === year) || series[series.length - 1];
+  return { label: String(year), total: current.total, tax: current.tax, nonTax: current.nonTax, series };
 }
 
 // Seeded stacked trend generator (reproducible)
@@ -434,6 +548,66 @@ function stacked(labels, colors, seed, yfmt) {
   return barCfg(YLABELS, datasets, { stacked: true, yfmt: yfmt || (v => '₦' + v + 'B') });
 }
 
+
+function getOilResourceData(yr, sc, sec) {
+  const snapshot = getRevenueTypeSnapshot(sc, sec, yr);
+  const filtersLabel = `${sc === 'ALL' ? 'All Nigeria' : (INFF.states[sc]?.name || sc)} · ${sec === 'ALL' ? 'All Sectors' : (INFF.meta.sectors[sec] || sec)}`;
+  const viewLabel = yr === 'ALL' ? 'Total 2020–2025' : `${yr}`;
+  const stateBias = (codeHash(sc) % 5) * 0.01;
+  const sectorBias = (codeHash(sec) % 5) * 0.008;
+  const basePool = Math.max(0, snapshot.nonTax * (0.84 + stateBias) + snapshot.total * (0.05 + sectorBias));
+  const labels = ['Dividends','Royalties','Licenses','Fees'];
+  const colors = [P[0], P[1], P[2], P[3]];
+  const shares = [0.38, 0.29, 0.19, 0.14];
+  const sectorTweaks = {
+    ALL:[1,1,1,1], EDU:[0.94,1.02,1.04,1], HEA:[0.96,1.01,1.05,0.98], INF:[1.08,1.04,0.96,0.92],
+    AGR:[1.02,1.06,0.92,1], CLI:[0.98,1.08,0.94,1], DIG:[0.9,0.98,1.16,0.96], GOV:[1.04,0.96,1.02,0.98],
+    SOC:[0.95,1,1.08,0.97], ENE:[1.1,1.04,0.92,0.9], WAT:[1,1.03,0.94,1.03]
+  };
+  const tweaks = sectorTweaks[sec] || sectorTweaks.ALL;
+  const raw = shares.map((share, i) => share * tweaks[i]);
+  const totalShare = raw.reduce((a,b)=>a+b,0) || 1;
+  return labels.map((label, i) => {
+    const amount = r1(basePool * (raw[i] / totalShare));
+    const sharePct = r1((amount / (basePool || 1)) * 100);
+    return {
+      label,
+      color: colors[i],
+      total: amount,
+      sharePct,
+      filtersLabel,
+      viewLabel,
+      detailLabel: yr === 'ALL' ? 'Total for 2020–2025' : 'Selected year estimate'
+    };
+  });
+}
+
+function renderOilResourceRevenue(filters) {
+  const host = document.getElementById('dp-oil-redesign');
+  if (!host) return;
+  const { yr = 'ALL', state = 'ALL', sector = 'ALL' } = filters || {};
+  const items = getOilResourceData(yr, state, sector);
+  const maxVal = Math.max(...items.map(i => i.total), 1);
+  const sub = document.getElementById('dp-oil-sub');
+  if (sub) sub.textContent = yr === 'ALL'
+    ? 'NGN Billions · total 2020–2025 · responds to year, state and sector filters'
+    : `NGN Billions · ${yr} view · responds to year, state and sector filters`;
+  const metaLabel = yr === 'ALL' ? 'All Years' : String(yr);
+  host.innerHTML = items.map(item => {
+    const height = Math.max(96, Math.round((item.total / maxVal) * 170));
+    return `
+      <div class="oil-pill-card" data-tip="${item.label}<br>${fmt(item.total)}" style="animation-delay:${items.indexOf(item)*0.08}s">
+        <div class="oil-pill-label">${item.label}</div>
+        <div class="oil-pill-wrap">
+          <div class="oil-pill-value">${fmt(item.total)}</div>
+          <div class="oil-pill" style="height:${height}px;background:${item.color};animation:growUp .8s ease ${items.indexOf(item)*0.08}s both"></div>
+          <div class="oil-pill-meta">${metaLabel}</div>
+        </div>
+      </div>`;
+  }).join('');
+  bindTip(host);
+}
+
 function render() {
   const { yr, sc, sec } = getFilters();
   const secName = sec === 'ALL' ? 'All Sectors' : INFF.meta.sectors[sec];
@@ -441,38 +615,38 @@ function render() {
   const yrLabel = yr  === 'ALL' ? 'All Years'   : yr;
   document.getElementById('f-status').textContent = `${scName} · ${secName} · ${yrLabel}`;
 
-  const { d, dp, yrNum } = getData(yr, sc, sec);
+  const { d, dp, yrNum, isAllYears } = getData(yr, sc, sec);
   const selIdx = yr === 'ALL' ? -1 : YEARS.indexOf(yrNum);
   const hiBar  = (i) => selIdx < 0 || i === selIdx ? P[0] : P[0] + '55';
 
-  if (activeTab === 'dp')  renderDP(d, dp, selIdx, hiBar);
+  if (activeTab === 'dp')  renderDP(d, dp, selIdx, hiBar, yrNum, sc, sec, yr, isAllYears);
   if (activeTab === 'dpr') renderDPR(d, dp, selIdx, hiBar);
   if (activeTab === 'ip')  renderIP(d, dp, selIdx, hiBar);
   if (activeTab === 'ipr') renderIPR(d, dp, selIdx, hiBar);
 }
 
 // ── TAB 1: DOMESTIC PUBLIC ──
-function renderDP(d, dp, selIdx, hiBar) {
-  const val = d.dp || 0;
+function renderDP(d, dp, selIdx, hiBar, yrNum, sc, sec, yr, isAllYears) {
+  const revenueSnapshot = getRevenueTypeSnapshot(sc, sec, yr);
+  const val = revenueSnapshot.total || d.dp || 0;
   document.getElementById('dp-k1').textContent = fmt(val);
-  document.getElementById('dp-k2').textContent = fmt(val * 0.62);
+  document.getElementById('dp-k2').textContent = fmt(revenueSnapshot.tax);
   document.getElementById('dp-k4').textContent = fmt(val * 0.06);
   document.getElementById('dp-rev-val').textContent = fmt(val);
-  if (dp?.dp) {
+  if (isAllYears) {
+    document.getElementById('dp-k1d').textContent = 'Total view · 2020–2025';
+    document.getElementById('dp-k1d').className = 'kdelta kd-good';
+  } else if (dp?.dp) {
     const delta = r1((val - dp.dp) / dp.dp * 100);
     document.getElementById('dp-k1d').textContent = (delta>0?'▲':'▼') + ' ' + Math.abs(delta).toFixed(1) + '% YoY';
     document.getElementById('dp-k1d').className = 'kdelta ' + (delta>0?'kd-good':'kd-bad');
   }
 
-  mkChart('dp-donut', donutCfg([val*.55, val*.2, val*.25], [P[0], P[1], P[2]]));
-  mkChart('dp-trend', barCfg(YLABELS, [
-    {data: YEARS.map((_,i) => r1(val*.55*(1-i*.04+(Math.sin(i)*0.05)))), backgroundColor: P[0], borderRadius:3, stack:'s', label:'Tax'},
-    {data: YEARS.map((_,i) => r1(val*.20*(1-i*.02+(Math.sin(i+1)*0.05)))), backgroundColor: P[1], borderRadius:3, stack:'s', label:'Non-Tax'},
-    {data: YEARS.map((_,i) => r1(val*.25*(1-i*.03+(Math.sin(i+2)*0.05)))), backgroundColor: P[2], borderRadius:3, stack:'s', label:'Oil/Gas'},
-  ], {stacked:true, yfmt: v=>'₦'+v+'B'}));
+  renderRevenueComposition(revenueSnapshot, yr);
+  renderRevenueFlows(revenueSnapshot, { yr, yrNum, state: document.getElementById('f-state').value, sector: document.getElementById('f-sector').value });
 
   mkChart('dp-borrow', stacked(['T-Bills','Comm Loan','Sukuk','Bond','Other'], P, 1));
-  mkChart('dp-oil',    stacked(['Dividends','Royalties','Licenses','Fees'],   P, 3));
+  renderOilResourceRevenue({ yr, state: sc, sector: sec });
   mkChart('dp-soe',    stacked(['Retained','Transfer','Surplus','Dividend'],  P, 5));
   mkChart('dp-earmark',stacked(['Infra','Education','Health','Social','SWF'], P, 7));
 }
@@ -551,8 +725,173 @@ function renderIPR(d, dp, selIdx, hiBar) {
   mkChart('ipr-blend', stacked(['Guarantees','Concessional Tranche','First-Loss'], P, 13));
 }
 
+
+let flowMode = 'type';
+
+function toggleFlowMode(){
+  flowMode = flowMode === 'type' ? 'sector' : 'type';
+  const btn = document.getElementById('flow-toggle');
+  btn.classList.toggle('on', flowMode === 'sector');
+  btn.setAttribute('aria-pressed', flowMode === 'sector' ? 'true' : 'false');
+  const yr = document.getElementById('f-year').value;
+  const state = document.getElementById('f-state').value;
+  const sector = document.getElementById('f-sector').value;
+  const snapshot = getRevenueTypeSnapshot(state, sector, yr);
+  const { yrNum } = getData(yr, state, sector);
+  renderRevenueFlows(snapshot, { yr, yrNum, state, sector });
+}
+
+function flowTooltip(){
+  let el = document.getElementById('flow-tooltip');
+  if(!el){ el = document.createElement('div'); el.id='flow-tooltip'; el.className='flow-tooltip'; document.body.appendChild(el); }
+  return el;
+}
+
+function bindTip(container){
+  const tip = flowTooltip();
+  container.querySelectorAll('[data-tip]').forEach(el=>{
+    el.addEventListener('mousemove', e=>{ tip.innerHTML = el.dataset.tip; tip.style.opacity='1'; tip.style.left = e.clientX+'px'; tip.style.top = e.clientY+'px'; });
+    el.addEventListener('mouseleave', ()=> tip.style.opacity='0');
+  });
+}
+
+function renderRevenueComposition(snapshot, yr){
+  const total = snapshot.total || 0;
+  const tax = snapshot.tax || 0;
+  const nontax = snapshot.nonTax || 0;
+  const segs = [
+    {label:'Tax Revenue', value:tax, color:P[0]},
+    {label:'Non-Tax Revenue', value:nontax, color:P[1]}
+  ];
+  const sum = segs.reduce((a,b)=>a+b.value,0) || 1;
+  let start = 0;
+  const grad = segs.map(s=>{ const end = start + s.value/sum*360; const out = `${s.color} ${start}deg ${end}deg`; start=end; return out; }).join(', ');
+  const bars = snapshot.series || [];
+  const maxV = Math.max(...bars.flatMap(b=>[b.tax,b.nonTax])) || 1;
+  document.getElementById('dp-composition').innerHTML = `
+    <div class="rev-ring" style="background:conic-gradient(${grad})">
+      <div class="rev-center"><div class="mini">Total Revenue</div><div class="big">${fmt(total)}</div><div class="yr">${snapshot.label}</div></div>
+    </div>
+    <div class="rev-bars">
+      ${bars.map((b,i)=>`<div class="rev-col">
+        <div class="rev-pill" data-tip="Tax Revenue<br>${b.year}: ${fmt(b.tax)}" style="height:${Math.max(64, b.tax/maxV*150)}px;background:${P[0]};animation:growUp .75s ease ${i*0.08}s both"></div>
+        <div class="rev-pill" data-tip="Non-Tax Revenue<br>${b.year}: ${fmt(b.nonTax)}" style="height:${Math.max(56, b.nonTax/maxV*150)}px;background:${P[1]};animation:growUp .75s ease ${i*0.08+0.08}s both"></div>
+        <div class="rev-year">${b.year}</div>
+      </div>`).join('')}
+    </div>`;
+  document.getElementById('dp-comp-sub').textContent = yr === 'ALL' ? 'Tax Revenue · Non-Tax Revenue · total 2020–2025' : `Tax Revenue · Non-Tax Revenue · ${yr}`;
+  document.querySelectorAll('.rev-ring, .rev-center').forEach(el=> el.setAttribute('data-tip', segs.map(s=>`${s.label}: ${fmt(s.value)}`).join('<br>')));
+  bindTip(document.getElementById('dp-composition'));
+}
+
+function renderRevenueFlows(snapshot, filters){
+  const wrap = document.getElementById('dp-flow');
+  const sec = filters.sector || 'ALL';
+  const view = filters.yr === 'ALL'
+    ? { total: snapshot.total, tax: snapshot.tax, nonTax: snapshot.nonTax, fees: r1(snapshot.total * 0.05), losses: r1(snapshot.total * 0.08), label: 'Total flow · 2020–2025' }
+    : { total: snapshot.total, tax: snapshot.tax, nonTax: snapshot.nonTax, fees: r1(snapshot.total * 0.05), losses: r1(snapshot.total * 0.08), label: `${filters.yr} flow` };
+  const tax = view.tax;
+  const non = view.nonTax;
+  const fees = view.fees;
+  const losses = view.losses;
+
+  const sectorProfiles = {
+    ALL: [['INF',0.24],['EDU',0.18],['HEA',0.18],['AGR',0.14],['ENE',0.14],['WAT',0.12]],
+    EDU: [['EDU',0.28],['HEA',0.22],['SOC',0.16],['DIG',0.12],['WAT',0.12],['INF',0.10]],
+    HEA: [['HEA',0.30],['SOC',0.22],['WAT',0.16],['EDU',0.14],['DIG',0.10],['INF',0.08]],
+    INF: [['INF',0.32],['ENE',0.20],['WAT',0.16],['DIG',0.14],['AGR',0.10],['CLI',0.08]],
+    AGR: [['AGR',0.30],['WAT',0.18],['INF',0.16],['CLI',0.14],['ENE',0.12],['DIG',0.10]],
+    CLI: [['CLI',0.28],['ENE',0.20],['WAT',0.18],['AGR',0.14],['INF',0.12],['DIG',0.08]],
+    DIG: [['DIG',0.30],['EDU',0.18],['GOV',0.16],['INF',0.14],['HEA',0.12],['ENE',0.10]],
+    GOV: [['GOV',0.28],['SOC',0.20],['EDU',0.16],['DIG',0.14],['HEA',0.12],['INF',0.10]],
+    SOC: [['SOC',0.30],['HEA',0.24],['EDU',0.16],['WAT',0.12],['GOV',0.10],['DIG',0.08]],
+    ENE: [['ENE',0.34],['INF',0.20],['CLI',0.16],['DIG',0.12],['AGR',0.10],['WAT',0.08]],
+    WAT: [['WAT',0.30],['HEA',0.20],['AGR',0.18],['INF',0.14],['CLI',0.10],['SOC',0.08]]
+  };
+  const sectorTaxMix = { EDU:0.72, HEA:0.70, INF:0.62, AGR:0.55, CLI:0.58, DIG:0.64, GOV:0.78, SOC:0.74, ENE:0.60, WAT:0.66 };
+
+  let nodes = [];
+  let links = [];
+
+  if (flowMode === 'sector') {
+    const profile = sectorProfiles[sec] || sectorProfiles.ALL;
+    const sectorTotal = Math.max(0, tax + non);
+    const sectorNodes = profile.map(([code, share], idx) => {
+      const amount = r1(sectorTotal * share);
+      return {
+        key: String.fromCharCode(67 + idx),
+        code,
+        label: INFF.meta.sectors[code] || code,
+        amount,
+        taxPart: r1(amount * (sectorTaxMix[code] || 0.65)),
+        nonPart: r1(amount * (1 - (sectorTaxMix[code] || 0.65))),
+        x: idx < 3 ? 370 : 560,
+        y: [26, 130, 234, 26, 130, 234][idx],
+        h: [76, 76, 76, 76, 76, 76][idx]
+      };
+    });
+
+    nodes = [
+      {key:'TOTAL', x:6, y:70, w:10, h:190, cls:'flow-node', label:'TOTAL', anchor:'start', dx:14},
+      {key:'A', x:185, y:52, w:10, h:110, cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-8},
+      {key:'B', x:185, y:190, w:10, h:110, cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-8},
+      ...sectorNodes.map(s => ({...s, w:10, cls:'flow-node gold', anchor:'start', dx:14}))
+    ];
+
+    const taxDemand = sectorNodes.reduce((acc, s) => acc + s.taxPart, 0) || 1;
+    const nonDemand = sectorNodes.reduce((acc, s) => acc + s.nonPart, 0) || 1;
+    links = [
+      ['TOTAL','A', tax, 'flow-link-a'],
+      ['TOTAL','B', non, 'flow-link-b'],
+      ...sectorNodes.flatMap(s => [
+        ['A', s.key, r1(tax * (s.taxPart / taxDemand)), 'flow-link-a'],
+        ['B', s.key, r1(non * (s.nonPart / nonDemand)), 'flow-link-b']
+      ])
+    ];
+  } else {
+    const midA = 'Budget Channel';
+    const midB = 'Transfer Channel';
+    const outA = 'Budget Use';
+    const outB = 'Transfers';
+    nodes = [
+      {key:'TOTAL', x:6, y:70, w:10, h:190, cls:'flow-node', label:'TOTAL', anchor:'start', dx:14},
+      {key:'A', x:185, y:20, w:10, h:120, cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-6},
+      {key:'B', x:185, y:170, w:10, h:95, cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-6},
+      {key:'C', x:370, y:70, w:10, h:115, cls:'flow-node', label: midA, anchor:'end', dx:-6},
+      {key:'D', x:370, y:215, w:10, h:70, cls:'flow-node', label: midB, anchor:'end', dx:-6},
+      {key:'E', x:555, y:40, w:10, h:130, cls:'flow-node', label: outA, anchor:'end', dx:-6},
+      {key:'F', x:555, y:195, w:10, h:55, cls:'flow-node', label: outB, anchor:'end', dx:-6},
+      {key:'G', x:738, y:18, w:10, h:14, cls:'flow-node gold', label:'Exports', anchor:'end', dx:-6},
+      {key:'H', x:738, y:210, w:10, h:98, cls:'flow-node gold', label:'Households', anchor:'end', dx:-6}
+    ];
+    links = [
+      ['TOTAL','A', tax, 'flow-link-a'], ['TOTAL','B', non+fees+losses, 'flow-link-b'],
+      ['A','C', tax, 'flow-link-a'], ['B','D', non, 'flow-link-b'],
+      ['C','E', tax*0.88, 'flow-link-a'], ['C','F', tax*0.12, 'flow-link-b'],
+      ['D','E', non*0.72, 'flow-link-a'], ['D','F', non*0.28 + losses, 'flow-link-b'],
+      ['E','H', tax*0.5 + non*0.42, 'flow-link-b'], ['F','G', fees, 'flow-link-a']
+    ];
+  }
+
+  const n = Object.fromEntries(nodes.map(o=>[o.key,o]));
+  const maxL = Math.max(...links.map(l=>l[2])) || 1;
+  function path(s,t){ const a=n[s], b=n[t]; const x1=a.x+a.w, y1=a.y+a.h/2, x2=b.x, y2=b.y+b.h/2; const cx=(x2-x1)*0.45; return `M ${x1} ${y1} C ${x1+cx} ${y1}, ${x2-cx} ${y2}, ${x2} ${y2}`; }
+  document.getElementById('dp-flow-sub').textContent = flowMode === 'sector'
+    ? (filters.yr === 'ALL' ? 'Filter-aware view · dummy sector allocation using sector filter names (total 2020–2025)' : `Filter-aware view · dummy sector allocation using sector filter names for ${filters.yr}`)
+    : (filters.yr === 'ALL' ? 'Filter-aware view · total 2020–2025 aligned with year, state and sector filters' : `Filter-aware view · ${filters.yr} flow aligned with year, state and sector filters`);
+  wrap.innerHTML = `<svg viewBox="0 0 750 350" preserveAspectRatio="none" aria-label="Revenue flow chart">
+    <defs>
+      <linearGradient id="flowGradA" x1="0" x2="1"><stop offset="0%" stop-color="${P[4] || '#B08AC9'}"/><stop offset="100%" stop-color="${P[1]}"/></linearGradient>
+      <linearGradient id="flowGradB" x1="0" x2="1"><stop offset="0%" stop-color="${P[0]}"/><stop offset="100%" stop-color="${P[1]}"/></linearGradient>
+    </defs>
+    ${links.map(([s,t,v,cls],i)=>`<path data-animate="link" class="${cls}" d="${path(s,t)}" stroke-width="${Math.max(8, v/maxL*58)}" data-tip="${n[s].label} → ${n[t].label}<br>${fmt(v)}" style="animation-delay:${i*0.06}s"></path>`).join('')}
+    ${nodes.map((o,i)=>`<g data-animate="node" data-tip="${o.label}<br>${view.label}<br>${flowMode==='sector' ? 'Dummy sector-linked flow node' : 'Revenue type node'}" style="animation-delay:${0.15 + i*0.05}s"><rect class="${o.cls}" x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}"></rect><text class="flow-label" x="${o.x + (o.dx ?? (o.key==='TOTAL'?14:-6))}" y="${o.y + o.h/2}" dominant-baseline="middle" text-anchor="${o.anchor || (o.key==='TOTAL'?'start':'end')}">${o.label}</text></g>`).join('')}
+  </svg>`;
+  bindTip(wrap);
+}
+
 function resetFilters() {
-  document.getElementById('f-year').value   = '2025';
+  document.getElementById('f-year').value   = 'ALL';
   document.getElementById('f-state').value  = 'ALL';
   document.getElementById('f-sector').value = 'ALL';
   render();
@@ -576,24 +915,60 @@ render();
 
 
 
-<footer class="site-footer" aria-label="Site footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-logos" aria-label="Partner logos">
-        <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
-        <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png"><img alt="European Union" src="assets/images/EU_Flag.png">
-        <img alt="UNDP" src="assets/images/UNDP-Logo-Blue.png">
+
+
+
+
+
+
+
+<script>
+(function(){
+  if(window.Chart){
+    Chart.defaults.animation = {duration: 1400, easing: 'easeOutQuart'};
+    if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
+      Chart.defaults.transitions.active.animation = {duration: 300};
+    }
+  }
+})();
+</script>
+
+<script>
+
+// Global animation defaults for p1-landscape charts
+if (window.Chart) {
+  Chart.defaults.animation = {
+    duration: 1400,
+    easing: 'easeOutQuart'
+  };
+  Chart.defaults.animations = {
+    y: { from: 0, duration: 1400, easing: 'easeOutQuart' },
+    x: { duration: 700, easing: 'easeOutQuart' }
+  };
+}
+
+</script>
+
+
+
+
+
+<footer class="portal-footer">
+  <div class="footer-container">
+    <div class="footer-col footer-brand">
+      <div class="footer-logos">
+        <img src="assets/images/Nigeria_Gov_Logo.png" alt="Nigeria Government Logo">
+        <img src="assets/images/SDGs_Nigeria_office_Logo.png" alt="OSSAP SDGs Logo">
+        <img src="assets/images/EU_Flag.png" alt="European Union Logo">
+        <img src="assets/images/UNDP-Logo-Blue.png" alt="UNDP Logo">
       </div>
-      <h3>Nigeria Integrated National Financing Framework</h3>
-      <p>Authoritative, living source of INFF implementation data in Nigeria.</p>
-      <div class="footer-copy">© 2026 Nigeria Integrated National Financing Framework • All rights reserved</div>
+      <p><strong>Nigeria Integrated National Financing Framework</strong> dashboard provides a consolidated view of Nigeria’s financing landscape across public, private and international resources.</p>
     </div>
 
     <div class="footer-col">
       <h4>BUILDING BLOCKS</h4>
       <ul>
-        <li><a href="p1-landscape.html">Assessment &amp; Diagnostics</a></li>
+        <li><a href="building-blocks.html">Assessment &amp; Diagnostics</a></li>
         <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
         <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
         <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
@@ -605,33 +980,26 @@ render();
       <ul>
         <li><a href="p1-gap.html">View Financing Gaps</a></li>
         <li><a href="p2-reforms.html">Track Reforms</a></li>
-        <li><a href="knowledge.html">Latest INFF Updates</a></li>
-        <li><a href="p4-subnational.html">Subnational SDG Scorecards</a></li>
+        <li><a href="downloads.html">Latest INFF Updates</a></li>
+        <li><a href="p3-results.html">Subnational SDG Scorecards</a></li>
       </ul>
     </div>
 
     <div class="footer-col">
       <h4>CONTACT</h4>
-      <div class="footer-contact">
-        <a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a><br>
-        Abuja, Nigeria
-      </div>
-      <div class="footer-social" aria-label="Social links">
-        <a class="soc" href="#" aria-label="Website">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20Zm7.6 9H17a15.6 15.6 0 00-1.2-6A8.03 8.03 0 0119.6 11ZM12 4c1.1 1.6 2 3.8 2.4 7H9.6C10 7.8 10.9 5.6 12 4ZM4.4 13H7a15.6 15.6 0 001.2 6A8.03 8.03 0 014.4 13ZM7 11H4.4A8.03 8.03 0 018.2 5c-.5 1.2-.9 2.7-1.2 6Zm2.6 2h4.8c-.4 3.2-1.3 5.4-2.4 7-1.1-1.6-2-3.8-2.4-7Zm7.2 0h2.6a8.03 8.03 0 01-3.8 6c.5-1.2.9-2.7 1.2-6Zm-.2-2h-4.8c.4-3.2 1.3-5.4 2.4-7 1.1 1.6 2 3.8 2.4 7Z"/></svg>
-        </a>
-        <a class="soc" href="#" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.3l.7-3H13V9c0-.6.4-1 1-1Z"/></svg>
-        </a>
-        <a class="soc" href="#" aria-label="X">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 2H21l-6.4 7.3L22 22h-6.7l-5.2-6.7L4.3 22H2l7-8L2 2h6.8l4.7 6.1L18.3 2Zm-1.2 18h1.5L7 3.9H5.4L17.1 20Z"/></svg>
-        </a>
-        <a class="soc" href="#" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.8A2.3 2.3 0 116.5 2a2.3 2.3 0 010 4.8ZM5 22V9h3v13H5Zm6 0V9h2.9v1.8h.1c.4-.8 1.5-2 3.4-2 3.6 0 4.3 2.4 4.3 5.5V22h-3v-6.3c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V22h-3Z"/></svg>
-        </a>
+      <ul class="footer-contact">
+        <li><a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a></li>
+        <li>Abuja, Nigeria</li>
+      </ul>
+      <div class="footer-socials">
+        <a href="#" aria-label="Website">🌐</a>
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="X">X</a>
+        <a href="#" aria-label="LinkedIn">in</a>
       </div>
     </div>
   </div>
+  <div class="footer-bottom">© 2025 Nigeria INFF Dashboard • All Rights Reserved</div>
 </footer>
 
 

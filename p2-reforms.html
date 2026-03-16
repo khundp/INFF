@@ -161,32 +161,26 @@ select:focus{outline:none;border-color:var(--brand);}
 .nav-logos img{height:28px;width:auto;object-fit:contain;filter:brightness(1.05);}
 .nav-brand-text{display:flex;flex-direction:column;line-height:1;}
 
+
+/* Footer upgrade */
+.portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
+.footer-container{max-width:1200px;margin:auto;padding:42px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.footer-col h4{margin-bottom:12px;font-size:14px;font-weight:600;color:#fff}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:8px;font-size:13px;color:#c9c9d6}
+.footer-col a{color:#c9c9d6;text-decoration:none}
+.footer-col a:hover{color:#fff}
+.footer-brand h3{margin-bottom:10px;font-size:18px}
+.footer-brand p{font-size:13px;line-height:1.7;color:#c9c9d6;max-width:420px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:16px;font-size:12px;color:#a9a9b6}
+@media (max-width:900px){.footer-container{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.footer-container{grid-template-columns:1fr}}
+
 </style>
 </head>
-<body>
-<nav class="topnav" style="height:56px;min-height:56px;max-height:56px;box-sizing:border-box;">
-  <a href="landing.html" class="nav-brand with-logos" style="display:flex;align-items:center;gap:10px;">
-  <div class="nav-logos" style="display:flex;align-items:center;gap:10px;flex:0 0 auto;" aria-label="Partner logos">
-    <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png" style="height:40px;width:auto;min-height:40px;max-height:40px;object-fit:contain;display:block;">
-    <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png" style="height:40px;width:auto;min-height:40px;max-height:40px;object-fit:contain;display:block;">
-  </div>
-  <div class="nav-brand-text" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:4px;line-height:1;max-width:560px;">
-    <span class="nb-title" style="font-family:Literata,serif;font-size:18px;font-weight:700;line-height:1;margin:0;padding:0;letter-spacing:0;white-space:normal;">Nigeria Integrated National Financing Framework</span>
-    <span class="nb-sub" style="font-family:Sora,sans-serif;font-size:10px;font-weight:600;line-height:1;letter-spacing:1px;margin:0;padding:0;white-space:normal;">Monitoring & Coordination Platform</span>
-  </div>
-</a>
-  <div class="nav-links">
-    <a href="overview.html" id="nav-overview">Overview</a>
-    <a href="building-blocks.html" id="nav-bb">Building Blocks</a>
-    <a href="analytics.html" id="nav-analytics">Analytics &amp; Reports</a>
-    <a href="knowledge.html" id="nav-knowledge">Knowledge &amp; Updates</a>
-    <a href="downloads.html" id="nav-downloads">Downloads</a>
-  </div>
-</nav>
-<div class="breadbar">
-  <a href="overview.html">Home</a> <span>›</span>
-  <span>Reform Tracker</span>
-</div>
+<body data-nav="bb">
+<div id="nav-placeholder" data-include="assets/nav.html"></div>
+<div id="breadcrumb-placeholder" data-include="assets/partials/breadcrumbs/p2-reforms.html"></div>
 <div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:#D4956A;color:#fff;">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p2-reforms.html" class="opt-c-sec-link active">Reform Tracker</a><span class="opt-c-sep">·</span><a href="p2-sources.html" class="opt-c-sec-link ">Financing Sources</a><span class="opt-c-sep">·</span><a href="p2-private.html" class="opt-c-sec-link ">Private Sector Mobilisation</a></div></div>
 <div class="uc-wrap">
   <div class="uc-icon">🚧</div>
@@ -194,29 +188,50 @@ select:focus{outline:none;border-color:var(--brand);}
   <div class="uc-sub">Reform Tracker</div>
   <a href="overview.html" class="uc-back">← Back to Overview</a>
 </div>
-<script>document.getElementById('nav-bb').classList.add('active');</script>
 
 
 
 
-<footer class="site-footer" aria-label="Site footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-logos" aria-label="Partner logos">
-        <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
-        <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png"><img alt="European Union" src="assets/images/EU_Flag.png">
-        <img alt="UNDP" src="assets/images/UNDP-Logo-Blue.png">
+
+
+
+<script src="js/shared.js"></script>
+
+
+
+
+<script>
+(function(){
+  if(window.Chart){
+    Chart.defaults.animation = {duration: 1400, easing: 'easeOutQuart'};
+    if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
+      Chart.defaults.transitions.active.animation = {duration: 300};
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+<footer class="portal-footer">
+  <div class="footer-container">
+    <div class="footer-col footer-brand">
+      <div class="footer-logos">
+        <img src="assets/images/Nigeria_Gov_Logo.png" alt="Nigeria Government Logo">
+        <img src="assets/images/SDGs_Nigeria_office_Logo.png" alt="OSSAP SDGs Logo">
+        <img src="assets/images/EU_Flag.png" alt="European Union Logo">
+        <img src="assets/images/UNDP-Logo-Blue.png" alt="UNDP Logo">
       </div>
-      <h3>Nigeria Integrated National Financing Framework</h3>
-      <p>Authoritative, living source of INFF implementation data in Nigeria.</p>
-      <div class="footer-copy">© 2026 Nigeria Integrated National Financing Framework • All rights reserved</div>
+      <p><strong>Nigeria Integrated National Financing Framework</strong> dashboard provides a consolidated view of Nigeria’s financing landscape across public, private and international resources.</p>
     </div>
 
     <div class="footer-col">
       <h4>BUILDING BLOCKS</h4>
       <ul>
-        <li><a href="p1-landscape.html">Assessment &amp; Diagnostics</a></li>
+        <li><a href="building-blocks.html">Assessment &amp; Diagnostics</a></li>
         <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
         <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
         <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
@@ -228,34 +243,28 @@ select:focus{outline:none;border-color:var(--brand);}
       <ul>
         <li><a href="p1-gap.html">View Financing Gaps</a></li>
         <li><a href="p2-reforms.html">Track Reforms</a></li>
-        <li><a href="knowledge.html">Latest INFF Updates</a></li>
-        <li><a href="p4-subnational.html">Subnational SDG Scorecards</a></li>
+        <li><a href="downloads.html">Latest INFF Updates</a></li>
+        <li><a href="p3-results.html">Subnational SDG Scorecards</a></li>
       </ul>
     </div>
 
     <div class="footer-col">
       <h4>CONTACT</h4>
-      <div class="footer-contact">
-        <a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a><br>
-        Abuja, Nigeria
-      </div>
-      <div class="footer-social" aria-label="Social links">
-        <a class="soc" href="#" aria-label="Website">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20Zm7.6 9H17a15.6 15.6 0 00-1.2-6A8.03 8.03 0 0119.6 11ZM12 4c1.1 1.6 2 3.8 2.4 7H9.6C10 7.8 10.9 5.6 12 4ZM4.4 13H7a15.6 15.6 0 001.2 6A8.03 8.03 0 014.4 13ZM7 11H4.4A8.03 8.03 0 018.2 5c-.5 1.2-.9 2.7-1.2 6Zm2.6 2h4.8c-.4 3.2-1.3 5.4-2.4 7-1.1-1.6-2-3.8-2.4-7Zm7.2 0h2.6a8.03 8.03 0 01-3.8 6c.5-1.2.9-2.7 1.2-6Zm-.2-2h-4.8c.4-3.2 1.3-5.4 2.4-7 1.1 1.6 2 3.8 2.4 7Z"/></svg>
-        </a>
-        <a class="soc" href="#" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.3l.7-3H13V9c0-.6.4-1 1-1Z"/></svg>
-        </a>
-        <a class="soc" href="#" aria-label="X">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 2H21l-6.4 7.3L22 22h-6.7l-5.2-6.7L4.3 22H2l7-8L2 2h6.8l4.7 6.1L18.3 2Zm-1.2 18h1.5L7 3.9H5.4L17.1 20Z"/></svg>
-        </a>
-        <a class="soc" href="#" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.8A2.3 2.3 0 116.5 2a2.3 2.3 0 010 4.8ZM5 22V9h3v13H5Zm6 0V9h2.9v1.8h.1c.4-.8 1.5-2 3.4-2 3.6 0 4.3 2.4 4.3 5.5V22h-3v-6.3c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V22h-3Z"/></svg>
-        </a>
+      <ul class="footer-contact">
+        <li><a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a></li>
+        <li>Abuja, Nigeria</li>
+      </ul>
+      <div class="footer-socials">
+        <a href="#" aria-label="Website">🌐</a>
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="X">X</a>
+        <a href="#" aria-label="LinkedIn">in</a>
       </div>
     </div>
   </div>
+  <div class="footer-bottom">© 2025 Nigeria INFF Dashboard • All Rights Reserved</div>
 </footer>
+
 
 </body>
 </html>

@@ -105,28 +105,37 @@ html, body { height:100%; font-family:'Sora',sans-serif; overflow:hidden; }
 /* When Explore is active, hide the system cursor so only the circle is visible */
 body.explore-active, body.explore-active * { cursor:none !important; }
 nav { display:none !important; }
+
+/* Footer upgrade */
+.portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
+.footer-container{max-width:1200px;margin:auto;padding:42px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.footer-col h4{margin-bottom:12px;font-size:14px;font-weight:600;color:#fff}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:8px;font-size:13px;color:#c9c9d6}
+.footer-col a{color:#c9c9d6;text-decoration:none}
+.footer-col a:hover{color:#fff}
+.footer-brand h3{margin-bottom:10px;font-size:18px}
+.footer-brand p{font-size:13px;line-height:1.7;color:#c9c9d6;max-width:420px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:16px;font-size:12px;color:#a9a9b6}
+@media (max-width:900px){.footer-container{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.footer-container{grid-template-columns:1fr}}
+
+
+.footer-logos{
+display:flex;
+gap:14px;
+margin-bottom:12px;
+align-items:center;
+}
+.footer-logos img{
+height:38px;
+width:auto;
+}
+
 </style>
 </head>
-<body>
-<nav class="topnav" style="height:56px;min-height:56px;max-height:56px;box-sizing:border-box;">
-  <a href="landing.html" class="nav-brand with-logos" style="display:flex;align-items:center;gap:10px;">
-  <div class="nav-logos" style="display:flex;align-items:center;gap:10px;flex:0 0 auto;" aria-label="Partner logos">
-    <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png" style="height:40px;width:auto;min-height:40px;max-height:40px;object-fit:contain;display:block;">
-    <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png" style="height:40px;width:auto;min-height:40px;max-height:40px;object-fit:contain;display:block;">
-  </div>
-  <div class="nav-brand-text" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:4px;line-height:1;max-width:560px;">
-    <span class="nb-title" style="font-family:Literata,serif;font-size:18px;font-weight:700;line-height:1;margin:0;padding:0;letter-spacing:0;white-space:normal;">Nigeria Integrated National Financing Framework</span>
-    <span class="nb-sub" style="font-family:Sora,sans-serif;font-size:10px;font-weight:600;line-height:1;letter-spacing:1px;margin:0;padding:0;white-space:normal;">Monitoring & Coordination Platform</span>
-  </div>
-</a>
-  <div class="nav-links">
-    <a href="overview.html" id="nav-overview">Overview</a>
-    <a href="building-blocks.html" id="nav-bb">Building Blocks</a>
-    <a href="analytics.html" id="nav-analytics">Analytics &amp; Reports</a>
-    <a href="knowledge.html" id="nav-knowledge">Knowledge &amp; Updates</a>
-    <a href="downloads.html" id="nav-downloads">Downloads</a>
-  </div>
-</nav>
+<body data-nav="">
+<div id="nav-placeholder" data-include="assets/nav.html"></div>
 <a href="overview.html" class="explore" id="landingExplore" aria-label="Explore dashboard"><span>Explore</span></a>
 
 <div class="scroll-container" id="sc">
@@ -143,7 +152,7 @@ nav { display:none !important; }
         <img alt="UNDP" src="assets/images/UNDP-Logo-Blue.png"/>
       </div>
 
-      <div class="title">Nigeria <em>Integrated National<br>Financing Framework</em></div>
+      <div class="title">Nigeria's <em>Integrated National<br>Financing Framework</em></div>
       <div class="sub">Monitoring &amp; Coordination Platform</div>
 
       <div class="hint" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">
@@ -293,5 +302,76 @@ nav { display:none !important; }
     requestAnimationFrame(tick);
   })();
 </script>
+<script src="js/shared.js"></script>
+
+
+
+
+<script>
+(function(){
+  if(window.Chart){
+    Chart.defaults.animation = {duration: 1400, easing: 'easeOutQuart'};
+    if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
+      Chart.defaults.transitions.active.animation = {duration: 300};
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+<footer class="portal-footer">
+  <div class="footer-container">
+    <div class="footer-col footer-brand">
+      <div class="footer-logos">
+        <img src="assets/images/Nigeria_Gov_Logo.png" alt="Nigeria Government Logo">
+        <img src="assets/images/SDGs_Nigeria_office_Logo.png" alt="OSSAP SDGs Logo">
+        <img src="assets/images/EU_Flag.png" alt="European Union Logo">
+        <img src="assets/images/UNDP-Logo-Blue.png" alt="UNDP Logo">
+      </div>
+      <p><strong>Nigeria Integrated National Financing Framework</strong> dashboard provides a consolidated view of Nigeria’s financing landscape across public, private and international resources.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>BUILDING BLOCKS</h4>
+      <ul>
+        <li><a href="building-blocks.html">Assessment &amp; Diagnostics</a></li>
+        <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
+        <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
+        <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>QUICK LINKS</h4>
+      <ul>
+        <li><a href="p1-gap.html">View Financing Gaps</a></li>
+        <li><a href="p2-reforms.html">Track Reforms</a></li>
+        <li><a href="downloads.html">Latest INFF Updates</a></li>
+        <li><a href="p3-results.html">Subnational SDG Scorecards</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>CONTACT</h4>
+      <ul class="footer-contact">
+        <li><a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a></li>
+        <li>Abuja, Nigeria</li>
+      </ul>
+      <div class="footer-socials">
+        <a href="#" aria-label="Website">🌐</a>
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="X">X</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Nigeria INFF Dashboard • All Rights Reserved</div>
+</footer>
+
+
 </body>
 </html>

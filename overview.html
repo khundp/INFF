@@ -111,6 +111,16 @@ select:focus{outline:none;border-color:var(--brand);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
 .src-track{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin-bottom:3px;}
+
+.sector-mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px;align-items:stretch;}
+.sector-tile{position:relative;border-radius:18px;padding:16px 18px;color:#fff;font-weight:800;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;box-shadow:inset 0 -18px 30px rgba(0,0,0,.04);min-height:84px;}
+.sector-tile::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));pointer-events:none;}
+.sector-tile .name,.sector-tile .pct{position:relative;z-index:1;}
+.sector-tile .name{font-size:13px;line-height:1.15;max-width:210px;}
+.sector-tile .pct{font-size:18px;line-height:1.05;margin-top:6px;}
+@media (max-width:900px){.sector-mosaic{grid-template-columns:repeat(6,minmax(0,1fr));}}
+@media (max-width:640px){.sector-mosaic{grid-template-columns:1fr;}.sector-tile{grid-column:span 1 !important;height:auto !important;min-height:88px;}}
+
 .src-bar{height:100%;border-radius:4px;transition:width .4s;}
 .alerts-band{background:var(--brand-dk);border-radius:var(--radius);padding:22px 24px;margin-bottom:16px;}
 .alerts-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px;}
@@ -124,10 +134,13 @@ select:focus{outline:none;border-color:var(--brand);}
 .ad-blue{background:#7aafc9;box-shadow:0 0 6px rgba(122,175,201,.4);}
 .alert-text{font-size:12px;color:rgba(255,255,255,.82);flex:1;}
 .alert-arrow{font-size:13px;color:rgba(255,255,255,.3);}
-.art-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;margin-bottom:12px;}
-.art-img{width:180px;flex-shrink:0;background:linear-gradient(135deg,#f0eaf8,#eaf5f5);display:flex;align-items:center;justify-content:center;min-height:120px;}
+.art-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:8px;}
+.art-card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;min-height:100%;margin-bottom:0;transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;}
+.art-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(25,35,79,.12);border-color:rgba(92,85,181,.22);}
+.art-img{width:240px;flex-shrink:0;background:linear-gradient(135deg,#f0eaf8,#eaf5f5);display:flex;align-items:center;justify-content:center;min-height:150px;overflow:hidden;}
+.art-img img{width:100%;height:100%;object-fit:cover;display:block;}
 .art-img span{font-size:34px;opacity:.35;}
-.art-body{padding:16px 18px;flex:1;}
+.art-body{padding:16px 18px;flex:1;display:flex;flex-direction:column;}
 .art-tag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c1);margin-bottom:6px;}
 .art-title{font-family:'Literata',serif;font-size:14px;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:7px;}
 .art-excerpt{font-size:10px;color:var(--ink-lt);line-height:1.65;margin-bottom:10px;}
@@ -162,6 +175,13 @@ select:focus{outline:none;border-color:var(--brand);}
   .footer-grid{grid-template-columns:1fr;}
 }
 
+@media (max-width: 980px){
+  .art-grid{grid-template-columns:1fr;}
+  .art-card{flex-direction:column;}
+  .art-img{width:100%;min-height:220px;}
+}
+
+
 
 /* ── header logos ── */
 .nav-brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;}
@@ -169,49 +189,39 @@ select:focus{outline:none;border-color:var(--brand);}
 .nav-logos img{height:28px;width:auto;object-fit:contain;filter:brightness(1.05);}
 .nav-brand-text{display:flex;flex-direction:column;line-height:1;}
 
+
+/* Footer upgrade */
+.portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
+.footer-container{max-width:1200px;margin:auto;padding:42px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.footer-col h4{margin-bottom:12px;font-size:14px;font-weight:600;color:#fff}
+.footer-col ul{list-style:none;padding:0;margin:0}
+.footer-col li{margin-bottom:8px;font-size:13px;color:#c9c9d6}
+.footer-col a{color:#c9c9d6;text-decoration:none}
+.footer-col a:hover{color:#fff}
+.footer-brand h3{margin-bottom:10px;font-size:18px}
+.footer-brand p{font-size:13px;line-height:1.7;color:#c9c9d6;max-width:420px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:16px;font-size:12px;color:#a9a9b6}
+@media (max-width:900px){.footer-container{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.footer-container{grid-template-columns:1fr}}
+
 </style>
 </head>
-<body>
+<body data-nav="overview">
 
-<nav class="topnav" style="height:56px;min-height:56px;max-height:56px;box-sizing:border-box;">
-  <a href="landing.html" class="nav-brand with-logos" style="display:flex;align-items:center;gap:10px;">
-  <div class="nav-logos" style="display:flex;align-items:center;gap:10px;flex:0 0 auto;" aria-label="Partner logos">
-    <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png" style="height:40px;width:auto;min-height:40px;max-height:40px;object-fit:contain;display:block;">
-    <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png" style="height:40px;width:auto;min-height:40px;max-height:40px;object-fit:contain;display:block;">
-  </div>
-  <div class="nav-brand-text" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:4px;line-height:1;max-width:560px;">
-    <span class="nb-title" style="font-family:Literata,serif;font-size:18px;font-weight:700;line-height:1;margin:0;padding:0;letter-spacing:0;white-space:normal;">Nigeria Integrated National Financing Framework</span>
-    <span class="nb-sub" style="font-family:Sora,sans-serif;font-size:10px;font-weight:600;line-height:1;letter-spacing:1px;margin:0;padding:0;white-space:normal;">Monitoring & Coordination Platform</span>
-  </div>
-</a>
-  <div class="nav-links">
-    <a href="overview.html" id="nav-overview">Overview</a>
-    <a href="building-blocks.html" id="nav-bb">Building Blocks</a>
-    <a href="analytics.html" id="nav-analytics">Analytics &amp; Reports</a>
-    <a href="knowledge.html" id="nav-knowledge">Knowledge &amp; Updates</a>
-    <a href="downloads.html" id="nav-downloads">Downloads</a>
-  </div>
-</nav>
+<div id="nav-placeholder" data-include="assets/nav.html"></div>
 
 <!-- BREADCRUMB -->
-<div class="breadbar">
-  <a href="overview.html">Home</a>
-  <span>›</span>
-  <span>Overview</span>
-</div>
+<div id="breadcrumb-placeholder" data-include="assets/partials/breadcrumbs/overview.html"></div>
 
-<div class="page-header">
-  <div class="ph-title">Overview</div>
-  <div class="ph-desc">Nigeria's national financing picture at a glance — total mobilisation, financing gaps, reform progress, and partner contributions across all SDG sectors.</div>
-</div>
+<div id="header-placeholder" data-include="assets/partials/headers/overview.html"></div>
 
 <!-- FILTER BAR -->
 <div class="fbar">
   <div class="fb-group">
     <span class="fb-label">Year</span>
     <select id="f-year" onchange="render()">
-      <option value="ALL">All Years</option>
-      <option value="2025" selected>2025</option>
+      <option value="ALL" selected>All Years</option>
+      <option value="2025">2025</option>
       <option value="2024">2024</option>
       <option value="2023">2023</option>
       <option value="2022">2022</option>
@@ -237,7 +247,7 @@ select:focus{outline:none;border-color:var(--brand);}
     </select>
   </div>
   <button class="btn-reset" onclick="resetFilters()">Reset</button>
-  <div class="fb-status">Showing: <strong id="f-status">All Nigeria · All Sectors · 2025</strong></div>
+  <div class="fb-status">Showing: <strong id="f-status">All Nigeria · All Sectors · All Years</strong></div>
 </div>
 
 <div class="wrap">
@@ -246,13 +256,13 @@ select:focus{outline:none;border-color:var(--brand);}
     <div class="kcard kc-1">
       <div class="klabel">Total Financing Mobilised</div>
       <div class="kvalue" id="k-mob">—</div>
-      <div class="ksub" id="k-mob-sub">vs SDG need · 2025</div>
+      <div class="ksub" id="k-mob-sub">vs SDG need · All Years</div>
       <div class="kdelta kd-good" id="k-mob-d">—</div>
     </div>
     <div class="kcard kc-gap">
       <div class="klabel">Estimated Financing Gap</div>
       <div class="kvalue" id="k-gap">—</div>
-      <div class="ksub" id="k-gap-sub">All sectors · 2025</div>
+      <div class="ksub" id="k-gap-sub">All sectors · All Years</div>
       <div class="kdelta kd-bad" id="k-gap-d">—</div>
     </div>
     <div class="kcard kc-2">
@@ -303,7 +313,7 @@ select:focus{outline:none;border-color:var(--brand);}
     <div class="card">
       <div class="ctitle">Financing by Sector</div>
       <div class="csub">Share of total mobilised · selected year</div>
-      <div class="ch-md"><canvas id="c-sector"></canvas></div>
+      <div class="sector-mosaic" id="sector-mosaic" aria-label="Financing by Sector visualization"></div>
     </div>
   </div>
 
@@ -329,22 +339,41 @@ select:focus{outline:none;border-color:var(--brand);}
 
   <div class="sec-label">Knowledge &amp; Updates</div>
   <div class="sec-hed">Featured</div>
-  <div class="art-card">
-    <div class="art-img"><span>⛏</span></div>
-    <div class="art-body">
-      <div class="art-tag">Domestic Finance · Mining</div>
-      <div class="art-title">Beaming the Light on a Hidden Sector: Artisanal and Small-scale Mining as a Vital Sector for Sustainable Development in Nigeria</div>
-      <div class="art-excerpt">UNDP and the EU, through the INFF, embarked on a series of activities to address financing gaps in Nigeria's artisanal mining sector.</div>
-      <a href="#" class="art-link">Learn More →</a>
+  <div class="art-grid">
+    <div class="art-card">
+ <div class="art-img"><img src="assets/images/featured-asc.jpeg" alt="Beaming the Light on a Hidden Sector: Artisanal and Small-scale Mining"></div>      <div class="art-body">
+        <div class="art-tag">Domestic Finance · Mining</div>
+        <div class="art-title">Beaming the Light on a Hidden Sector: Artisanal and Small-scale Mining as a Vital Sector for Sustainable Development in Nigeria</div>
+        <div class="art-excerpt">UNDP and the EU, through the INFF, embarked on a series of activities to address financing gaps in Nigeria's artisanal mining sector.</div>
+        <a href="#" class="art-link">Learn More →</a>
+      </div>
     </div>
-  </div>
-  <div class="art-card">
-    <div class="art-img"><span>🤝</span></div>
-    <div class="art-body">
-      <div class="art-tag">Private Finance · Subnational</div>
-      <div class="art-title">Promoting Private Sector Investments at Sub-National Level through the INFF: Ongoing Pilot in Gombe State</div>
-      <div class="art-excerpt">UNDP and the EU are piloting a subnational private sector investment facilitation model in Gombe State as a replicable template for other states.</div>
-      <a href="#" class="art-link">Learn More →</a>
+    <div class="art-card">
+ <div class="art-img"><img src="assets/images/featured-psi.jpeg" alt="Promoting Private Sector Investments"></div>
+      <div class="art-body">
+        <div class="art-tag">Private Finance · Subnational</div>
+        <div class="art-title">Promoting Private Sector Investments at Sub-National Level through the INFF: Ongoing Pilot in Gombe State</div>
+        <div class="art-excerpt">UNDP and the EU are piloting a subnational private sector investment facilitation model in Gombe State as a replicable template for other states.</div>
+        <a href="#" class="art-link">Learn More →</a>
+      </div>
+    </div>
+    <div class="art-card">
+      <div class="art-img"><img src="assets/images/featured-inff-sdgs.jpeg" alt="Integrated National Financing Framework event"></div>
+      <div class="art-body">
+        <div class="art-tag">Sustainable Finance · SDGs</div>
+        <div class="art-title">Integrated National Financing Framework, Designed To Address SDGS Financial Challenge</div>
+        <div class="art-excerpt">The Senior Special Assistant to the President on Sustainable Development Goals (SSAP-SDGs), Princess Adejoke Orelope-Adefulire stated that the Integrated National Financing Framework (INFF), designed in 2022, serves as a planning and delivery tool to finance sustainable development at national and sub-national levels and enable policy makers to increase investments in the Sustainable Development Goals (SDGs).</div>
+        <a href="#" class="art-link">Learn More →</a>
+      </div>
+    </div>
+    <div class="art-card">
+      <div class="art-img"><img src="assets/images/featured-nicps.jpeg" alt="NICPS launch event"></div>
+      <div class="art-body">
+        <div class="art-tag">Investment Climate · Subnational</div>
+        <div class="art-title">Unlocking Investment Opportunities at the Sub-national Level: Launch of the Nigerian Investment Certification Programme (NICPS) in Three States</div>
+        <div class="art-excerpt">The lack of timely, up-to-date, and reliable data on investment opportunities in Nigeria poses a major hurdle for potential investors seeking to engage with the country's investment ecosystem. This scarcity of data impedes informed decision-making and undermines investor confidence, particularly at the sub-national level, where information availability varies widely.</div>
+        <a href="#" class="art-link">Learn More →</a>
+      </div>
     </div>
   </div>
 
@@ -29354,15 +29383,41 @@ function donutCfg(data,colors,cutout='68%'){
 }
 </script>
 <script>
-document.getElementById('nav-overview').classList.add('active');
-
+function sumMetrics(records) {
+  const valid = records.filter(Boolean);
+  if (!valid.length) return null;
+  const sums = {};
+  valid.forEach(rec => {
+    Object.entries(rec).forEach(([k, v]) => {
+      if (typeof v === 'number' && Number.isFinite(v) && !['year','gapPct','gapClosed','gapClosedDelta'].includes(k)) {
+        sums[k] = (sums[k] || 0) + v;
+      }
+    });
+  });
+  const out = {};
+  Object.entries(sums).forEach(([k, v]) => {
+    out[k] = r1(v);
+  });
+  const needBase = Number(out.needNGN ?? out.need ?? 0);
+  const mobBase  = Number(out.mobNGN ?? out.mob ?? 0);
+  const gapBase  = Number(out.gapNGN ?? out.gap ?? Math.max(0, needBase - mobBase));
+  out.gapClosed = needBase ? r1(mobBase / needBase * 100) : 0;
+  out.gapPct = needBase ? r1(gapBase / needBase * 100) : 0;
+  out.year = 'ALL';
+  return out;
+}
+function getSeriesTotal(years, sec) {
+  const secKey = sec === 'ALL' ? null : sec;
+  return sumMetrics(years.map(y => INFF.getNational(y, secKey)));
+}
 function getD(yr, sec) {
-  if (yr === 'ALL') return INFF.getNational(2025, sec === 'ALL' ? null : sec);
+  if (yr === 'ALL') return getSeriesTotal(YEARS, sec);
   return INFF.getNational(parseInt(yr), sec === 'ALL' ? null : sec);
 }
 function getPrev(yr, sec) {
-  const y = yr === 'ALL' ? 2024 : parseInt(yr) - 1;
-  if (y < 2020) return null;
+  if (yr === 'ALL') return getSeriesTotal(YEARS.slice(0, -1), sec);
+  const y = parseInt(yr) - 1;
+  if (y < YEARS[0]) return null;
   return INFF.getNational(y, sec === 'ALL' ? null : sec);
 }
 
@@ -29429,15 +29484,17 @@ function render() {
   ));
 
   // Source bars
-  const prevYrNum = yr === 'ALL' ? 2024 : Math.max(2020, parseInt(yr)-1);
-  const d2 = INFF.getNational(prevYrNum, secKey);
+  const prevYrNum = yr === 'ALL' ? 'Total 2020–2024' : Math.max(2020, parseInt(yr)-1);
+  const d2 = yr === 'ALL' ? getPrev(yr, sec) : INFF.getNational(prevYrNum, secKey);
   const sources = [
     {name:"Domestic Public",   cur:d.dp,    prev:d2.dp},
     {name:"Domestic Private",  cur:d.priv,  prev:d2.priv},
     {name:"Int'l Public",      cur:d.ip,    prev:d2.ip},
     {name:"Int'l Private",     cur:d.ipriv, prev:d2.ipriv},
   ];
-  document.getElementById('src-sub').textContent = `${prevYrNum} vs ${yr==='ALL'?2025:yr} · NGN Billions`;
+  document.getElementById('src-sub').textContent = yr === 'ALL'
+    ? `Total 2020–2024 vs Total 2020–2025 · NGN Billions`
+    : `${prevYrNum} vs ${yr} · NGN Billions`;
   const maxV = Math.max(...sources.map(s=>Math.max(s.cur,s.prev))) || 1;
   document.getElementById('src-bars').innerHTML = sources.map(s=>`
     <div style="margin-bottom:12px;">
@@ -29449,17 +29506,64 @@ function render() {
       <div class="src-track"><div class="src-bar" style="width:${s.cur/maxV*100}%;background:var(--c1);"></div></div>
     </div>`).join('');
 
-  // Sector chart
-  const secArr = Object.values(INFF.bySector).sort((a,b)=>b.sharePct-a.sharePct);
-  mkChart('c-sector', hbarCfg(
-    secArr.map(s=>s.name),
-    [{data:secArr.map(s=>s.sharePct), backgroundColor:secArr.map((_,i)=>P[i%P.length]), borderRadius:4}],
-    {yfmt:v=>v+'%'}
-  ));
+  // Sector mosaic
+  const secArr = Object.values(INFF.bySector).sort((a,b)=>b.sharePct-a.sharePct).slice(0,5);
+  const sectorMosaic = document.getElementById('sector-mosaic');
+  const maxShare = Math.max(...secArr.map(s => s.sharePct), 1);
+  const topRow = secArr.slice(0,3);
+  const bottomRow = secArr.slice(3,5);
+  const tileColors = P.slice(0, Math.max(secArr.length, 5));
+
+  const makeRow = (items, totalCols, minSpan) => {
+    if (!items.length) return [];
+    const total = items.reduce((sum, s) => sum + s.sharePct, 0) || 1;
+    let spans = items.map(s => Math.max(minSpan, Math.round((s.sharePct / total) * totalCols)));
+
+    while (spans.reduce((a,b)=>a+b,0) > totalCols) {
+      let idx = spans.indexOf(Math.max(...spans));
+      if (spans[idx] <= minSpan) break;
+      spans[idx] -= 1;
+    }
+    while (spans.reduce((a,b)=>a+b,0) < totalCols) {
+      let idx = spans.indexOf(Math.max(...items.map(s => s.sharePct)));
+      spans[idx] += 1;
+      items = items.map((s, i) => ({...s, _i:i}));
+      break;
+    }
+    let cursor = 0;
+    while (spans.reduce((a,b)=>a+b,0) < totalCols) {
+      spans[cursor % spans.length] += 1;
+      cursor += 1;
+    }
+    while (spans.reduce((a,b)=>a+b,0) > totalCols) {
+      const idx = spans.findIndex(v => v > minSpan);
+      if (idx === -1) break;
+      spans[idx] -= 1;
+    }
+    return spans;
+  };
+
+  const topSpans = makeRow(topRow, 12, 3);
+  const bottomSpans = makeRow(bottomRow, 12, 5);
+  const rows = [
+    topRow.map((s,i)=>({s, span: topSpans[i], color: tileColors[i]})),
+    bottomRow.map((s,i)=>({s, span: bottomSpans[i], color: tileColors[i+topRow.length]})),
+  ];
+
+  sectorMosaic.innerHTML = rows.flat().map(({s, span, color})=>{
+    const ratio = s.sharePct / maxShare;
+    const tileHeight = Math.round(76 + ratio * 26);
+    return `
+      <div class="sector-tile" style="grid-column:span ${span};height:${tileHeight}px;background:${color};" title="${s.name}: ${r1(s.sharePct)}%">
+        <div class="name">${s.name}</div>
+        <div class="pct">${r1(s.sharePct)}%</div>
+      </div>
+    `;
+  }).join('');
 }
 
 function resetFilters() {
-  document.getElementById('f-year').value = '2025';
+  document.getElementById('f-year').value = 'ALL';
   document.getElementById('f-sector').value = 'ALL';
   render();
 }
@@ -29469,24 +29573,45 @@ render();
 
 
 
-<footer class="site-footer" aria-label="Site footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-logos" aria-label="Partner logos">
-        <img alt="Nigeria Government" src="assets/images/Nigeria_Gov_Logo.png">
-        <img alt="SDGs Nigeria Office" src="assets/images/SDGs_Nigeria_office_Logo.png"><img alt="European Union" src="assets/images/EU_Flag.png">
-        <img alt="UNDP" src="assets/images/UNDP-Logo-Blue.png">
+
+
+<script src="js/shared.js"></script>
+
+
+
+
+<script>
+(function(){
+  if(window.Chart){
+    Chart.defaults.animation = {duration: 1400, easing: 'easeOutQuart'};
+    if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
+      Chart.defaults.transitions.active.animation = {duration: 300};
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+<footer class="portal-footer">
+  <div class="footer-container">
+    <div class="footer-col footer-brand">
+      <div class="footer-logos">
+        <img src="assets/images/Nigeria_Gov_Logo.png" alt="Nigeria Government Logo">
+        <img src="assets/images/SDGs_Nigeria_office_Logo.png" alt="OSSAP SDGs Logo">
+        <img src="assets/images/EU_Flag.png" alt="European Union Logo">
+        <img src="assets/images/UNDP-Logo-Blue.png" alt="UNDP Logo">
       </div>
-      <h3>Nigeria Integrated National Financing Framework</h3>
-      <p>Authoritative, living source of INFF implementation data in Nigeria.</p>
-      <div class="footer-copy">© 2026 Nigeria Integrated National Financing Framework • All rights reserved</div>
+      <p><strong>Nigeria Integrated National Financing Framework</strong> dashboard provides a consolidated view of Nigeria’s financing landscape across public, private and international resources.</p>
     </div>
 
     <div class="footer-col">
       <h4>BUILDING BLOCKS</h4>
       <ul>
-        <li><a href="p1-landscape.html">Assessment &amp; Diagnostics</a></li>
+        <li><a href="building-blocks.html">Assessment &amp; Diagnostics</a></li>
         <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
         <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
         <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
@@ -29498,34 +29623,28 @@ render();
       <ul>
         <li><a href="p1-gap.html">View Financing Gaps</a></li>
         <li><a href="p2-reforms.html">Track Reforms</a></li>
-        <li><a href="knowledge.html">Latest INFF Updates</a></li>
-        <li><a href="p4-subnational.html">Subnational SDG Scorecards</a></li>
+        <li><a href="downloads.html">Latest INFF Updates</a></li>
+        <li><a href="p3-results.html">Subnational SDG Scorecards</a></li>
       </ul>
     </div>
 
     <div class="footer-col">
       <h4>CONTACT</h4>
-      <div class="footer-contact">
-        <a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a><br>
-        Abuja, Nigeria
-      </div>
-      <div class="footer-social" aria-label="Social links">
-        <a class="soc" href="#" aria-label="Website">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20Zm7.6 9H17a15.6 15.6 0 00-1.2-6A8.03 8.03 0 0119.6 11ZM12 4c1.1 1.6 2 3.8 2.4 7H9.6C10 7.8 10.9 5.6 12 4ZM4.4 13H7a15.6 15.6 0 001.2 6A8.03 8.03 0 014.4 13ZM7 11H4.4A8.03 8.03 0 018.2 5c-.5 1.2-.9 2.7-1.2 6Zm2.6 2h4.8c-.4 3.2-1.3 5.4-2.4 7-1.1-1.6-2-3.8-2.4-7Zm7.2 0h2.6a8.03 8.03 0 01-3.8 6c.5-1.2.9-2.7 1.2-6Zm-.2-2h-4.8c.4-3.2 1.3-5.4 2.4-7 1.1 1.6 2 3.8 2.4 7Z"/></svg>
-        </a>
-        <a class="soc" href="#" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.3l.7-3H13V9c0-.6.4-1 1-1Z"/></svg>
-        </a>
-        <a class="soc" href="#" aria-label="X">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 2H21l-6.4 7.3L22 22h-6.7l-5.2-6.7L4.3 22H2l7-8L2 2h6.8l4.7 6.1L18.3 2Zm-1.2 18h1.5L7 3.9H5.4L17.1 20Z"/></svg>
-        </a>
-        <a class="soc" href="#" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.8A2.3 2.3 0 116.5 2a2.3 2.3 0 010 4.8ZM5 22V9h3v13H5Zm6 0V9h2.9v1.8h.1c.4-.8 1.5-2 3.4-2 3.6 0 4.3 2.4 4.3 5.5V22h-3v-6.3c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V22h-3Z"/></svg>
-        </a>
+      <ul class="footer-contact">
+        <li><a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a></li>
+        <li>Abuja, Nigeria</li>
+      </ul>
+      <div class="footer-socials">
+        <a href="#" aria-label="Website">🌐</a>
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="X">X</a>
+        <a href="#" aria-label="LinkedIn">in</a>
       </div>
     </div>
   </div>
+  <div class="footer-bottom">© 2025 Nigeria INFF Dashboard • All Rights Reserved</div>
 </footer>
+
 
 </body>
 </html>
