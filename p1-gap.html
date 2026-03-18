@@ -46,7 +46,7 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-si
 .page-header{background:var(--brand);padding:28px 24px 26px;border-bottom:3px solid var(--amber);}
 .ph-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px;}
 .ph-title{font-family:'Literata',serif;font-size:30px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px;}
-.ph-desc{font-size:12px;color:rgba(255,255,255,.65);max-width:640px;line-height:1.75;}
+.ph-desc{font-size:12px;color:rgba(255,255,255,.65);max-width:1200px;line-height:1.75;}
 
 .fbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:10px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
 .fb-group{display:flex;align-items:center;gap:7px;}
@@ -59,7 +59,7 @@ select:focus{outline:none;border-color:var(--brand);}
 .fb-status{margin-left:auto;font-size:11px;color:var(--ink-lt);}
 .fb-status strong{color:var(--c1);}
 
-.wrap{max-width:1400px;margin:0 auto;padding:28px 24px 64px;}
+.wrap{max-width:1600px;margin:0 auto;padding:28px 8px 64px;}
 .card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
 .ctitle{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
 .csub{font-size:11px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5;}
@@ -224,10 +224,10 @@ select:focus{outline:none;border-color:var(--brand);}
 .footer-col a{color:#c9c9d6;text-decoration:none}
 .footer-col a:hover{color:#fff}
 .footer-brand h3{margin-bottom:10px;font-size:18px}
-.footer-brand p{font-size:13px;line-height:1.7;color:#c9c9d6;max-width:420px}
+.footer-brand p{font-size:13px;line-height:1.7;color:#c9c9d6;max-width:1200px}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:16px;font-size:12px;color:#a9a9b6}
-@media (max-width:900px){.footer-container{grid-template-columns:1fr 1fr}}
-@media (max-width:640px){.footer-container{grid-template-columns:1fr}}
+@media (max-width:1200px){.footer-container{grid-template-columns:1fr 1fr}}
+@media (max-width:1200px){.footer-container{grid-template-columns:1fr}}
 
 
 .footer-logos{
@@ -239,6 +239,23 @@ align-items:center;
 .footer-logos img{
 height:38px;
 width:auto;
+}
+
+.footer-socials{display:flex;gap:14px;margin-top:18px;align-items:center;flex-wrap:wrap;}.footer-socials .fs-ico{width:52px;height:52px;border-radius:999px;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .2s ease, box-shadow .2s ease, background .2s ease;}.footer-socials .fs-ico:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.34);background:#000;}.footer-socials .fs-ico svg{width:24px;height:24px;display:block;}
+
+
+/* Final width sync for p1-gap */
+.wrap{
+  max-width:1600px !important;
+  width:calc(100% - 16px) !important;
+  margin:0 auto !important;
+  padding:28px 8px 64px !important;
+}
+@media (max-width:768px){
+  .wrap{
+    width:calc(100% - 24px) !important;
+    padding:24px 12px 56px !important;
+  }
 }
 
 </style>
@@ -253,8 +270,8 @@ width:auto;
   <div class="fb-group">
     <span class="fb-label">Year</span>
     <select id="f-year" onchange="render()">
-      <option value="ALL">All Years</option>
-      <option value="2025" selected>2025</option>
+      <option value="ALL" selected>All Years</option>
+      <option value="2025">2025</option>
       <option value="2024">2024</option>
       <option value="2023">2023</option>
       <option value="2022">2022</option>
@@ -422,6 +439,13 @@ width:auto;
 </div><!-- /wrap -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/data/meta.js"></script>
+<script src="js/data/kpis.js"></script>
+<script src="js/data/byYear.js"></script>
+<script src="js/data/bySector.js"></script>
+<script src="js/data/states.js"></script>
+<script src="js/data/projects.js"></script>
+<script src="js/data/reforms.js"></script>
 <script src="js/data.js"></script>
 <script src="js/shared.js"></script>
 <script>
@@ -730,7 +754,7 @@ function render() {
 }
 
 function resetFilters() {
-  document.getElementById('f-year').value   = '2025';
+  document.getElementById('f-year').value = 'ALL';
   document.getElementById('f-state').value  = 'ALL';
   document.getElementById('f-sector').value = 'ALL';
   render();
@@ -761,55 +785,14 @@ render();
 
 
 
-<footer class="portal-footer">
-  <div class="footer-container">
-    <div class="footer-col footer-brand">
-      <div class="footer-logos">
-        <img src="assets/images/Nigeria_Gov_Logo.png" alt="Nigeria Government Logo">
-        <img src="assets/images/SDGs_Nigeria_office_Logo.png" alt="OSSAP SDGs Logo">
-        <img src="assets/images/EU_Flag.png" alt="European Union Logo">
-        <img src="assets/images/UNDP-Logo-Blue.png" alt="UNDP Logo">
-      </div>
-      <p><strong>Nigeria Integrated National Financing Framework</strong> dashboard provides a consolidated view of Nigeria’s financing landscape across public, private and international resources.</p>
-    </div>
-
-    <div class="footer-col">
-      <h4>BUILDING BLOCKS</h4>
-      <ul>
-        <li><a href="building-blocks.html">Assessment &amp; Diagnostics</a></li>
-        <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
-        <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
-        <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>QUICK LINKS</h4>
-      <ul>
-        <li><a href="p1-gap.html">View Financing Gaps</a></li>
-        <li><a href="p2-reforms.html">Track Reforms</a></li>
-        <li><a href="downloads.html">Latest INFF Updates</a></li>
-        <li><a href="p3-results.html">Subnational SDG Scorecards</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>CONTACT</h4>
-      <ul class="footer-contact">
-        <li><a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a></li>
-        <li>Abuja, Nigeria</li>
-      </ul>
-      <div class="footer-socials">
-        <a href="#" aria-label="Website">🌐</a>
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="X">X</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">© 2025 Nigeria INFF Dashboard • All Rights Reserved</div>
-</footer>
 
 
+
+
+
+
+
+
+<script src="js/footer-component.js"></script>
 </body>
 </html>

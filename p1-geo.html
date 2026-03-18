@@ -206,6 +206,17 @@ height:38px;
 width:auto;
 }
 
+
+.gap-legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin:8px 0 12px;}
+.gap-leg{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--ink-md);}
+.gap-swatch{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid rgba(0,0,0,.08);}
+.state-map-wrap{background:linear-gradient(180deg,#fbfaf8,#f4f3f0);border:1px solid var(--border);border-radius:14px;padding:10px;min-height:370px;box-shadow:inset 0 1px 0 rgba(255,255,255,.7);}
+.state-map-wrap svg{width:100%;height:340px;display:block;}
+.map-outline{fill:#ebe7df;stroke:#d8d1c6;stroke-width:2;}
+.map-state-node{cursor:pointer;}
+.map-state-circle{stroke:rgba(255,255,255,.95);stroke-width:2;}
+.map-state-label{font-size:8.5px;font-weight:700;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:rgba(0,0,0,.28);stroke-width:2px;stroke-linejoin:round;}
+
 </style>
 </head>
 <body data-nav="bb">
@@ -217,8 +228,8 @@ width:auto;
 <div class="fbar">
   <div class="fb-group"><span class="fb-label">Year</span>
     <select id="f-year" onchange="render()">
-      <option value="ALL">All Years</option>
-      <option value="2025" selected>2025</option>
+      <option value="ALL" selected>All Years</option>
+      <option value="2025">2025</option>
       <option value="2024">2024</option><option value="2023">2023</option>
       <option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option>
     </select>
@@ -234,7 +245,7 @@ width:auto;
     </select>
   </div>
   <button class="btn-reset" onclick="resetFilters()">Reset</button>
-  <div class="fb-status">Showing: <strong id="f-status">All Nigeria &middot; All Sectors &middot; 2025</strong></div>
+  <div class="fb-status">Showing: <strong id="f-status">All Nigeria &middot; All Sectors &middot; All Years</strong></div>
 </div>
 
 <div class="wrap">
@@ -248,19 +259,19 @@ width:auto;
 
 <div class="map-gaps-grid">
   <div class="map-col">
-    <div class="nigeria-map">
+    
+<div class="nigeria-map">
       <div class="ctitle" style="margin-bottom:3px;">Nigeria &mdash; Financing Gap by State</div>
-      <div class="csub" style="margin-bottom:8px;">Colour = gap as % of SDG need. Click any state to explore below.</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-        <span style="font-size:10px;color:var(--ink-lt);white-space:nowrap;">Low gap</span>
-        <div style="flex:1;height:10px;border-radius:5px;background:linear-gradient(to right,rgb(46,125,82),rgb(122,175,138),rgb(212,149,106),rgb(140,31,31));"></div>
-        <span style="font-size:10px;color:var(--ink-lt);white-space:nowrap;">High gap</span>
+      <div class="csub" style="margin-bottom:10px;">Map view coloured by state gap rate. Click any state to explore below.</div>
+      <div class="gap-legend">
+        <div class="gap-leg"><span class="gap-swatch" style="background:rgb(46,125,82)"></span><span>0–30% Low</span></div>
+        <div class="gap-leg"><span class="gap-swatch" style="background:rgb(122,175,138)"></span><span>30–50%</span></div>
+        <div class="gap-leg"><span class="gap-swatch" style="background:rgb(212,149,106)"></span><span>50–70%</span></div>
+        <div class="gap-leg"><span class="gap-swatch" style="background:rgb(140,31,31)"></span><span>70%+ High</span></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--ink-lt);margin-bottom:10px;">
-        <span>0%</span><span>30%</span><span>50%</span><span>70%+</span>
-      </div>
-      <div id="state-grid" style="display:grid;grid-template-columns:repeat(8,1fr);gap:3px;"></div>
+      <div id="state-map" class="state-map-wrap"></div>
     </div>
+
     <div class="closest-wrap">
       <div class="ctitle" style="margin-bottom:3px;">Closest to Target &mdash; Source Breakdown (All States)</div>
       <div class="csub" style="margin-bottom:12px;">All 37 states, sorted by % of need met. Scroll right to see all. Red = unmet gap.</div>
@@ -347,21 +358,29 @@ width:auto;
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="js/data/meta.js"></script>
+<script src="js/data/kpis.js"></script>
+<script src="js/data/byYear.js"></script>
+<script src="js/data/bySector.js"></script>
+<script src="js/data/states.js"></script>
+<script src="js/data/projects.js"></script>
+<script src="js/data/reforms.js"></script>
 <script src="js/data.js"></script>
 <script src="js/shared.js"></script>
 <script>
 const stateList = INFF.stateList();
 ['sel-a','sel-b'].forEach(function(id) {
   var sel = document.getElementById(id);
-  sel.innerHTML = id === 'sel-b' ? '<option value="">— None —</option>' : '<option value="">— Select state —</option>';
+  sel.innerHTML = id === 'sel-b' ? '<option value="">— None —</option>' : '<option value="">All States</option>';
   stateList.forEach(function(s) {
     var o = document.createElement('option');
     o.value = s.code; o.textContent = s.name;
     sel.appendChild(o);
   });
 });
-document.getElementById('sel-a').value = 'BO';
-document.getElementById('sel-b').value = 'LA';
+document.getElementById('sel-a').value = '';
+document.getElementById('sel-b').value = '';
 
 // Smooth gradient: green (low gap) -> amber -> red (high gap)
 function gapColor(pct) {
@@ -389,43 +408,279 @@ function inffPill(status) {
   var map = {'Adopted':'ip-adopted','Pilot':'ip-pilot','Draft':'ip-draft','In Progress':'ip-inprogress'};
   return '<span class="inff-pill ' + (map[status]||'ip-none') + '">' + (status||'Not Started') + '</span>';
 }
+
 function inffHdrCls(status) {
   var m = {'Adopted':'adopted','Pilot':'pilot','Draft':'draft'};
   return m[status]||'none';
 }
 
+var GEO_VIEW_MAP = {};
+var GEO_VIEW_LIST = [];
+
+function geoYearsForFilter(yr) {
+  return yr === 'ALL' ? INFF.meta.years.slice() : [parseInt(yr, 10)];
+}
+function r1safe(n){ return Math.round((n || 0) * 10) / 10; }
+
+function getFilteredStateMetrics(st, yr, sectorCode) {
+  var years = geoYearsForFilter(yr);
+  var sectorMap = {};
+  Object.keys(INFF.meta.sectors).forEach(function(code){
+    sectorMap[code] = { need:0, mob:0, gap:0, gapPct:0 };
+  });
+
+  var totalNeed=0, totalMob=0, totalGap=0, dp=0, priv=0, ip=0, ipriv=0;
+
+  years.forEach(function(year){
+    var yd = st.byYear && st.byYear[String(year)];
+    if (!yd) return;
+
+    // Build aggregated sector map for explorer chart
+    Object.keys(INFF.meta.sectors).forEach(function(code){
+      var sdAll = yd.sectors && yd.sectors[code];
+      if (!sdAll) return;
+      sectorMap[code].need += sdAll.need || 0;
+      sectorMap[code].mob  += sdAll.mob  || 0;
+      sectorMap[code].gap  += sdAll.gap  || 0;
+    });
+
+    if (sectorCode && sectorCode !== 'ALL') {
+      var sd = yd.sectors && yd.sectors[sectorCode];
+      if (!sd) return;
+      totalNeed += sd.need || 0;
+      totalMob  += sd.mob || 0;
+      totalGap  += sd.gap || 0;
+
+      var denom = yd.mob || 0;
+      if (denom > 0) {
+        var weight = (sd.mob || 0) / denom;
+        dp    += (yd.dp    || 0) * weight;
+        priv  += (yd.priv  || 0) * weight;
+        ip    += (yd.ip    || 0) * weight;
+        ipriv += (yd.ipriv || 0) * weight;
+      }
+    } else {
+      totalNeed += yd.need || 0;
+      totalMob  += yd.mob || 0;
+      totalGap  += yd.gap || 0;
+      dp    += yd.dp || 0;
+      priv  += yd.priv || 0;
+      ip    += yd.ip || 0;
+      ipriv += yd.ipriv || 0;
+    }
+  });
+
+  Object.keys(sectorMap).forEach(function(code){
+    sectorMap[code].need = r1safe(sectorMap[code].need);
+    sectorMap[code].mob  = r1safe(sectorMap[code].mob);
+    sectorMap[code].gap  = r1safe(sectorMap[code].gap);
+    sectorMap[code].gapPct = sectorMap[code].need ? r1safe(sectorMap[code].gap / sectorMap[code].need * 100) : 0;
+  });
+
+  return {
+    need: r1safe(totalNeed),
+    mob: r1safe(totalMob),
+    gap: r1safe(totalGap),
+    gapPct: totalNeed ? r1safe(totalGap / totalNeed * 100) : 0,
+    gapClosed: totalNeed ? r1safe(totalMob / totalNeed * 100) : 0,
+    dp: r1safe(dp),
+    priv: r1safe(priv),
+    ip: r1safe(ip),
+    ipriv: r1safe(ipriv),
+    sectors: sectorMap
+  };
+}
+
+function buildGeoView(yr, sectorCode) {
+  var list = stateList.map(function(st){
+    var metrics = getFilteredStateMetrics(st, yr, sectorCode);
+    return Object.assign({}, st, {
+      viewNeed: metrics.need,
+      viewMob: metrics.mob,
+      viewGap: metrics.gap,
+      viewGapPct: metrics.gapPct,
+      viewGapClosed: metrics.gapClosed,
+      viewDp: metrics.dp,
+      viewPriv: metrics.priv,
+      viewIp: metrics.ip,
+      viewIpriv: metrics.ipriv,
+      viewSectors: metrics.sectors
+    });
+  });
+  GEO_VIEW_LIST = list;
+  GEO_VIEW_MAP = {};
+  list.forEach(function(st){ GEO_VIEW_MAP[st.code] = st; });
+  return list;
+}
+
+function getTopSectorForGeo(yr) {
+  var years = geoYearsForFilter(yr);
+  var sectorStats = {};
+  Object.keys(INFF.meta.sectors).forEach(function(code){
+    sectorStats[code] = { code:code, name:INFF.meta.sectors[code], need:0, gap:0 };
+  });
+  stateList.forEach(function(st){
+    years.forEach(function(year){
+      var yd = st.byYear && st.byYear[String(year)];
+      if (!yd || !yd.sectors) return;
+      Object.keys(sectorStats).forEach(function(code){
+        var sd = yd.sectors[code];
+        if (!sd) return;
+        sectorStats[code].need += sd.need || 0;
+        sectorStats[code].gap += sd.gap || 0;
+      });
+    });
+  });
+  var arr = Object.values(sectorStats).map(function(s){
+    s.gapPct = s.need ? r1safe(s.gap / s.need * 100) : 0;
+    s.need = r1safe(s.need);
+    s.gap = r1safe(s.gap);
+    return s;
+  }).sort(function(a,b){ return b.gapPct - a.gapPct; });
+  return arr[0] || null;
+}
+
+
+
+let nigeriaGeoPromise = null;
+function normalizeStateName(n) {
+  return (n || '')
+    .replace(/\s+/g,' ')
+    .replace(/^Federal Capital Territory$/i, 'FCT Abuja')
+    .replace(/^FCT$/i, 'FCT Abuja')
+    .replace(/^Akwa Ibom State$/i, 'Akwa Ibom')
+    .replace(/^Cross River State$/i, 'Cross River')
+    .replace(/^Nassarawa$/i, 'Nasarawa')
+    .trim();
+}
+function getGeoPromise() {
+  if (!nigeriaGeoPromise) {
+    nigeriaGeoPromise = fetch('assets/data/nigeriaADM1.geojson').then(function(r){ return r.json(); });
+  }
+  return nigeriaGeoPromise;
+}
 function buildGrid() {
   var scA = document.getElementById('sel-a').value;
   var scB = document.getElementById('sel-b').value;
-  var grid = document.getElementById('state-grid');
-  grid.innerHTML = stateList.map(function(st) {
-    var gp = st.gapPct || 40;
-    var bg = gapColor(gp);
-    var isA = st.code === scA, isB = st.code === scB;
-    var border = isA ? '2px solid #5B9FA6' : isB ? '2px solid #D4956A' : '1px solid rgba(255,255,255,.15)';
-    var short = st.name.length > 7 ? st.name.slice(0,5)+'.' : st.name;
-    return '<div onclick="pickState(\'' + st.code + '\')" title="' + st.name + ': ' + gp.toFixed(0) + '% gap"'
-      + ' style="height:32px;border-radius:4px;background:' + bg + ';border:' + border + ';'
-      + 'display:flex;align-items:center;justify-content:center;cursor:pointer;'
-      + 'font-size:8px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5);'
-      + 'transition:transform .12s;"'
-      + ' onmouseover="this.style.transform=\'scale(1.08)\'"'
-      + ' onmouseout="this.style.transform=\'scale(1)\'">' + short + '</div>';
-  }).join('');
+  var holder = document.getElementById('state-map');
+  if (!holder) return;
+
+  holder.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:360px;color:var(--ink-lt);font-size:12px;">Loading Nigeria map…</div>';
+
+  getGeoPromise().then(function(geojson){
+    holder.innerHTML = '';
+    var width = holder.clientWidth > 0 ? holder.clientWidth - 20 : 620;
+    var height = 380;
+
+    var svg = d3.select(holder)
+      .append('svg')
+      .attr('viewBox', '0 0 ' + width + ' ' + height)
+      .attr('preserveAspectRatio', 'xMidYMid meet');
+
+    var projection = d3.geoMercator().fitSize([width, height], geojson);
+    var path = d3.geoPath(projection);
+
+    var features = geojson.features || [];
+    var stateByName = {};
+    stateList.forEach(function(st){ stateByName[normalizeStateName(st.name)] = st; });
+
+    var g = svg.append('g');
+
+    var paths = g.selectAll('path')
+      .data(features)
+      .enter()
+      .append('path')
+      .attr('class', 'state-feature state-fade-in')
+      .attr('d', path)
+      .attr('fill', function(d){
+        var n = normalizeStateName(d.properties.ADM1_EN);
+        var st = stateByName[n];
+        var gp = st && st.viewGapPct != null ? st.viewGapPct : (st && st.gapPct != null ? st.gapPct : 40);
+        return gapColor(gp);
+      })
+      .attr('stroke', function(d){
+        var n = normalizeStateName(d.properties.ADM1_EN);
+        var st = stateByName[n];
+        if (!st) return 'rgba(255,255,255,.92)';
+        return st.code === scA ? '#5B9FA6' : st.code === scB ? '#D4956A' : 'rgba(255,255,255,.92)';
+      })
+      .attr('stroke-width', function(d){
+        var n = normalizeStateName(d.properties.ADM1_EN);
+        var st = stateByName[n];
+        if (!st) return 1.25;
+        return st.code === scA || st.code === scB ? 3 : 1.25;
+      })
+      .style('animation-delay', function(_, i){ return (i * 22) + 'ms'; })
+      .on('click', function(_, d){
+        var n = normalizeStateName(d.properties.ADM1_EN);
+        var st = stateByName[n];
+        if (st) pickState(st.code);
+      });
+
+    paths.append('title')
+      .text(function(d){
+        var n = normalizeStateName(d.properties.ADM1_EN);
+        var st = stateByName[n];
+        var gp = st && st.viewGapPct != null ? st.viewGapPct : (st && st.gapPct != null ? st.gapPct : 40);
+        return n + ': ' + gp.toFixed(0) + '% gap';
+      });
+
+    g.selectAll('text')
+      .data(features)
+      .enter()
+      .append('text')
+      .attr('class', 'state-label')
+      .attr('x', function(d){ return path.centroid(d)[0]; })
+      .attr('y', function(d){ return path.centroid(d)[1] + 3; })
+      .text(function(d){
+        var n = normalizeStateName(d.properties.ADM1_EN);
+        var st = stateByName[n];
+        return st && st.code ? st.code : n.slice(0,2).toUpperCase();
+      })
+      .style('display', function(d){
+        var b = path.bounds(d), w = b[1][0]-b[0][0], h = b[1][1]-b[0][1];
+        return (w < 24 || h < 16) ? 'none' : null;
+      })
+      .style('opacity', 0)
+      .transition()
+      .delay(function(_, i){ return 220 + i * 18; })
+      .duration(450)
+      .style('opacity', 1);
+
+  }).catch(function(){
+    holder.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:360px;color:#8c1f1f;font-size:12px;">Nigeria map file could not be loaded.</div>';
+  });
 }
+
 
 var nextSlot = 'b';
 function pickState(code) {
-  var scA = document.getElementById('sel-a').value;
-  var scB = document.getElementById('sel-b').value;
-  if (code === scA) { document.getElementById('sel-b').value = ''; }
-  else if (code === scB) { document.getElementById('sel-a').value = code; document.getElementById('sel-b').value = ''; }
-  else if (!scA) { document.getElementById('sel-a').value = code; }
-  else if (!scB) { document.getElementById('sel-b').value = code; }
-  else if (nextSlot === 'a') { document.getElementById('sel-a').value = code; nextSlot = 'b'; }
-  else { document.getElementById('sel-b').value = code; nextSlot = 'a'; }
+  var selA = document.getElementById('sel-a');
+  var selB = document.getElementById('sel-b');
+  var scA = selA.value;
+  var scB = selB.value;
+
+  // Click again to deselect
+  if (code === scA) {
+    selA.value = '';
+    render();
+    return;
+  }
+  if (code === scB) {
+    selB.value = '';
+    render();
+    return;
+  }
+
+  // Normal select flow
+  if (!scA) { selA.value = code; }
+  else if (!scB) { selB.value = code; }
+  else if (nextSlot === 'a') { selA.value = code; nextSlot = 'b'; }
+  else { selB.value = code; nextSlot = 'a'; }
+
   render();
 }
+
 
 function render() {
   var yr     = document.getElementById('f-year').value;
@@ -433,52 +688,55 @@ function render() {
   var scA    = document.getElementById('sel-a').value;
   var scB    = document.getElementById('sel-b').value;
   var selSec = document.getElementById('sel-sector').value;
-  var yrNum  = yr === 'ALL' ? 2025 : parseInt(yr);
   var yrLabel = yr === 'ALL' ? 'All Years' : yr;
   var secName = fSec === 'ALL' ? 'All Sectors' : (INFF.meta.sectors[fSec] || fSec);
+  var explorerSector = selSec !== 'ALL' ? selSec : fSec;
+  var explorerSectorName = explorerSector === 'ALL' ? 'All Sectors' : (INFF.meta.sectors[explorerSector] || explorerSector);
 
-  document.getElementById('f-status').textContent = 'All Nigeria \u00b7 ' + secName + ' \u00b7 ' + yrLabel;
+  document.getElementById('f-status').textContent = 'All Nigeria · ' + secName + ' · ' + yrLabel;
+
+  var viewStates = buildGeoView(yr, fSec);
 
   // KPI cards
-  var statesWithData = stateList.filter(function(s){ return s.dataQuality > 20; }).length;
-  var avgGap  = r1(stateList.reduce(function(s,st){ return s + (st.gapPct||0); }, 0) / stateList.length);
-  var avgQual = r1(stateList.reduce(function(s,st){ return s + (st.dataQuality||0); }, 0) / stateList.length);
-  var topSec  = Object.values(INFF.bySector).sort(function(a,b){ return b.gapPct - a.gapPct; })[0];
+  var statesWithData = viewStates.filter(function(s){ return s.dataQuality > 20; }).length;
+  var avgGap  = r1(viewStates.reduce(function(sum, st){ return sum + (st.viewGapPct || 0); }, 0) / Math.max(1, viewStates.length));
+  var avgQual = r1(viewStates.reduce(function(sum, st){ return sum + (st.dataQuality || 0); }, 0) / Math.max(1, viewStates.length));
+  var topSec  = fSec === 'ALL' ? getTopSectorForGeo(yr) : { name: secName, gapPct: avgGap };
 
   document.getElementById('k-coverage').textContent     = statesWithData;
-  document.getElementById('k-coverage-sub').textContent = 'of 37 states \u00b7 data quality > 20';
-  document.getElementById('k-coverage-d').textContent   = statesWithData + ' states active';
+  document.getElementById('k-coverage-sub').textContent = 'of 37 states · filtered data coverage';
+  document.getElementById('k-coverage-d').textContent   = yrLabel + ' · ' + secName;
   document.getElementById('k-avg-gap').textContent      = avgGap.toFixed(1) + '%';
-  document.getElementById('k-avg-sub').textContent      = (avgGap > 50 ? 'Critical' : 'Moderate') + ' \u00b7 national avg ' + yrLabel;
-  document.getElementById('k-avg-d').textContent        = avgGap > 50 ? 'Above 50% \u2014 critical' : 'Monitor closely';
-  document.getElementById('k-top-sec').textContent      = topSec ? topSec.name.split(' ')[0] : '\u2014';
-  document.getElementById('k-top-sub').textContent      = (topSec ? topSec.gapPct.toFixed(1) : '0') + '% unfunded \u00b7 ' + yrLabel;
-  document.getElementById('k-top-d').textContent        = 'Largest sector gap nationally';
+  document.getElementById('k-avg-sub').textContent      = (avgGap > 50 ? 'Critical' : 'Moderate') + ' · ' + secName + ' · ' + yrLabel;
+  document.getElementById('k-avg-d').textContent        = avgGap > 50 ? 'Above 50% — critical' : 'Monitor closely';
+  document.getElementById('k-top-sec').textContent      = topSec ? topSec.name : '—';
+  document.getElementById('k-top-sub').textContent      = (topSec ? topSec.gapPct.toFixed(1) : '0') + '% unfunded · ' + yrLabel;
+  document.getElementById('k-top-d').textContent        = fSec === 'ALL' ? 'Largest sector gap nationally' : 'Current selected sector';
   document.getElementById('k-quality').textContent      = avgQual.toFixed(0);
-  document.getElementById('k-quality-d').textContent    = avgQual < 50 ? '\u2191 Needs improvement' : 'Score improving';
+  document.getElementById('k-quality-d').textContent    = avgQual < 50 ? '↑ Needs improvement' : 'Score improving';
 
   buildGrid();
 
-  // Largest absolute gaps — red bars
-  var sorted = stateList.slice().sort(function(a,b){ return (b.gapUSD||0) - (a.gapUSD||0); }).slice(0,5);
-  var maxG = sorted[0] ? sorted[0].gapUSD : 1;
+  // Largest absolute gaps
+  var sorted = viewStates.slice().sort(function(a,b){ return (b.viewGap || 0) - (a.viewGap || 0); }).slice(0,5);
+  var maxG = sorted[0] ? sorted[0].viewGap : 1;
   document.getElementById('largest-gaps').innerHTML = sorted.map(function(st) {
-    var w = ((st.gapUSD||0) / maxG * 100).toFixed(1);
+    var w = (((st.viewGap || 0) / maxG) * 100).toFixed(1);
     return '<div class="ranked-item">'
       + '<div class="ranked-meta">'
       + '<span class="ranked-name">' + st.name + '</span>'
-      + '<span class="ranked-amt">US$' + (st.gapUSD||0).toFixed(2) + 'B \u00b7 ' + (st.gapPct||0).toFixed(0) + '% unmet</span>'
+      + '<span class="ranked-amt">US$' + (st.viewGap || 0).toFixed(2) + 'B · ' + (st.viewGapPct || 0).toFixed(0) + '% unmet</span>'
       + '</div>'
       + '<div class="ranked-track"><div class="ranked-fill" style="width:' + w + '%;background:#B83232;"></div></div>'
       + '</div>';
   }).join('');
 
-  // Closest to target list (top 5 only, separate from the chart)
-  var closest5 = stateList.slice().sort(function(a,b) {
-    return ((b.mobilisedUSD||0)/(b.needUSD||1)) - ((a.mobilisedUSD||0)/(a.needUSD||1));
+  // Closest to target list
+  var closest5 = viewStates.slice().sort(function(a,b) {
+    return ((b.viewMob || 0)/(b.viewNeed || 1)) - ((a.viewMob || 0)/(a.viewNeed || 1));
   }).slice(0,5);
   document.getElementById('closest-target').innerHTML = closest5.map(function(st) {
-    var pct = Math.min(99, r1((st.mobilisedUSD||0)/(st.needUSD||1)*100));
+    var pct = Math.min(99, r1((st.viewMob || 0)/(st.viewNeed || 1)*100));
     return '<div class="tgt-row">'
       + '<div class="tgt-name">' + st.name + '</div>'
       + '<div class="tgt-track"><div class="tgt-fill" style="width:' + pct + '%;"></div></div>'
@@ -486,9 +744,9 @@ function render() {
       + '</div>';
   }).join('');
 
-  // Closest to target chart — ALL 37 states, scrollable
-  var allSorted = stateList.slice().sort(function(a,b) {
-    return ((b.mobilisedUSD||0)/(b.needUSD||1)) - ((a.mobilisedUSD||0)/(a.needUSD||1));
+  // Closest to target chart — all states
+  var allSorted = viewStates.slice().sort(function(a,b) {
+    return ((b.viewMob || 0)/(b.viewNeed || 1)) - ((a.viewMob || 0)/(a.viewNeed || 1));
   });
   var canvas = document.getElementById('c-closest-bar');
   var barW   = 24;
@@ -500,15 +758,13 @@ function render() {
   mkChart('c-closest-bar', {
     type: 'bar',
     data: {
-      labels: allSorted.map(function(s) {
-        return s.name.length > 8 ? s.name.slice(0,7) + '.' : s.name;
-      }),
+      labels: allSorted.map(function(s) { return s.name.length > 8 ? s.name.slice(0,7) + '.' : s.name; }),
       datasets: [
-        { label:'Dom Public',   data: allSorted.map(function(s){ return r1((s.mobilisedUSD||0)*.38); }), backgroundColor:'#5B9FA6', borderRadius:2, stack:'s' },
-        { label:'Dom Private',  data: allSorted.map(function(s){ return r1((s.mobilisedUSD||0)*.28); }), backgroundColor:'#7AAF8A', borderRadius:2, stack:'s' },
-        { label:"Int'l Public", data: allSorted.map(function(s){ return r1((s.mobilisedUSD||0)*.22); }), backgroundColor:'#6B8CAE', borderRadius:2, stack:'s' },
-        { label:"Int'l Private",data: allSorted.map(function(s){ return r1((s.mobilisedUSD||0)*.12); }), backgroundColor:'#B08AC9', borderRadius:2, stack:'s' },
-        { label:'Gap',          data: allSorted.map(function(s){ return r1(s.gapUSD||0); }),             backgroundColor:'#e07a7a', borderRadius:2, stack:'s' }
+        { label:'Dom Public',   data: allSorted.map(function(s){ return r1(s.viewDp || 0); }), backgroundColor:'#5B9FA6', borderRadius:2, stack:'s' },
+        { label:'Dom Private',  data: allSorted.map(function(s){ return r1(s.viewPriv || 0); }), backgroundColor:'#7AAF8A', borderRadius:2, stack:'s' },
+        { label:"Int'l Public", data: allSorted.map(function(s){ return r1(s.viewIp || 0); }), backgroundColor:'#6B8CAE', borderRadius:2, stack:'s' },
+        { label:"Int'l Private",data: allSorted.map(function(s){ return r1(s.viewIpriv || 0); }), backgroundColor:'#B08AC9', borderRadius:2, stack:'s' },
+        { label:'Gap',          data: allSorted.map(function(s){ return r1(s.viewGap || 0); }), backgroundColor:'#e07a7a', borderRadius:2, stack:'s' }
       ]
     },
     options: {
@@ -523,80 +779,125 @@ function render() {
   });
 
   // State explorer
-  if (!scA) {
-    document.getElementById('state-cards').innerHTML = '<div style="color:var(--ink-lt);font-size:12px;padding:12px 0;">Select State A to begin exploring.</div>';
-    return;
+  var stA = scA ? INFF.states[scA] : null;
+  var stB = scB ? INFF.states[scB] : null;
+
+  function getAllStatesAggregate(yearValue, sectorValue) {
+    var total = { need:0, mob:0, gap:0, dp:0, priv:0, ip:0, ipriv:0, sectors:{} };
+    Object.keys(INFF.meta.sectors).forEach(function(code){
+      total.sectors[code] = { need:0, mob:0, gap:0, gapPct:0 };
+    });
+
+    stateList.forEach(function(st){
+      var m = getFilteredStateMetrics(st, yearValue, sectorValue);
+      total.need += m.need || 0;
+      total.mob  += m.mob || 0;
+      total.gap  += m.gap || 0;
+      total.dp   += m.dp || 0;
+      total.priv += m.priv || 0;
+      total.ip   += m.ip || 0;
+      total.ipriv+= m.ipriv || 0;
+      Object.keys(total.sectors).forEach(function(code){
+        var sm = m.sectors && m.sectors[code] ? m.sectors[code] : null;
+        if (!sm) return;
+        total.sectors[code].need += sm.need || 0;
+        total.sectors[code].mob  += sm.mob || 0;
+        total.sectors[code].gap  += sm.gap || 0;
+      });
+    });
+
+    Object.keys(total.sectors).forEach(function(code){
+      var s = total.sectors[code];
+      s.need = r1(s.need); s.mob = r1(s.mob); s.gap = r1(s.gap);
+      s.gapPct = s.need ? r1(s.gap / s.need * 100) : 0;
+    });
+
+    total.need = r1(total.need);
+    total.mob = r1(total.mob);
+    total.gap = r1(total.gap);
+    total.dp = r1(total.dp);
+    total.priv = r1(total.priv);
+    total.ip = r1(total.ip);
+    total.ipriv = r1(total.ipriv);
+    total.gapPct = total.need ? r1(total.gap / total.need * 100) : 0;
+    total.gapClosed = total.need ? r1(total.mob / total.need * 100) : 0;
+    return total;
   }
 
-  var stA = INFF.states[scA];
-  var stB = scB ? INFF.states[scB] : null;
-  var ydA = INFF.getState(scA, yrNum, null) || {};
-  var ydB = stB ? (INFF.getState(scB, yrNum, null) || {}) : null;
+  var ydA = stA ? getFilteredStateMetrics(stA, yr, explorerSector) : getAllStatesAggregate(yr, explorerSector);
+  var ydB = stB ? getFilteredStateMetrics(stB, yr, explorerSector) : null;
 
-  function stateCard(st, yd, colorClass) {
-    var gp = yd.gapPct !== undefined ? yd.gapPct : (st.gapPct || 0);
+  function stateCard(st, yd, colorClass, isAllStates) {
+    var gp = yd.gapPct !== undefined ? yd.gapPct : 0;
     var valColor = gp > 50 ? '#e07a7a' : gp > 35 ? '#e8c17a' : '#fff';
+    var titleName = isAllStates ? 'All States' : st.name;
+    var regionName = isAllStates ? 'National Aggregate' : st.region;
+    var populationText = isAllStates ? stateList.reduce(function(sum,s){ return sum + (s.population || 0); }, 0).toFixed(1) : st.population;
+    var qualityText = isAllStates ? Math.round(stateList.reduce(function(sum,s){ return sum + (s.dataQuality || 0); }, 0) / Math.max(1, stateList.length)) : st.dataQuality;
+    var statusClass = isAllStates ? 'adopted' : inffHdrCls(st.inffStatus);
+    var statusText = isAllStates ? 'Aggregate View' : (st.inffStatus||'Not Started');
+
     return '<div class="state-hcard ' + colorClass + '">'
-      + '<div class="shc-region">' + st.region + '</div>'
-      + '<span class="shc-inff ' + inffHdrCls(st.inffStatus) + '">' + (st.inffStatus||'Not Started') + '</span>'
-      + '<div class="shc-name">' + st.name + '</div>'
+      + '<div class="shc-region">' + regionName + '</div>'
+      + '<span class="shc-inff ' + statusClass + '">' + statusText + '</span>'
+      + '<div class="shc-name">' + titleName + '</div>'
       + '<div class="shc-kpis">'
       + '<div><div class="shc-kpi-label">Financing Gap</div>'
-      + '<div class="shc-kpi-val" style="color:' + valColor + '">$' + ((yd.gap||st.gapUSD||0)).toFixed(2) + 'B</div>'
-      + '<div class="shc-kpi-sub">' + gp.toFixed(0) + '% of need unmet</div></div>'
+      + '<div class="shc-kpi-val" style="color:' + valColor + '">$' + (yd.gap || 0).toFixed(2) + 'B</div>'
+      + '<div class="shc-kpi-sub">' + gp.toFixed(0) + '% of need unmet · ' + explorerSectorName + '</div></div>'
       + '<div><div class="shc-kpi-label">SDG Need</div>'
-      + '<div class="shc-kpi-val">$' + ((yd.need||st.needUSD||0)).toFixed(2) + 'B</div>'
-      + '<div class="shc-kpi-sub">Mobilised: $' + ((yd.mob||st.mobilisedUSD||0)).toFixed(2) + 'B</div></div>'
-      + '<div><div class="shc-kpi-label">Population</div>'
-      + '<div class="shc-kpi-val">' + st.population + 'M</div></div>'
+      + '<div class="shc-kpi-val">$' + (yd.need || 0).toFixed(2) + 'B</div>'
+      + '<div class="shc-kpi-sub">Mobilised: $' + (yd.mob || 0).toFixed(2) + 'B</div></div>'
+      + '<div><div class="shc-kpi-label">' + (isAllStates ? 'Population Total' : 'Population') + '</div>'
+      + '<div class="shc-kpi-val">' + populationText + 'M</div></div>'
       + '<div><div class="shc-kpi-label">Data Quality</div>'
-      + '<div class="shc-kpi-val" style="color:' + (st.dataQuality<40?'#e07a7a':st.dataQuality<65?'#e8c17a':'#fff') + '">'
-      + st.dataQuality + '<span style="font-size:12px;font-weight:400">/100</span></div></div>'
+      + '<div class="shc-kpi-val" style="color:' + (qualityText<40?'#e07a7a':qualityText<65?'#e8c17a':'#fff') + '">'
+      + qualityText + '<span style="font-size:12px;font-weight:400">/100</span></div></div>'
       + '</div></div>';
   }
 
   document.getElementById('state-cards').innerHTML =
-    stateCard(stA, ydA, 'shc-a') +
-    (stB ? stateCard(stB, ydB, 'shc-b')
-         : '<div style="background:var(--bg);border:1px dashed var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--ink-lt);font-size:12px;">Select State B to compare</div>');
+    stateCard(stA || {name:'All States',region:'National Aggregate',population:0,dataQuality:0,inffStatus:'Aggregate View'}, ydA, 'shc-a', !stA) +
+    (stB ? stateCard(stB, ydB, 'shc-b', false)
+         : '<div style="background:var(--bg);border:1px dashed var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--ink-lt);font-size:12px;">' + (!stA ? 'Select State B to compare against all states' : 'Select State B to compare') + '</div>');
 
   // Source bar chart
-  var srcLabels  = ["Dom. Public","Dom. Private","Int'l Public","Int'l Private"];
+  var srcLabels  = ['Dom. Public','Dom. Private',"Int'l Public", "Int'l Private"];
   var srcA = [ydA.dp||0, ydA.priv||0, ydA.ip||0, ydA.ipriv||0].map(function(v){ return r1(v*1000); });
-  var srcDs = [{ label:stA.name, data:srcA, backgroundColor:'#5B9FA6', borderRadius:4 }];
+  var srcDs = [{ label:(stA ? stA.name : 'All States'), data:srcA, backgroundColor:'#5B9FA6', borderRadius:4 }];
   if (stB && ydB) {
     var srcB = [ydB.dp||0, ydB.priv||0, ydB.ip||0, ydB.ipriv||0].map(function(v){ return r1(v*1000); });
     srcDs.push({ label:stB.name, data:srcB, backgroundColor:'#D4956A', borderRadius:4 });
   }
   mkChart('c-exp-source', barCfg(srcLabels, srcDs, { yfmt: function(v){ return '$'+v+'M'; } }));
   document.getElementById('exp-legend-a').innerHTML =
-    '<div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>' + stA.name + '</div>' +
+    '<div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>' + (stA ? stA.name : 'All States') + '</div>' +
     (stB ? '<div class="leg"><div class="leg-dot" style="background:#D4956A"></div>' + stB.name + '</div>' : '');
 
-  // Sector gap chart
-  var SCODES = Object.keys(INFF.meta.sectors);
-  var SNAMES = Object.values(INFF.meta.sectors).map(function(n){ return n.split(' ')[0]; });
-  var secA = SCODES.map(function(c){
-    return 100 - (ydA.sectors && ydA.sectors[c] ? ydA.sectors[c].gapPct : (stA.bySector && stA.bySector[c] ? stA.bySector[c].gapPct : 50));
+  // Sector gap chart (global sector filter or explorer sector respected)
+  var sectorCodes = explorerSector === 'ALL' ? Object.keys(INFF.meta.sectors) : [explorerSector];
+  var sectorNames = sectorCodes.map(function(c){ return (INFF.meta.sectors[c] || c).split(' ')[0]; });
+  var secA = sectorCodes.map(function(c){
+    return 100 - ((ydA.sectors && ydA.sectors[c] ? ydA.sectors[c].gapPct : 50) || 0);
   });
-  var secDs = [{ label:stA.name, data:secA, backgroundColor:'#5B9FA6', borderRadius:4 }];
+  var secDs = [{ label:(stA ? stA.name : 'All States'), data:secA, backgroundColor:'#5B9FA6', borderRadius:4 }];
   if (stB && ydB) {
-    var secB = SCODES.map(function(c){
-      return 100 - (ydB.sectors && ydB.sectors[c] ? ydB.sectors[c].gapPct : (stB.bySector && stB.bySector[c] ? stB.bySector[c].gapPct : 50));
+    var secB = sectorCodes.map(function(c){
+      return 100 - ((ydB.sectors && ydB.sectors[c] ? ydB.sectors[c].gapPct : 50) || 0);
     });
     secDs.push({ label:stB.name, data:secB, backgroundColor:'#D4956A', borderRadius:4 });
   }
-  mkChart('c-exp-sector', hbarCfg(SNAMES, secDs, { yfmt: function(v){ return v+'%'; } }));
+  mkChart('c-exp-sector', hbarCfg(sectorNames, secDs, { yfmt: function(v){ return v+'%'; } }));
   document.getElementById('exp-legend-b').innerHTML =
-    '<div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>' + stA.name + '</div>' +
+    '<div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>' + (stA ? stA.name : 'All States') + '</div>' +
     (stB ? '<div class="leg"><div class="leg-dot" style="background:#D4956A"></div>' + stB.name + '</div>' : '');
 
   // Projects table
-  var projA  = INFF.getProjects({ state:scA });
-  var projB  = scB ? INFF.getProjects({ state:scB }) : [];
+  var projA = scA ? INFF.getProjects({ state:scA, sector: explorerSector === 'ALL' ? undefined : explorerSector }) : INFF.getProjects({ sector: explorerSector === 'ALL' ? undefined : explorerSector });
+  var projB = scB ? INFF.getProjects({ state:scB, sector: explorerSector === 'ALL' ? undefined : explorerSector }) : [];
   var allProj = projA.concat(projB).slice(0,12);
-  document.getElementById('proj-title').textContent = 'Active International Projects \u2014 ' + stA.name + (stB ? ' & ' + stB.name : '');
-  document.getElementById('proj-sub').textContent   = 'Showing ' + allProj.length + ' active projects';
+  document.getElementById('proj-title').textContent = 'Active International Projects — ' + (stA ? stA.name : 'All States') + (stB ? ' & ' + stB.name : '');
+  document.getElementById('proj-sub').textContent   = 'Showing ' + allProj.length + ' active projects · ' + explorerSectorName;
   var stCls = function(s){ return s==='Active'?'sp-on':s==='Delayed'?'sp-del':s==='At Risk'?'sp-risk':'sp-comp'; };
   document.getElementById('proj-tbody').innerHTML = allProj.length
     ? allProj.map(function(p){
@@ -610,8 +911,8 @@ function render() {
       }).join('')
     : '<tr><td colspan="7" style="text-align:center;color:var(--ink-lt);padding:16px;">No projects found</td></tr>';
 
-  // Data coverage tracker
-  var covStates = stateList.slice().sort(function(a,b){ return (b.dataQuality||0) - (a.dataQuality||0); });
+  // Data coverage tracker (sector/year aware note)
+  var covStates = viewStates.slice().sort(function(a,b){ return (b.dataQuality||0) - (a.dataQuality||0); });
   var qualCls   = function(q){ return q>=70?'qs-high':q>=40?'qs-med':'qs-low'; };
   function dataPill(score, threshold) {
     if (score >= threshold)       return '<span class="cov-pill cp-full">Full</span>';
@@ -623,7 +924,7 @@ function render() {
     if (score >= 60) return 'Q3 2025';
     if (score >= 40) return '2024';
     if (score >= 20) return '2023';
-    return '\u2014';
+    return '—';
   }
   document.getElementById('cov-tbody').innerHTML = covStates.slice(0,15).map(function(st){
     return '<tr>'
@@ -638,11 +939,12 @@ function render() {
       + '</tr>';
   }).join('');
   document.getElementById('cov-note').textContent =
-    '+ ' + (covStates.length - 15) + ' additional states with no current INFF data coverage \u00b7 Expansion targeted 2026\u20132027';
+    '+ ' + Math.max(0, covStates.length - 15) + ' additional states outside the top 15 · ' + secName + ' · ' + yrLabel;
 }
 
+
 function resetFilters() {
-  document.getElementById('f-year').value   = '2025';
+  document.getElementById('f-year').value = 'ALL';
   document.getElementById('f-sector').value = 'ALL';
   render();
 }
@@ -672,55 +974,14 @@ render();
 
 
 
-<footer class="portal-footer">
-  <div class="footer-container">
-    <div class="footer-col footer-brand">
-      <div class="footer-logos">
-        <img src="assets/images/Nigeria_Gov_Logo.png" alt="Nigeria Government Logo">
-        <img src="assets/images/SDGs_Nigeria_office_Logo.png" alt="OSSAP SDGs Logo">
-        <img src="assets/images/EU_Flag.png" alt="European Union Logo">
-        <img src="assets/images/UNDP-Logo-Blue.png" alt="UNDP Logo">
-      </div>
-      <p><strong>Nigeria Integrated National Financing Framework</strong> dashboard provides a consolidated view of Nigeria’s financing landscape across public, private and international resources.</p>
-    </div>
-
-    <div class="footer-col">
-      <h4>BUILDING BLOCKS</h4>
-      <ul>
-        <li><a href="building-blocks.html">Assessment &amp; Diagnostics</a></li>
-        <li><a href="p2-sources.html">Integrated Financing Strategy</a></li>
-        <li><a href="p3-review.html">Performance &amp; Reviews</a></li>
-        <li><a href="p4-architecture.html">Governance &amp; Coordination</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>QUICK LINKS</h4>
-      <ul>
-        <li><a href="p1-gap.html">View Financing Gaps</a></li>
-        <li><a href="p2-reforms.html">Track Reforms</a></li>
-        <li><a href="downloads.html">Latest INFF Updates</a></li>
-        <li><a href="p3-results.html">Subnational SDG Scorecards</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>CONTACT</h4>
-      <ul class="footer-contact">
-        <li><a href="mailto:inff@nigeria.gov.ng">inff@nigeria.gov.ng</a></li>
-        <li>Abuja, Nigeria</li>
-      </ul>
-      <div class="footer-socials">
-        <a href="#" aria-label="Website">🌐</a>
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="X">X</a>
-        <a href="#" aria-label="LinkedIn">in</a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">© 2025 Nigeria INFF Dashboard • All Rights Reserved</div>
-</footer>
 
 
+
+
+
+
+
+
+<script src="js/footer-component.js"></script>
 </body>
 </html>

@@ -84,3 +84,25 @@ The new `landing.html` / `index.html` now opens to the landing page first:
 ---
 
 *If you have any issues, the most reliable fix is always VS Code + Live Server.*
+
+
+## Important note
+This version uses shared HTML partials loaded with `fetch()` for the navigation, breadcrumbs, and page headers. Please open the site through a local web server, not by double-clicking the HTML files.
+
+
+## Data file structure
+The original `js/data.js` has been split into focused files under `js/data/`:
+
+- `meta.js`
+- `kpis.js`
+- `byYear.js`
+- `bySector.js`
+- `states.js`
+- `projects.js`
+- `reforms.js`
+
+The lightweight `js/data.js` now safely reassembles the global `INFF` object so the existing pages continue to work without changing their chart logic.
+
+
+## Shared footer
+All pages now load a single shared footer from `footer.html` using the existing `[data-include]` loader.
