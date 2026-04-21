@@ -35,7 +35,9 @@
 .flow-link-a{fill:none;stroke:url(#flowGradA);stroke-opacity:.55}.flow-link-b{fill:none;stroke:url(#flowGradB);stroke-opacity:.55}
 .flow-label{font: 12px Sora, sans-serif; fill:#18152f}
 .flow-tooltip{position:fixed;z-index:40;background:#1f1b3d;color:#fff;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.35;pointer-events:none;opacity:0;transform:translate(-50%,-120%);transition:opacity .12s ease}
-@media (max-width:900px){.rev-comp{grid-template-columns:1fr}.rev-bars{grid-template-columns:repeat(4,minmax(55px,1fr))}.flow-wrap{min-height:300px}.flow-wrap svg{height:300px}}
+.ip-snapshot-card{background:transparent;border:none;box-shadow:none;padding:0}.ip-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch;margin-top:8px}.ip-mini-panel{background:#fff;border:1px solid rgba(92,71,240,.08);border-radius:12px;padding:14px;text-align:center;box-shadow:0 1px 0 rgba(0,0,0,.02)}.ip-mini-panel .legend{justify-content:center}.ip-mini-panel .cval-sm{margin-bottom:2px}.ip-mini-panel .ch-xs{height:120px}.ip-mini-panel .ch-sm{height:145px}.ip-mini-panel .csub{min-height:30px}.ip-sector-grid{align-items:stretch}.ip-sector-grid>.card{display:flex;flex-direction:column;min-height:370px}.ip-sector-grid .pbar-list{flex:1}.ip-sector-grid .ch-md{height:280px;flex:1}.ip-flow-card{background:#fff}.ip-flow-wrap{position:relative;min-height:290px;border-radius:12px;overflow:hidden}.ip-flow-wrap svg{width:100%;height:290px;display:block}.ip-flow-node{fill:#8f82f3;stroke:#5c47f0;stroke-width:1px;rx:4;ry:4}.ip-flow-node.gold{fill:#ead46d;stroke:#d4b74e}.ip-flow-link-a{fill:none;stroke:url(#ipFlowGradA);stroke-opacity:.55}.ip-flow-link-b{fill:none;stroke:url(#ipFlowGradB);stroke-opacity:.55}.ip-flow-label{font:12px Sora, sans-serif;fill:#18152f}
+@media (max-width:1100px){.ip-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){.rev-comp{grid-template-columns:1fr}.rev-bars{grid-template-columns:repeat(4,minmax(55px,1fr))}.flow-wrap{min-height:300px}.flow-wrap svg{height:300px}.ip-mini-grid{grid-template-columns:1fr}.ip-sector-grid>.card{min-height:auto}.ip-sector-grid .ch-md{height:230px}.ip-flow-wrap{min-height:260px}.ip-flow-wrap svg{height:260px}}
 
 .oil-redesign{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;min-height:240px;padding:18px 8px 8px;}
 .oil-pill-card{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:10px;min-width:0;position:relative;cursor:pointer;}
@@ -68,7 +70,7 @@
 
 /* Footer upgrade */
 .portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
-.footer-container{max-width:1200px;margin:auto;padding:42px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+.footer-container{width:100%;max-width:none;margin:0;padding:42px 24px;display:grid;grid-template-columns:minmax(320px,1.7fr) 1fr 1fr .95fr;gap:32px;justify-content:start}
 .footer-col h4{margin-bottom:12px;font-size:14px;font-weight:600;color:#fff}
 .footer-col ul{list-style:none;padding:0;margin:0}
 .footer-col li{margin-bottom:8px;font-size:13px;color:#c9c9d6}
@@ -303,72 +305,77 @@ width:auto;
     <div class="kcard kc-4"><div class="klabel">Avg Disbursement Rate</div><div class="kvalue">67%</div><div class="ksub">Disbursements as % of committed</div><div class="kdelta kd-warn">Below 75% target</div></div>
   </div>
 
-  <div class="sdiv">Partner Overview</div>
-  <div class="g3">
-    <div class="card">
-      <div class="ctitle">Int'l Public Share of Total</div>
-      <div class="csub">vs all other financing · selected year</div>
-      <div class="cval-sm" id="ip-total">—</div>
-      <div class="ch-xs"><canvas id="ip-share"></canvas></div>
-      <div class="legend" style="justify-content:center;margin-top:8px;">
-        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Int'l Public</div>
-        <div class="leg"><div class="leg-dot" style="background:#e8e6e2"></div>Other</div>
+  <div class="sdiv">Partner Overview &amp; Trends</div>
+  <div class="ip-snapshot-card" style="margin-bottom:16px;">
+    <div class="ip-mini-grid">
+      <div class="ip-mini-panel">
+        <div class="ctitle">Int'l Public Share of Total</div>
+        <div class="cval-sm" id="ip-total">—</div>
+        <div class="ch-xs"><canvas id="ip-share"></canvas></div>
+        <div class="legend" style="margin-top:8px;">
+          <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Int'l Public</div>
+          <div class="leg"><div class="leg-dot" style="background:#e8e6e2"></div>Other</div>
+        </div>
+      </div>
+      <div class="ip-mini-panel">
+        <div class="ctitle">Financing by Instrument</div>
+        <div class="csub">Loans · Grants · Technical Assistance</div>
+        <div class="ch-xs"><canvas id="ip-instrument"></canvas></div>
+        <div class="legend" style="margin-top:8px;">
+          <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Loans</div>
+          <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Grants</div>
+          <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Tech. Assistance</div>
+        </div>
+      </div>
+      <div class="ip-mini-panel">
+        <div class="ctitle">Financing by Year</div>
+        <div class="csub">Total int'l public flows · NGN Billions · 2020–2025</div>
+        <div class="ch-sm"><canvas id="ip-years"></canvas></div>
+      </div>
+      <div class="ip-mini-panel">
+        <div class="ctitle">Disbursement Performance by Partner</div>
+        <div class="csub">Committed vs disbursed · top 6 partners · 2025</div>
+        <div class="ch-sm"><canvas id="ip-disb"></canvas></div>
+        <div class="legend" style="margin-top:8px;">
+          <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Committed</div>
+          <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Disbursed</div>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div class="sdiv">Sectoral Breakdown &amp; Partner Mix</div>
+  <div class="g3 ip-sector-grid">
     <div class="card">
       <div class="ctitle">Top Financing Partners</div>
       <div class="csub">By committed amount · 2025</div>
       <div class="pbar-list" id="ip-partners"></div>
     </div>
     <div class="card">
-      <div class="ctitle">Financing by Instrument</div>
-      <div class="csub">Loans · Grants · Technical Assistance</div>
-      <div class="ch-sm"><canvas id="ip-instrument"></canvas></div>
-      <div class="legend" style="justify-content:center;margin-top:8px;">
-        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Loans</div>
-        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Grants</div>
-        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Tech. Assistance</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sdiv">Trends &amp; Sectoral Breakdown</div>
-  <div class="g2">
-    <div class="card">
-      <div class="ctitle">Financing by Year</div>
-      <div class="csub">Total int'l public flows · NGN Billions · 2020–2025</div>
-      <div class="ch-md"><canvas id="ip-years"></canvas></div>
-    </div>
-    <div class="card">
       <div class="ctitle">Financing by Sector</div>
       <div class="csub">% distribution across SDG sectors · selected year</div>
       <div class="ch-md"><canvas id="ip-sectors"></canvas></div>
     </div>
-  </div>
-
-  <div class="sdiv">Instrument Mix &amp; Disbursement Performance</div>
-  <div class="g2">
     <div class="card">
       <div class="ctitle">Instrument Mix by Year</div>
       <div class="csub">Loans · Grants · TA · Budget Support · 2020–2025</div>
-      <div class="ch-lg"><canvas id="ip-mix"></canvas></div>
+      <div class="ch-md"><canvas id="ip-mix"></canvas></div>
       <div class="legend">
         <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Loans</div>
         <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Grants</div>
-        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Tech. Assistance</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>TA</div>
         <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Budget Support</div>
       </div>
     </div>
-    <div class="card">
-      <div class="ctitle">Disbursement Performance by Partner</div>
-      <div class="csub">Committed vs disbursed · top 6 partners · 2025</div>
-      <div class="ch-lg"><canvas id="ip-disb"></canvas></div>
-      <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Committed</div>
-        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Disbursed</div>
-      </div>
-    </div>
   </div>
+
+  <div class="sdiv">Financing by Instrument and Sector</div>
+  <div class="card ip-flow-card">
+    <div class="ctitle">Financing by Instrument and Sector</div>
+    <div class="csub" id="ip-flow-sub">Selected year view · linked to international public finance data</div>
+    <div id="ip-flow" class="ip-flow-wrap"></div>
+  </div>
+</div>
 </div>
 
 <!-- ══════════════════════════════════
@@ -677,14 +684,126 @@ function renderDPR(d, dp, selIdx, hiBar) {
 }
 
 // ── TAB 3: INT'L PUBLIC ──
+function normalizeShares(items){
+  const total = items.reduce((sum, item) => sum + item.value, 0) || 1;
+  return items.map(item => ({ ...item, value: r1(item.value / total * 100) }));
+}
+
+function getIPInstrumentProfile(val) {
+  return normalizeShares([
+    { label:'Loans', value: val * 0.55, color:P[0] },
+    { label:'Grants', value: val * 0.30, color:P[1] },
+    { label:'Other', value: val * 0.15, color:P[2] }
+  ]);
+}
+
+function getIPSectorProfile(sec) {
+  const items = [
+    { label:'Infrastructure', value:24 },
+    { label:'Energy', value:17 },
+    { label:'Agriculture', value:15 },
+    { label:'Climate & Environment', value:11 },
+    { label:'Health', value:10 },
+    { label:'Social Protection', value:9 },
+    { label:'Education', value:8 },
+    { label:'Governance', value:6 }
+  ];
+  const secName = sec === 'ALL' ? '' : String(INFF.meta.sectors[sec] || sec).toLowerCase();
+  if (secName) {
+    items.forEach(item => {
+      const key = item.label.toLowerCase();
+      if ((secName.includes('infra') && key.includes('infrastructure')) ||
+          (secName.includes('energ') && key.includes('energy')) ||
+          (secName.includes('agri') && key.includes('agriculture')) ||
+          (secName.includes('clim') && key.includes('climate')) ||
+          (secName.includes('health') && key.includes('health')) ||
+          (secName.includes('social') && key.includes('social')) ||
+          (secName.includes('educ') && key.includes('education')) ||
+          (secName.includes('govern') && key.includes('governance'))) item.value *= 1.45;
+    });
+  }
+  return normalizeShares(items);
+}
+
+function renderIPInstrumentSectorFlow(val, sec, yr) {
+  const wrap = document.getElementById('ip-flow');
+  if (!wrap) return;
+  const instruments = getIPInstrumentProfile(val);
+  const sectors = getIPSectorProfile(sec);
+  const totalAmount = val || 1;
+  const midNodes = instruments.map((item, i) => ({
+    key:'M'+i, label:item.label, amount:r1(totalAmount * item.value / 100), x:430, y:[14,108,222][i], h:[78,92,42][i], cls:'ip-flow-node'
+  }));
+  const rightNodes = sectors.map((item, i) => ({
+    key:'R'+i, label:item.label, amount:r1(totalAmount * item.value / 100), x:1180, y:[0,36,72,108,144,178,212,244][i], h:[26,26,26,22,20,18,18,14][i], cls:'ip-flow-node gold'
+  }));
+  const instrumentSectorSplit = {
+    Loans:[0.46,0.24,0.08,0.07,0.03,0.03,0.03,0.06],
+    Grants:[0.10,0.05,0.28,0.18,0.16,0.12,0.08,0.03],
+    Other:[0.08,0.10,0.12,0.22,0.16,0.14,0.10,0.08]
+  };
+  const nodes = [
+    {key:'TOTAL', label:'TOTAL', amount:totalAmount, x:8, y:0, h:286, cls:'ip-flow-node'},
+    ...midNodes,
+    ...rightNodes
+  ];
+  const links = [
+    ...midNodes.map(node => ['TOTAL', node.key, node.amount, 'ip-flow-link-a']),
+    ...midNodes.flatMap((node, idx) => rightNodes.map((rnode, j) => [node.key, rnode.key, r1(node.amount * instrumentSectorSplit[instruments[idx].label][j]), idx === 1 ? 'ip-flow-link-b' : 'ip-flow-link-a']))
+  ];
+
+  const byKey = Object.fromEntries(nodes.map(n => [n.key, n]));
+  const outgoing = {};
+  const incoming = {};
+  links.forEach(([src, dst, amount]) => {
+    outgoing[src] = (outgoing[src] || 0) + amount;
+    incoming[dst] = (incoming[dst] || 0) + amount;
+  });
+  const outOffsets = {};
+  const inOffsets = {};
+  const maxStroke = 150;
+  function pathFor(s, t, amount){
+    const sx = s.x + 10, sy = s.y + (outOffsets[s.key] || 0) + amount / (outgoing[s.key] || amount) * s.h / 2;
+    const tx = t.x, ty = t.y + (inOffsets[t.key] || 0) + amount / (incoming[t.key] || amount) * t.h / 2;
+    outOffsets[s.key] = (outOffsets[s.key] || 0) + amount / (outgoing[s.key] || amount) * s.h;
+    inOffsets[t.key] = (inOffsets[t.key] || 0) + amount / (incoming[t.key] || amount) * t.h;
+    const c1 = sx + (tx - sx) * 0.38;
+    const c2 = sx + (tx - sx) * 0.72;
+    const width = Math.max(2, amount / totalAmount * maxStroke);
+    return { d:`M ${sx} ${sy} C ${c1} ${sy}, ${c2} ${ty}, ${tx} ${ty}`, width };
+  }
+
+  const yearLabel = yr === 'ALL' ? '2020–2025 total' : `${yr} snapshot`;
+  document.getElementById('ip-flow-sub').textContent = `${yearLabel} · instrument-to-sector mapping for international public finance`;
+  wrap.innerHTML = `
+    <svg viewBox="0 0 1260 290" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="ipFlowGradA" x1="0" x2="1">
+          <stop offset="0%" stop-color="#8f82f3"></stop>
+          <stop offset="100%" stop-color="#ead46d"></stop>
+        </linearGradient>
+        <linearGradient id="ipFlowGradB" x1="0" x2="1">
+          <stop offset="0%" stop-color="#7f72ef"></stop>
+          <stop offset="100%" stop-color="#d5bf66"></stop>
+        </linearGradient>
+      </defs>
+      ${links.map((link, i) => { const src = byKey[link[0]], dst = byKey[link[1]], amount = link[2], cls = link[3]; const path = pathFor(src, dst, amount); return `<path data-animate="link" class="${cls}" data-tip="${src.label} → ${dst.label}<br>${fmt(amount)}<br>${yearLabel}" d="${path.d}" stroke-width="${path.width}" style="animation-delay:${0.08 * i}s"></path>`; }).join('')}
+      ${nodes.map((node, i) => `<g data-animate="node" data-tip="${node.label}<br>${fmt(node.amount)}<br>${yearLabel}" style="animation-delay:${0.18 + i*0.05}s"><rect class="${node.cls}" x="${node.x}" y="${node.y}" width="10" height="${node.h}"></rect><text class="ip-flow-label" x="${node.key === 'TOTAL' ? node.x + 14 : node.x - 8}" y="${node.y + node.h/2}" dominant-baseline="middle" text-anchor="${node.key === 'TOTAL' ? 'start' : 'end'}">${node.label}</text></g>`).join('')}
+    </svg>`;
+  bindTip(wrap);
+}
+
 function renderIP(d, dp, selIdx, hiBar) {
   const val = d.ip || 0;
+  const { yr, sec } = getFilters();
   document.getElementById('ip-k1').textContent = fmt(val);
   document.getElementById('ip-k2').textContent = fmt(val * 0.38);
   document.getElementById('ip-total').textContent = fmt(val);
 
   const tot = (d.dp||0)+(d.priv||0)+(d.ip||0)+(d.ipriv||0)||1;
   const share = r1(val/tot*100);
+  const instrumentProfile = getIPInstrumentProfile(val);
+  const sectorProfile = getIPSectorProfile(sec);
   mkChart('ip-share', donutCfg([share, 100-share], [P[0], '#e8e6e2']));
 
   const partners = ['World Bank','AfDB','EU','GIZ','USAID','Green Climate','FCDO','JICA'];
@@ -696,14 +815,14 @@ function renderIP(d, dp, selIdx, hiBar) {
       <div class="pbar-track"><div class="pbar-fill" style="width:${vals[i]/maxV*100}%;background:${P[i%P.length]};"></div></div>
     </div>`).join('');
 
-  mkChart('ip-instrument', donutCfg([55,30,15], [P[0],P[1],P[2]]));
+  mkChart('ip-instrument', donutCfg(instrumentProfile.map(item => item.value), [P[0],P[1],P[2]]));
   mkChart('ip-years', barCfg(YLABELS, [{
     data: YEARS.map((_,i) => r1(val*(0.78+i*0.04)*(1+Math.sin(i)*0.04))),
     backgroundColor: YLABELS.map((_,i) => hiBar(i)), borderRadius:4
   }], {yfmt: v=>'₦'+v+'B'}));
   mkChart('ip-sectors', hbarCfg(
-    ['Infrastructure','Health','Education','Agriculture','Climate','Energy','Digital'],
-    [{data:[35,22,16,12,8,5,2], backgroundColor:P.slice(0,7), borderRadius:4}],
+    sectorProfile.map(item => item.label),
+    [{data: sectorProfile.map(item => item.value), backgroundColor:P.slice(0,sectorProfile.length), borderRadius:4}],
     {yfmt: v=>v+'%'}
   ));
   mkChart('ip-mix', stacked(['Loans','Grants','Tech Assistance','Budget Support'], P, 8));
@@ -714,6 +833,7 @@ function renderIP(d, dp, selIdx, hiBar) {
       {label:'Disbursed', data:[230,220,112,58,40,42], backgroundColor:P[1], borderRadius:4},
     ], {yfmt: v=>'$'+v+'M'}
   ));
+  renderIPInstrumentSectorFlow(val, sec, yr);
 }
 
 // ── TAB 4: INT'L PRIVATE ──
