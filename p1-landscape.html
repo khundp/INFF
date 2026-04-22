@@ -10,16 +10,16 @@
 
 
 <style>
-.rev-comp{display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:center;min-height:220px;margin-top:8px}
-.rev-ring{position:relative;width:220px;height:220px;border-radius:50%;margin:0 auto;background:#eee}
-.rev-ring::after{content:"";position:absolute;inset:32px;background:#fff;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.03)}
+.rev-comp{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:center;min-height:230px;height:230px;margin-top:8px;flex:1 1 auto}
+.rev-ring{position:relative;width:180px;height:180px;border-radius:50%;margin:0 auto;background:#eee}
+.rev-ring::after{content:"";position:absolute;inset:26px;background:#fff;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.03)}
 .rev-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2}
 .rev-center .mini{font-size:11px;letter-spacing:1.2px;color:#7e7b90;text-transform:uppercase}
-.rev-center .big{font-size:20px;font-weight:800;color:#1d1a38;line-height:1.05;margin:3px 0}
+.rev-center .big{font-size:18px;font-weight:800;color:#1d1a38;line-height:1.05;margin:3px 0}
 .rev-center .yr{font-size:12px;color:#7e7b90}
-.rev-bars{display:grid;grid-template-columns:repeat(6,minmax(56px,1fr));gap:14px;align-items:end;min-height:200px;padding:10px 6px 18px;position:relative}
-.rev-bars::before{content:"";position:absolute;left:0;right:0;top:18px;bottom:18px;background:repeating-linear-gradient(to top, transparent 0 27px, rgba(125,120,160,.12) 27px 28px);pointer-events:none}
-.rev-col{position:relative;height:165px;display:flex;align-items:flex-end;justify-content:center;gap:8px}
+.rev-bars{display:grid;grid-template-columns:repeat(6,minmax(56px,1fr));gap:14px;align-items:end;min-height:180px;height:180px;padding:10px 2px 24px;position:relative;flex:1 1 auto}
+.rev-bars::before{content:"";position:absolute;left:0;right:0;top:12px;bottom:18px;background:repeating-linear-gradient(to top, transparent 0 23px, rgba(125,120,160,.12) 23px 24px);pointer-events:none}
+.rev-col{position:relative;height:145px;display:flex;align-items:flex-end;justify-content:center;gap:8px}
 .rev-pill{width:14px;border-radius:999px;position:relative;cursor:pointer;z-index:1;transition:transform .18s ease, filter .18s ease}
 .rev-pill:hover{transform:translateY(-3px) scale(1.03);filter:brightness(.98)}
 .rev-year{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;color:#8a84a8}
@@ -28,16 +28,16 @@
 .flow-switch{width:44px;height:24px;border:none;border-radius:999px;background:#d9d5ea;position:relative;cursor:pointer;padding:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
 .flow-switch span{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s ease, background .2s ease}
 .flow-switch.on{background:#5c47f0}.flow-switch.on span{left:23px;background:#fff}
-.flow-wrap{position:relative;min-height:350px;border-radius:12px;overflow:hidden}
-.flow-wrap svg{width:100%;height:350px;display:block}
+.flow-wrap{position:relative;min-height:242px;height:242px;border-radius:12px;overflow:hidden;flex:1 1 auto}
+.flow-wrap svg{width:100%;height:242px;display:block}
 .flow-node{fill:#8f82f3;stroke:#5c47f0;stroke-width:1px;rx:4;ry:4}
 .flow-node.gold{fill:#ead46d;stroke:#d4b74e}
 .flow-link-a{fill:none;stroke:url(#flowGradA);stroke-opacity:.55}.flow-link-b{fill:none;stroke:url(#flowGradB);stroke-opacity:.55}
-.flow-label{font: 12px Sora, sans-serif; fill:#18152f}
+.flow-label{font: 600 14px/1.1 Sora, sans-serif; fill:#18152f}
 .flow-tooltip{position:fixed;z-index:40;background:#1f1b3d;color:#fff;padding:8px 10px;border-radius:8px;font-size:12px;line-height:1.35;pointer-events:none;opacity:0;transform:translate(-50%,-120%);transition:opacity .12s ease}
-.ip-snapshot-card{background:transparent;border:none;box-shadow:none;padding:0}.ip-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch;margin-top:8px}.ip-mini-panel{background:#fff;border:1px solid rgba(92,71,240,.08);border-radius:12px;padding:14px;text-align:center;box-shadow:0 1px 0 rgba(0,0,0,.02)}.ip-mini-panel .legend{justify-content:center}.ip-mini-panel .cval-sm{margin-bottom:2px}.ip-mini-panel .ch-xs{height:120px}.ip-mini-panel .ch-sm{height:145px}.ip-mini-panel .csub{min-height:30px}.ip-sector-grid{align-items:stretch}.ip-sector-grid>.card{display:flex;flex-direction:column;min-height:370px}.ip-sector-grid .pbar-list{flex:1}.ip-sector-grid .ch-md{height:280px;flex:1}.ip-flow-card{background:#fff}.ip-flow-wrap{position:relative;min-height:290px;border-radius:12px;overflow:hidden}.ip-flow-wrap svg{width:100%;height:290px;display:block}.ip-flow-node{fill:#8f82f3;stroke:#5c47f0;stroke-width:1px;rx:4;ry:4}.ip-flow-node.gold{fill:#ead46d;stroke:#d4b74e}.ip-flow-link-a{fill:none;stroke:url(#ipFlowGradA);stroke-opacity:.55}.ip-flow-link-b{fill:none;stroke:url(#ipFlowGradB);stroke-opacity:.55}.ip-flow-label{font:12px Sora, sans-serif;fill:#18152f}
+.ip-snapshot-card{background:transparent;border:none;box-shadow:none;padding:0}.ip-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch;margin-top:8px}.ip-mini-panel{background:#fff;border:1px solid rgba(92,71,240,.08);border-radius:12px;padding:14px;text-align:center;box-shadow:0 1px 0 rgba(0,0,0,.02)}.ip-mini-panel .legend{justify-content:center}.ip-mini-panel .cval-sm{margin-bottom:2px}.ip-mini-panel .ch-xs{height:120px}.ip-mini-panel .ch-sm{height:145px}.ip-mini-panel .csub{min-height:30px}.ip-sector-grid{align-items:stretch}.ip-sector-grid>.card{display:flex;flex-direction:column;min-height:0}.ip-sector-grid .pbar-list{flex:1}.ip-sector-grid .ch-md{height:230px;flex:1}.ip-flow-card{background:#fff}.ip-flow-wrap{position:relative;min-height:268px;height:268px;border-radius:12px;overflow:hidden;flex:1 1 auto}.ip-flow-wrap svg{width:100%;height:268px;display:block}.ip-flow-node{fill:#8f82f3;stroke:#5c47f0;stroke-width:1px;rx:4;ry:4}.ip-flow-node.gold{fill:#ead46d;stroke:#d4b74e}.ip-flow-link-a{fill:none;stroke:url(#ipFlowGradA);stroke-opacity:.55}.ip-flow-link-b{fill:none;stroke:url(#ipFlowGradB);stroke-opacity:.55}.ip-flow-label{font:600 14px/1.1 Sora, sans-serif;fill:#18152f}
 @media (max-width:1100px){.ip-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:900px){.rev-comp{grid-template-columns:1fr}.rev-bars{grid-template-columns:repeat(4,minmax(55px,1fr))}.flow-wrap{min-height:300px}.flow-wrap svg{height:300px}.ip-mini-grid{grid-template-columns:1fr}.ip-sector-grid>.card{min-height:auto}.ip-sector-grid .ch-md{height:230px}.ip-flow-wrap{min-height:260px}.ip-flow-wrap svg{height:260px}}
+@media (max-width:900px){.rev-comp{grid-template-columns:1fr;min-height:230px;height:auto}.rev-bars{grid-template-columns:repeat(4,minmax(55px,1fr));min-height:160px;height:160px}.flow-wrap{min-height:220px;height:220px}.flow-wrap svg{height:220px}.ip-mini-grid{grid-template-columns:1fr}.ip-sector-grid>.card{min-height:auto}.ip-sector-grid .ch-md{height:220px}.ip-flow-wrap{min-height:232px;height:232px}.ip-flow-wrap svg{height:232px}}
 
 .oil-redesign{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;min-height:240px;padding:18px 8px 8px;}
 .oil-pill-card{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:10px;min-width:0;position:relative;cursor:pointer;}
@@ -68,9 +68,59 @@
 
 
 
+
+.page-landscape .g2 > .card,
+.page-landscape .g3 > .card,
+.page-landscape .g2-1 > .card{
+display:flex;
+flex-direction:column;
+}
+.page-landscape .ch-xs,
+.page-landscape .ch-sm,
+.page-landscape .ch-md,
+.page-landscape .ch-lg,
+.page-landscape .ch-xl,
+.page-landscape .rev-comp,
+.page-landscape .flow-wrap,
+.page-landscape .ip-flow-wrap{
+width:100%;
+}
+.page-landscape .ch-xs{height:120px;}
+.page-landscape .ch-sm{height:165px;}
+.page-landscape .ch-md{height:230px;flex:1 1 auto;}
+.page-landscape .ch-lg{height:230px;flex:1 1 auto;}
+.page-landscape .ch-xl{height:230px;flex:1 1 auto;}
+.page-landscape .card canvas,
+.page-landscape .card svg{
+width:100% !important;
+}
+.page-landscape .flow-wrap text,
+.page-landscape .ip-flow-wrap text{
+text-rendering:geometricPrecision;
+-webkit-font-smoothing:antialiased;
+vector-effect:non-scaling-stroke;
+}
+.page-landscape #tab-dp .g2:first-of-type > .card,
+.page-landscape #tab-ip .ip-sector-grid > .card,
+.page-landscape .ip-flow-card{
+min-height:0;
+}
+@media (max-width:640px){
+.page-landscape .ch-md,
+.page-landscape .ch-lg,
+.page-landscape .ch-xl,
+.page-landscape .flow-wrap,
+.page-landscape .ip-flow-wrap{height:224px;min-height:224px;}
+.page-landscape .flow-wrap svg{height:224px;}
+.page-landscape .ip-flow-wrap svg{height:224px;}
+.rev-ring{width:160px;height:160px;}
+.rev-ring::after{inset:24px;}
+}
+
+
 /* Footer upgrade */
 .portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
-.footer-container{width:100%;max-width:none;margin:0;padding:42px 24px;display:grid;grid-template-columns:minmax(320px,1.7fr) 1fr 1fr .95fr;gap:32px;justify-content:start}
+.footer-container{max-width:1200px;margin:auto;padding:42px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
 .footer-col h4{margin-bottom:12px;font-size:14px;font-weight:600;color:#fff}
 .footer-col ul{list-style:none;padding:0;margin:0}
 .footer-col li{margin-bottom:8px;font-size:13px;color:#c9c9d6}
@@ -96,6 +146,7 @@ width:auto;
 
 .footer-socials{display:flex;gap:14px;margin-top:18px;align-items:center;flex-wrap:wrap;}.footer-socials .fs-ico{width:52px;height:52px;border-radius:999px;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .2s ease, box-shadow .2s ease, background .2s ease;}.footer-socials .fs-ico:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.34);background:#000;}.footer-socials .fs-ico svg{width:24px;height:24px;display:block;}
 </style>
+  <link rel="stylesheet" href="assets/header-unified.css">
 </head>
 <body class="page-landscape" data-nav="bb">
 
@@ -307,6 +358,8 @@ width:auto;
 
   <div class="sdiv">Partner Overview &amp; Trends</div>
   <div class="ip-snapshot-card" style="margin-bottom:16px;">
+    <div class="ctitle">Int'l Public Snapshot</div>
+    <div class="csub">Four compact charts aligned together for a cleaner top section</div>
     <div class="ip-mini-grid">
       <div class="ip-mini-panel">
         <div class="ctitle">Int'l Public Share of Total</div>
@@ -375,7 +428,6 @@ width:auto;
     <div class="csub" id="ip-flow-sub">Selected year view · linked to international public finance data</div>
     <div id="ip-flow" class="ip-flow-wrap"></div>
   </div>
-</div>
 </div>
 
 <!-- ══════════════════════════════════
@@ -728,14 +780,19 @@ function getIPSectorProfile(sec) {
 function renderIPInstrumentSectorFlow(val, sec, yr) {
   const wrap = document.getElementById('ip-flow');
   if (!wrap) return;
+  const baseWidth = 1244;
+  const width = Math.max(980, Math.round(wrap.clientWidth || baseWidth));
+  const sx = width / baseWidth;
+  const height = Math.round(parseFloat(getComputedStyle(wrap).height) || 248);
+  const scaleX = x => Math.round(x * sx);
   const instruments = getIPInstrumentProfile(val);
   const sectors = getIPSectorProfile(sec);
   const totalAmount = val || 1;
   const midNodes = instruments.map((item, i) => ({
-    key:'M'+i, label:item.label, amount:r1(totalAmount * item.value / 100), x:430, y:[14,108,222][i], h:[78,92,42][i], cls:'ip-flow-node'
+    key:'M'+i, label:item.label, amount:r1(totalAmount * item.value / 100), x:scaleX(470), y:[14,108,222][i], h:[78,92,42][i], cls:'ip-flow-node'
   }));
   const rightNodes = sectors.map((item, i) => ({
-    key:'R'+i, label:item.label, amount:r1(totalAmount * item.value / 100), x:1180, y:[0,36,72,108,144,178,212,244][i], h:[26,26,26,22,20,18,18,14][i], cls:'ip-flow-node gold'
+    key:'R'+i, label:item.label, amount:r1(totalAmount * item.value / 100), x:scaleX(1234), y:[0,36,72,108,144,178,212,244][i], h:[26,26,26,22,20,18,18,14][i], cls:'ip-flow-node gold'
   }));
   const instrumentSectorSplit = {
     Loans:[0.46,0.24,0.08,0.07,0.03,0.03,0.03,0.06],
@@ -743,7 +800,7 @@ function renderIPInstrumentSectorFlow(val, sec, yr) {
     Other:[0.08,0.10,0.12,0.22,0.16,0.14,0.10,0.08]
   };
   const nodes = [
-    {key:'TOTAL', label:'TOTAL', amount:totalAmount, x:8, y:0, h:286, cls:'ip-flow-node'},
+    {key:'TOTAL', label:'TOTAL', amount:totalAmount, x:scaleX(2), y:0, h:286, cls:'ip-flow-node'},
     ...midNodes,
     ...rightNodes
   ];
@@ -776,7 +833,7 @@ function renderIPInstrumentSectorFlow(val, sec, yr) {
   const yearLabel = yr === 'ALL' ? '2020–2025 total' : `${yr} snapshot`;
   document.getElementById('ip-flow-sub').textContent = `${yearLabel} · instrument-to-sector mapping for international public finance`;
   wrap.innerHTML = `
-    <svg viewBox="0 0 1260 290" preserveAspectRatio="xMidYMid meet">
+    <svg viewBox="0 0 ${width} 290" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet">
       <defs>
         <linearGradient id="ipFlowGradA" x1="0" x2="1">
           <stop offset="0%" stop-color="#8f82f3"></stop>
@@ -914,6 +971,9 @@ function renderRevenueComposition(snapshot, yr){
 
 function renderRevenueFlows(snapshot, filters){
   const wrap = document.getElementById('dp-flow');
+  const width = Math.max(700, Math.round(wrap.clientWidth || 760));
+  const height = Math.round(parseFloat(getComputedStyle(wrap).height) || 230);
+  const nodeW = Math.max(10, Math.round(width * 0.012));
   const sec = filters.sector || 'ALL';
   const view = filters.yr === 'ALL'
     ? { total: snapshot.total, tax: snapshot.tax, nonTax: snapshot.nonTax, fees: r1(snapshot.total * 0.05), losses: r1(snapshot.total * 0.08), label: 'Total flow · 2020–2025' }
@@ -922,6 +982,25 @@ function renderRevenueFlows(snapshot, filters){
   const non = view.nonTax;
   const fees = view.fees;
   const losses = view.losses;
+
+  const xPos = {
+    left: Math.round(width * 0.02),
+    col2: Math.round(width * 0.26),
+    col3: Math.round(width * 0.50),
+    col4: Math.round(width * 0.74),
+    right: Math.round(width * 0.97) - nodeW
+  };
+  const hPos = {
+    total: Math.round(height * 0.78),
+    typeA: Math.round(height * 0.34),
+    typeB: Math.round(height * 0.27),
+    midA: Math.round(height * 0.36),
+    midB: Math.round(height * 0.22),
+    outA: Math.round(height * 0.40),
+    outB: Math.round(height * 0.17),
+    smallTop: Math.max(14, Math.round(height * 0.06)),
+    house: Math.round(height * 0.34)
+  };
 
   const sectorProfiles = {
     ALL: [['INF',0.24],['EDU',0.18],['HEA',0.18],['AGR',0.14],['ENE',0.14],['WAT',0.12]],
@@ -944,6 +1023,7 @@ function renderRevenueFlows(snapshot, filters){
   if (flowMode === 'sector') {
     const profile = sectorProfiles[sec] || sectorProfiles.ALL;
     const sectorTotal = Math.max(0, tax + non);
+    const sectorYs = [0.10,0.39,0.68,0.10,0.39,0.68].map(v => Math.round(height * v));
     const sectorNodes = profile.map(([code, share], idx) => {
       const amount = r1(sectorTotal * share);
       return {
@@ -953,17 +1033,17 @@ function renderRevenueFlows(snapshot, filters){
         amount,
         taxPart: r1(amount * (sectorTaxMix[code] || 0.65)),
         nonPart: r1(amount * (1 - (sectorTaxMix[code] || 0.65))),
-        x: idx < 3 ? 370 : 560,
-        y: [26, 130, 234, 26, 130, 234][idx],
-        h: [76, 76, 76, 76, 76, 76][idx]
+        x: idx < 3 ? Math.round(width * 0.53) : Math.round(width * 0.81),
+        y: sectorYs[idx],
+        h: Math.round(height * 0.25)
       };
     });
 
     nodes = [
-      {key:'TOTAL', x:6, y:70, w:10, h:190, cls:'flow-node', label:'TOTAL', anchor:'start', dx:14},
-      {key:'A', x:185, y:52, w:10, h:110, cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-8},
-      {key:'B', x:185, y:190, w:10, h:110, cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-8},
-      ...sectorNodes.map(s => ({...s, w:10, cls:'flow-node gold', anchor:'start', dx:14}))
+      {key:'TOTAL', x:xPos.left, y:Math.round(height * 0.11), w:nodeW, h:hPos.total, cls:'flow-node', label:'TOTAL', anchor:'start', dx:nodeW + 10},
+      {key:'A', x:xPos.col2, y:Math.round(height * 0.14), w:nodeW, h:hPos.typeA, cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-10},
+      {key:'B', x:xPos.col2, y:Math.round(height * 0.58), w:nodeW, h:hPos.typeB, cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-10},
+      ...sectorNodes.map(s => ({...s, w:nodeW, cls:'flow-node gold', anchor:'start', dx:nodeW + 10}))
     ];
 
     const taxDemand = sectorNodes.reduce((acc, s) => acc + s.taxPart, 0) || 1;
@@ -982,15 +1062,15 @@ function renderRevenueFlows(snapshot, filters){
     const outA = 'Budget Use';
     const outB = 'Transfers';
     nodes = [
-      {key:'TOTAL', x:6, y:70, w:10, h:190, cls:'flow-node', label:'TOTAL', anchor:'start', dx:14},
-      {key:'A', x:185, y:20, w:10, h:120, cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-6},
-      {key:'B', x:185, y:170, w:10, h:95, cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-6},
-      {key:'C', x:370, y:70, w:10, h:115, cls:'flow-node', label: midA, anchor:'end', dx:-6},
-      {key:'D', x:370, y:215, w:10, h:70, cls:'flow-node', label: midB, anchor:'end', dx:-6},
-      {key:'E', x:555, y:40, w:10, h:130, cls:'flow-node', label: outA, anchor:'end', dx:-6},
-      {key:'F', x:555, y:195, w:10, h:55, cls:'flow-node', label: outB, anchor:'end', dx:-6},
-      {key:'G', x:738, y:18, w:10, h:14, cls:'flow-node gold', label:'Exports', anchor:'end', dx:-6},
-      {key:'H', x:738, y:210, w:10, h:98, cls:'flow-node gold', label:'Households', anchor:'end', dx:-6}
+      {key:'TOTAL', x:xPos.left, y:Math.round(height * 0.11), w:nodeW, h:hPos.total, cls:'flow-node', label:'TOTAL', anchor:'start', dx:nodeW + 10},
+      {key:'A', x:xPos.col2, y:Math.round(height * 0.07), w:nodeW, h:hPos.typeA, cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-10},
+      {key:'B', x:xPos.col2, y:Math.round(height * 0.55), w:nodeW, h:hPos.typeB, cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-10},
+      {key:'C', x:xPos.col3, y:Math.round(height * 0.23), w:nodeW, h:hPos.midA, cls:'flow-node', label: midA, anchor:'end', dx:-10},
+      {key:'D', x:xPos.col3, y:Math.round(height * 0.70), w:nodeW, h:hPos.midB, cls:'flow-node', label: midB, anchor:'end', dx:-10},
+      {key:'E', x:xPos.col4, y:Math.round(height * 0.16), w:nodeW, h:hPos.outA, cls:'flow-node', label: outA, anchor:'end', dx:-10},
+      {key:'F', x:xPos.col4, y:Math.round(height * 0.58), w:nodeW, h:hPos.outB, cls:'flow-node', label: outB, anchor:'end', dx:-10},
+      {key:'G', x:xPos.right, y:Math.round(height * 0.04), w:nodeW, h:hPos.smallTop, cls:'flow-node gold', label:'Exports', anchor:'end', dx:-10},
+      {key:'H', x:xPos.right, y:Math.round(height * 0.68), w:nodeW, h:hPos.house, cls:'flow-node gold', label:'Households', anchor:'end', dx:-10}
     ];
     links = [
       ['TOTAL','A', tax, 'flow-link-a'], ['TOTAL','B', non+fees+losses, 'flow-link-b'],
@@ -1003,17 +1083,22 @@ function renderRevenueFlows(snapshot, filters){
 
   const n = Object.fromEntries(nodes.map(o=>[o.key,o]));
   const maxL = Math.max(...links.map(l=>l[2])) || 1;
-  function path(s,t){ const a=n[s], b=n[t]; const x1=a.x+a.w, y1=a.y+a.h/2, x2=b.x, y2=b.y+b.h/2; const cx=(x2-x1)*0.45; return `M ${x1} ${y1} C ${x1+cx} ${y1}, ${x2-cx} ${y2}, ${x2} ${y2}`; }
+  function path(s,t){
+    const a=n[s], b=n[t];
+    const x1=a.x+a.w, y1=a.y+a.h/2, x2=b.x, y2=b.y+b.h/2;
+    const cx=(x2-x1)*0.40;
+    return `M ${x1} ${y1} C ${x1+cx} ${y1}, ${x2-cx} ${y2}, ${x2} ${y2}`;
+  }
   document.getElementById('dp-flow-sub').textContent = flowMode === 'sector'
     ? (filters.yr === 'ALL' ? 'Filter-aware view · dummy sector allocation using sector filter names (total 2020–2025)' : `Filter-aware view · dummy sector allocation using sector filter names for ${filters.yr}`)
     : (filters.yr === 'ALL' ? 'Filter-aware view · total 2020–2025 aligned with year, state and sector filters' : `Filter-aware view · ${filters.yr} flow aligned with year, state and sector filters`);
-  wrap.innerHTML = `<svg viewBox="0 0 750 350" preserveAspectRatio="none" aria-label="Revenue flow chart">
+  wrap.innerHTML = `<svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" preserveAspectRatio="none" aria-label="Revenue flow chart">
     <defs>
       <linearGradient id="flowGradA" x1="0" x2="1"><stop offset="0%" stop-color="${P[4] || '#B08AC9'}"/><stop offset="100%" stop-color="${P[1]}"/></linearGradient>
       <linearGradient id="flowGradB" x1="0" x2="1"><stop offset="0%" stop-color="${P[0]}"/><stop offset="100%" stop-color="${P[1]}"/></linearGradient>
     </defs>
-    ${links.map(([s,t,v,cls],i)=>`<path data-animate="link" class="${cls}" d="${path(s,t)}" stroke-width="${Math.max(8, v/maxL*58)}" data-tip="${n[s].label} → ${n[t].label}<br>${fmt(v)}" style="animation-delay:${i*0.06}s"></path>`).join('')}
-    ${nodes.map((o,i)=>`<g data-animate="node" data-tip="${o.label}<br>${view.label}<br>${flowMode==='sector' ? 'Dummy sector-linked flow node' : 'Revenue type node'}" style="animation-delay:${0.15 + i*0.05}s"><rect class="${o.cls}" x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}"></rect><text class="flow-label" x="${o.x + (o.dx ?? (o.key==='TOTAL'?14:-6))}" y="${o.y + o.h/2}" dominant-baseline="middle" text-anchor="${o.anchor || (o.key==='TOTAL'?'start':'end')}">${o.label}</text></g>`).join('')}
+    ${links.map(([s,t,v,cls],i)=>`<path vector-effect="non-scaling-stroke" data-animate="link" class="${cls}" d="${path(s,t)}" stroke-width="${Math.max(8, v/maxL*Math.min(58, height*0.24))}" data-tip="${n[s].label} → ${n[t].label}<br>${fmt(v)}" style="animation-delay:${i*0.06}s"></path>`).join('')}
+    ${nodes.map((o,i)=>`<g data-animate="node" data-tip="${o.label}<br>${view.label}<br>${flowMode==='sector' ? 'Dummy sector-linked flow node' : 'Revenue type node'}" style="animation-delay:${0.15 + i*0.05}s"><rect class="${o.cls}" x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}"></rect><text class="flow-label" x="${o.x + (o.dx ?? (o.key==='TOTAL'?o.w+10:-10))}" y="${o.y + o.h/2}" dominant-baseline="middle" text-anchor="${o.anchor || (o.key==='TOTAL'?'start':'end')}">${o.label}</text></g>`).join('')}
   </svg>`;
   bindTip(wrap);
 }
@@ -1036,6 +1121,8 @@ if (urlTab) {
     if (btn) switchTab(t, btn);
   }
 }
+
+window.addEventListener('resize', () => { clearTimeout(window.__p1ResizeTimer); window.__p1ResizeTimer = setTimeout(() => render(), 120); });
 
 render();
 </script>

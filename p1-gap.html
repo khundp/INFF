@@ -59,7 +59,7 @@ select:focus{outline:none;border-color:var(--brand);}
 .fb-status{margin-left:auto;font-size:11px;color:var(--ink-lt);}
 .fb-status strong{color:var(--c1);}
 
-.wrap{max-width:1600px;margin:0 auto;padding:28px 8px 64px;}
+.wrap{max-width:1720px;margin:0 auto;padding:28px 0 64px;width:min(calc(100% - 48px),1720px);}
 .card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
 .ctitle{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
 .csub{font-size:11px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5;}
@@ -244,21 +244,15 @@ width:auto;
 .footer-socials{display:flex;gap:14px;margin-top:18px;align-items:center;flex-wrap:wrap;}.footer-socials .fs-ico{width:52px;height:52px;border-radius:999px;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .2s ease, box-shadow .2s ease, background .2s ease;}.footer-socials .fs-ico:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.34);background:#000;}.footer-socials .fs-ico svg{width:24px;height:24px;display:block;}
 
 
-/* Final width sync for p1-gap */
-.wrap{
-  max-width:1600px !important;
-  width:calc(100% - 16px) !important;
-  margin:0 auto !important;
-  padding:28px 8px 64px !important;
-}
 @media (max-width:768px){
   .wrap{
-    width:calc(100% - 24px) !important;
-    padding:24px 12px 56px !important;
+    width:min(calc(100% - 24px),1720px) !important;
+    padding:24px 0 56px !important;
   }
 }
 
 </style>
+  <link rel="stylesheet" href="assets/header-unified.css">
 </head>
 <body data-nav="bb">
 <div id="nav-placeholder" data-include="assets/nav.html"></div>
