@@ -76,7 +76,7 @@ select:focus{outline:none;border-color:var(--brand);}
 .fb-status{margin-left:auto;font-size:11px;color:var(--ink-lt);}
 .fb-status strong{color:var(--c1);}
 
-.wrap{max-width:1400px;margin:0 auto;padding:28px 24px 64px;}
+.wrap{max-width:1720px;margin:0 auto;padding:28px 0 64px;width:min(calc(100% - 48px),1720px);}
 .card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
 .ctitle{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
 .csub{font-size:11px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5;}
@@ -629,4 +629,36 @@ html body .topnav .nb-sub{
   height:2px;
   background:#4a2f6b;
   pointer-events:none;
+}
+
+
+@media (max-width:768px){.wrap{width:min(calc(100% - 24px),1720px);padding:24px 0 56px;}}
+
+
+/* --- v37: final spacing consistency fixes --- */
+/* Building blocks should use the same effective content width as the rest of the portal. */
+body[data-nav="bb"] .wrap > .layout{
+  max-width:none !important;
+  width:100% !important;
+}
+
+/* Prevent grid children from forcing extra page width on Finance Landscape tabs,
+   especially Int'l Private charts/labels. */
+.page-landscape .krow > *,
+.page-landscape .g2 > *,
+.page-landscape .g3 > *,
+.page-landscape .g2-1 > *{
+  min-width:0 !important;
+}
+.page-landscape canvas,
+.page-landscape svg{
+  max-width:100% !important;
+}
+.page-landscape .card,
+.page-landscape .kcard,
+.page-landscape .tab-panel{
+  width:100%;
+}
+.page-landscape{
+  overflow-x:hidden;
 }
