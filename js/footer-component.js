@@ -6,7 +6,7 @@
     style.id = 'footer-component-styles';
     style.textContent = `
       .portal-footer{background:#1c1c2e;color:#fff;margin-top:60px;}
-      .footer-container{max-width:1200px;margin:auto;padding:38px 28px;display:grid;grid-template-columns:1.45fr 1fr 1fr .9fr;gap:40px;align-items:start;}
+      .footer-container{width:100%;max-width:none;margin:0;padding:38px 24px 38px 52px;display:grid;grid-template-columns:minmax(320px,1.7fr) 1fr 1fr .95fr;gap:40px;align-items:start;justify-content:start;}
       .footer-col h4{margin-bottom:14px;font-size:14px;font-weight:700;letter-spacing:.02em;color:#fff;}
       .footer-col ul{list-style:none;padding:0;margin:0;}
       .footer-col li{margin-bottom:12px;font-size:13px;line-height:1.4;}
