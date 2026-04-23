@@ -5,249 +5,254 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Constraints &amp; Bottlenecks — Nigeria Integrated National Financing Framework</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/header-unified.css">
+<link rel="stylesheet" href="assets/p1-shell.css">
 <style>
-
 :root {
   --brand:#532B70; --brand-dk:#3a1a52; --brand-l:#f7f4fb; --brand-bd:#d4c8e8;
   --amber:#F8981D; --amber-l:#fef6ea; --amber-dk:#c4710a;
-  --gap:#B83232;   --gap-l:#fdf0f0;
-  --ink:#1C1C2E;   --ink-md:#4a4a62; --ink-lt:#8888a0;
-  --border:#e4e2dc; --bg:#f4f3f0;    --surf:#ffffff;
-  --radius:10px;
-
-  /* Muted qualitative chart palette */
-  --c1:#5B9FA6; /* dusty teal      */
-  --c2:#D4956A; /* warm sand       */
-  --c3:#7AAF8A; /* sage green      */
-  --c4:#6B8CAE; /* dusty blue      */
-  --c5:#B08AC9; /* soft lavender   */
-  --c6:#C9956A; /* terracotta      */
-  --c7:#8AAFAA; /* seafoam         */
-  --c8:#A89F7A; /* warm olive      */
+  --gap:#B83232; --gap-l:#fdf0f0;
+  --ink:#1C1C2E; --ink-md:#4a4a62; --ink-lt:#8888a0;
+  --border:#e4e2dc; --bg:#f4f3f0; --surf:#ffffff; --radius:10px;
+  --c1:#5B9FA6; --c2:#D4956A; --c3:#7AAF8A; --c4:#6B8CAE; --c5:#B08AC9; --c6:#C9956A;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5;}
-
-.topnav{background:var(--brand);height:56px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:500;box-shadow:0 2px 12px rgba(0,0,0,.18);}
-.nav-brand{display:flex;flex-direction:row;align-items:center;gap:12px;margin-right:auto;text-decoration:none;}
-.nav-brand-logos{display:flex;align-items:center;gap:10px;}
-.nav-brand-logos img{height:48px;width:auto;}
-.nav-brand-text{display:flex;flex-direction:column;}
-.nav-brand .nb-title{font-family:'Literata',serif;font-size:16px;font-weight:700;color:#fff;line-height:1;}
-.nav-brand .nb-sub{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px;}
-.nav-links{display:flex;align-items:center;gap:4px;}
-.nav-links a{font-size:12px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border-radius:6px;transition:all .15s;white-space:nowrap;}
-.nav-links a:hover{color:#fff;background:rgba(255,255,255,.1);}
-.nav-links a.active{color:#fff;font-weight:700;border-bottom:2px solid var(--amber);border-radius:0;padding-bottom:4px;}
-
-.breadbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:8px 24px;display:flex;align-items:center;gap:6px;font-size:10px;color:var(--ink-lt);}
-.breadbar a{color:var(--brand);text-decoration:none;font-weight:500;}
-.breadbar a:hover{text-decoration:underline;}
-
-.page-header{background:var(--brand);padding:28px 24px 26px;border-bottom:3px solid var(--amber);}
-.ph-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px;}
-.ph-title{font-family:'Literata',serif;font-size:30px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px;}
-.ph-desc{font-size:12px;color:rgba(255,255,255,.65);max-width:640px;line-height:1.75;}
-
-.fbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:10px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-.fb-group{display:flex;align-items:center;gap:7px;}
-.fb-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);}
-select{font-family:'Sora',sans-serif;font-size:12px;color:var(--ink);background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:5px 28px 5px 9px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath d='M0 0l4.5 5L9 0z' fill='%238888a0'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;cursor:pointer;}
-select:focus{outline:none;border-color:var(--brand);}
-.fb-div{width:1px;height:20px;background:var(--border);}
-.btn-reset{font-family:'Sora',sans-serif;font-size:10px;font-weight:600;color:var(--brand);background:var(--surf);border:1px solid var(--brand-bd);border-radius:6px;padding:5px 12px;cursor:pointer;transition:all .15s;}
-.btn-reset:hover{background:var(--brand);color:#fff;}
-.fb-status{margin-left:auto;font-size:10px;color:var(--ink-lt);}
-.fb-status strong{color:var(--c1);}
-
-.wrap{max-width:1720px;margin:0 auto;padding:28px 0 64px;width:min(calc(100% - 48px),1720px);}
-.card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
-.ctitle{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
-.csub{font-size:10px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5;}
-.cval{font-family:'Literata',serif;font-size:26px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1;}
-.cval-sm{font-family:'Literata',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1;}
-
-.krow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
-.kcard{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px 20px 16px;position:relative;overflow:hidden;}
-.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
-.kc-1::before{background:var(--c1);}
-.kc-2::before{background:var(--c2);}
-.kc-3::before{background:var(--c3);}
-.kc-4::before{background:var(--c4);}
-.kc-5::before{background:var(--c5);}
-.kc-gap::before{background:var(--gap);}
-.klabel{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:8px;line-height:1.4;}
-.kvalue{font-family:'Literata',serif;font-size:30px;font-weight:700;line-height:1;margin-bottom:4px;}
-.kc-1 .kvalue{color:var(--c1);}
-.kc-2 .kvalue{color:var(--c2);}
-.kc-3 .kvalue{color:var(--c3);}
-.kc-4 .kvalue{color:var(--c4);}
-.kc-5 .kvalue{color:var(--c5);}
-.kc-gap .kvalue{color:var(--gap);}
-.ksub{font-size:10px;color:var(--ink-lt);line-height:1.4;}
-.kdelta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px;}
-.kd-good{background:#eaf4f5;color:#3a7a80;}
-.kd-bad {background:var(--gap-l);color:#8c1f1f;}
-.kd-warn{background:var(--amber-l);color:var(--amber-dk);}
-.kd-info{background:var(--brand-l);color:var(--brand);}
-
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;}
-.g2-1{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
-.ch-xs{position:relative;height:90px;}
-.ch-sm{position:relative;height:130px;}
-.ch-md{position:relative;height:185px;}
-.ch-lg{position:relative;height:230px;}
-.sdiv{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:16px;}
-.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;}
-.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink-md);}
-.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
-.pbar-list{display:flex;flex-direction:column;gap:9px;}
-.pbar-meta{display:flex;justify-content:space-between;margin-bottom:3px;font-size:10px;}
-.pbar-name{font-weight:600;color:var(--ink);}
-.pbar-val{color:var(--ink-lt);}
-.pbar-track{height:7px;background:var(--bg);border-radius:4px;overflow:hidden;}
-.pbar-fill{height:100%;border-radius:4px;background:var(--c1);}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-
-
-.opt-c-strip{position:sticky;top:56px;z-index:470;}
-.opt-c-row1{background:#3d2960;padding:7px 24px;display:flex;align-items:center;gap:6px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.08);}
-.opt-c-jumplabel{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);flex-shrink:0;margin-right:6px;}
-.opt-c-bb-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .15s;}
-.opt-c-bb-chip:hover{border-color:rgba(255,255,255,.4);color:#fff !important;}
-.opt-c-row2{background:#f0ecf8;padding:5px 24px;display:flex;align-items:center;gap:2px;flex-wrap:wrap;border-bottom:1px solid #d4c8e8;}
-.opt-c-sec-link{font-size:10px;color:#6b5b8a;padding:4px 10px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all .12s;}
-.opt-c-sec-link:hover{color:#532B70;background:rgba(83,43,112,.08);}
-.opt-c-sec-link.active{color:#532B70;font-weight:700;background:rgba(83,43,112,.1);}
-.opt-c-sep{color:#c4b8d8;padding:0 2px;font-size:10px;}
-
-.uc-wrap {
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  min-height:60vh; padding:48px 24px;
-  text-align:center;
-}
-.uc-icon {
-  font-size:48px; margin-bottom:20px; line-height:1;
-}
-.uc-title {
-  font-family:'Literata',serif;
-  font-size:28px; font-weight:700;
-  color:var(--ink); margin-bottom:8px;
-}
-.uc-sub {
-  font-size:13px; color:var(--ink-lt);
-  margin-bottom:28px;
-}
-.uc-back {
-  font-family:'Sora',sans-serif;
-  font-size:12px; font-weight:700;
-  color:#fff; background:var(--brand);
-  padding:10px 22px; border-radius:8px;
-  text-decoration:none;
-}
-.uc-back:hover { opacity:.88; }
-/* ── site footer (matches landing screenshot) ── */
-.site-footer{background:#d9c8f2;margin-top:36px;padding:22px 0;border-top:1px solid rgba(0,0,0,.06);}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 80px;}
-.footer-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr .9fr;gap:28px;align-items:start;}
-.footer-logos{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
-.footer-logos img{height:32px;width:auto;}
-.footer-logos img.footer-inff-logo{height:50px;width:auto;}
-.footer-brand h3{font-size:18px;font-weight:800;margin:4px 0 6px 0;color:var(--ink);}
-.footer-brand p{max-width:360px;color:rgba(0,0,0,.62);font-size:12px;line-height:1.45;}
-.footer-copy{margin-top:18px;color:rgba(0,0,0,.55);font-size:10px;}
-.footer-col h4{font-size:14px;font-weight:900;letter-spacing:.02em;margin-bottom:10px;color:rgba(0,0,0,.85);}
-.footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;}
-.footer-col a{color:rgba(0,0,0,.65);text-decoration:none;font-size:12px;}
-.footer-col a:hover{color:rgba(0,0,0,.9);text-decoration:underline;}
-.footer-contact{color:rgba(0,0,0,.65);font-size:12px;line-height:1.5;}
-.footer-contact a{color:rgba(0,0,0,.65);text-decoration:none;}
-.footer-contact a:hover{text-decoration:underline;color:rgba(0,0,0,.9);}
-.footer-social{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
-.footer-social .soc{width:32px;height:32px;border-radius:999px;background:#171717;display:grid;place-items:center;text-decoration:none;}
-.footer-social .soc svg{width:16px;height:16px;fill:#fff;}
-@media (max-width: 980px){
-  .footer-grid{grid-template-columns:1fr 1fr;gap:18px;}
-}
-@media (max-width: 560px){
-  .footer-grid{grid-template-columns:1fr;}
-}
-
-
-/* ── header logos ── */
-.nav-brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;}
-.nav-logos{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.nav-logos img{height:28px;width:auto;object-fit:contain;filter:brightness(1.05);}
-.nav-brand-text{display:flex;flex-direction:column;line-height:1;}
-
-
-/* Footer upgrade */
-.portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
-.footer-container{max-width:1200px;margin:auto;padding:42px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
-.footer-col h4{margin-bottom:12px;font-size:14px;font-weight:600;color:#fff}
-.footer-col ul{list-style:none;padding:0;margin:0}
-.footer-col li{margin-bottom:8px;font-size:13px;color:#c9c9d6}
-.footer-col a{color:#c9c9d6;text-decoration:none}
-.footer-col a:hover{color:#fff}
-.footer-brand h3{margin-bottom:10px;font-size:18px}
-.footer-brand p{font-size:13px;line-height:1.7;color:#c9c9d6;max-width:420px}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:16px;font-size:12px;color:#a9a9b6}
-@media (max-width:900px){.footer-container{grid-template-columns:1fr 1fr}}
-@media (max-width:640px){.footer-container{grid-template-columns:1fr}}
-
-.footer-socials{display:flex;gap:14px;margin-top:18px;align-items:center;flex-wrap:wrap;}.footer-socials .fs-ico{width:52px;height:52px;border-radius:999px;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .2s ease, box-shadow .2s ease, background .2s ease;}.footer-socials .fs-ico:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.34);background:#000;}.footer-socials .fs-ico svg{width:24px;height:24px;display:block;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5}
+.wrap{max-width:1720px;margin:0 auto;padding:28px 0 64px;width:min(calc(100% - 48px),1720px)}
+.krow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.kcard,.card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius)}
+.kcard{padding:20px 20px 16px;position:relative;overflow:hidden}.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}.kc-1::before{background:var(--c1)}.kc-2::before{background:var(--c2)}.kc-3::before{background:var(--gap)}.kc-4::before{background:var(--c4)}
+.klabel{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:8px}.kvalue{font-family:'Literata',serif;font-size:30px;font-weight:700;line-height:1;margin-bottom:4px}.kc-1 .kvalue{color:var(--c1)}.kc-2 .kvalue{color:var(--c2)}.kc-3 .kvalue{color:var(--gap)}.kc-4 .kvalue{color:var(--c4)}.ksub{font-size:10px;color:var(--ink-lt)}
+.kdelta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px}.kd-good{background:#eaf4f5;color:#3a7a80}.kd-warn{background:var(--amber-l);color:var(--amber-dk)}.kd-info{background:var(--brand-l);color:var(--brand)}
+.sdiv{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.g2,.g3,.g2-1{display:grid;gap:16px;margin-bottom:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g2-1{grid-template-columns:2fr 1fr}
+.card{padding:20px}.ctitle{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px}.csub{font-size:10px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5}.ch-lg{position:relative;height:245px}.ch-md{position:relative;height:210px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink-md)}.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.constraint-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.constraint-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 18px 16px;display:flex;flex-direction:column;gap:14px;min-height:278px}
+.constraint-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.constraint-name{font-family:'Literata',serif;font-size:22px;line-height:1.25;color:var(--ink)}
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.badge.revenue{background:#eaf4f5;color:#3a7a80}.badge.cost{background:#fff1e7;color:#b36222}.badge.governance{background:#f1edf8;color:#6d56a7}.badge.capacity{background:#eef3fb;color:#47688e}
+.severity-wrap{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center}.severity-num{font-family:'Literata',serif;font-size:38px;line-height:1;color:var(--gap)}.severity-label{font-size:10px;color:var(--ink-lt);text-transform:uppercase;letter-spacing:.08em}
+.severity-track{height:10px;background:#f0edf5;border-radius:999px;overflow:hidden}.severity-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#7AAF8A 0%, #F8981D 55%, #B83232 100%)}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:11px;color:var(--ink-md)}.meta-row strong{color:var(--ink)}
+.support-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.support-item{background:#faf8fc;border:1px solid #eee6f7;border-radius:8px;padding:10px}.support-k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-lt);margin-bottom:4px}.support-v{font-size:17px;font-weight:700;color:var(--ink)}.support-n{font-size:10px;color:var(--ink-lt);line-height:1.45;margin-top:3px}
+.reform-wrap{display:flex;flex-wrap:wrap;gap:8px}.reform-chip{background:var(--brand-l);color:var(--brand);border:1px solid var(--brand-bd);padding:5px 9px;border-radius:999px;font-size:10px;font-weight:600}
+.heat-table,.link-table{width:100%;border-collapse:collapse}.heat-table th,.heat-table td,.link-table th,.link-table td{padding:11px 10px;border-bottom:1px solid #f0edf5;text-align:left;font-size:11px}.heat-table th,.link-table th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-lt)}
+.heat-cell{min-width:96px}.heat-box{height:12px;border-radius:999px;background:#f1edf8;overflow:hidden;position:relative}.heat-fill{height:100%;border-radius:999px}.cell-note{display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(--ink-lt)}
+.priority-pill{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:700}.priority-high{background:#fdf0f0;color:#9a2d2d}.priority-medium{background:#fff5e8;color:#b56d1f}
+.empty-state{padding:40px 16px;text-align:center;color:var(--ink-lt);border:1px dashed var(--brand-bd);border-radius:12px;background:#fbf9fe}
+@media (max-width:1200px){.krow{grid-template-columns:repeat(2,1fr)}.g2,.g2-1,.constraint-grid{grid-template-columns:1fr}.g3{grid-template-columns:1fr}}
+@media (max-width:720px){.wrap{width:min(calc(100% - 24px),1720px)}.krow{grid-template-columns:1fr}.support-list{grid-template-columns:1fr}.severity-wrap{grid-template-columns:1fr}.constraint-name{font-size:20px}}
 </style>
-
-  <link rel="stylesheet" href="assets/header-unified.css">
 </head>
 <body data-nav="bb">
 <div id="nav-placeholder" data-include="assets/nav.html"></div>
 <div id="breadcrumb-placeholder" data-include="assets/partials/breadcrumbs/p1-constraints.html"></div>
-<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link ">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link ">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link ">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link active">Constraints & Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link ">Data Sources & Integrity</a></div></div>
-<div class="uc-wrap">
-  <div class="uc-icon">🚧</div>
-  <div class="uc-title">Under Construction</div>
-  <div class="uc-sub">Constraints &amp; Bottlenecks</div>
-  <a href="overview.html" class="uc-back">← Back to Overview</a>
+<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link active">Constraints &amp; Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link">Data Sources &amp; Integrity</a></div></div>
+<div id="header-placeholder" data-include="assets/partials/headers/p1-constraints.html"></div>
+
+<div class="fbar">
+  <div class="fb-group"><span class="fb-label">Year</span><select id="f-year"><option value="ALL">All Years</option></select></div>
+  <div class="fb-div"></div>
+  <div class="fb-group"><span class="fb-label">Category</span><select id="f-category"><option value="ALL">All Categories</option><option value="Revenue">Revenue</option><option value="Cost of Capital">Cost of Capital</option><option value="Governance">Governance</option><option value="Capacity">Capacity</option></select></div>
+  <div class="fb-div"></div>
+  <div class="fb-group"><span class="fb-label">Severity</span><select id="f-severity"><option value="ALL">All Levels</option><option value="High">High (80+)</option><option value="Medium">Medium (65–79)</option><option value="Moderate">Moderate (&lt;65)</option></select></div>
+  <button class="btn-reset" onclick="resetFilters()">Reset</button>
+  <div class="fb-status">Showing: <strong id="f-status">All categories · all severities · all years</strong></div>
 </div>
 
+<div class="wrap">
+  <div class="krow">
+    <div class="kcard kc-1"><div class="klabel">Active Constraints</div><div class="kvalue" id="k-total">—</div><div class="ksub">Constraint cards meeting current filters</div><div class="kdelta kd-good" id="k-total-d">—</div></div>
+    <div class="kcard kc-2"><div class="klabel">Average Severity</div><div class="kvalue" id="k-sev">—</div><div class="ksub">Average severity indicator across selected cards</div><div class="kdelta kd-warn" id="k-sev-d">—</div></div>
+    <div class="kcard kc-3"><div class="klabel">High-Severity Constraints</div><div class="kvalue" id="k-high">—</div><div class="ksub">Number of issues currently flagged as high severity</div><div class="kdelta kd-info" id="k-high-d">—</div></div>
+    <div class="kcard kc-4"><div class="klabel">Linked Pillar 2 Reforms</div><div class="kvalue" id="k-reforms">—</div><div class="ksub">Unique reform actions referenced by filtered constraints</div><div class="kdelta kd-info">Current reform linkage set</div></div>
+  </div>
 
+  <div class="sdiv">Constraint Diagnostics</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Severity Trend by Category</div>
+      <div class="csub">Average severity score by category across the dummy multi-year series</div>
+      <div class="ch-lg"><canvas id="severityTrend"></canvas></div>
+      <div class="legend"><div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Revenue</div><div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Cost of Capital</div><div class="leg"><div class="leg-dot" style="background:#B08AC9"></div>Governance</div><div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Capacity</div></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Constraint Mix</div>
+      <div class="csub">Share of filtered constraints by category</div>
+      <div class="ch-md"><canvas id="categoryMix"></canvas></div>
+      <div class="legend"><div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Revenue</div><div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Cost of Capital</div><div class="leg"><div class="leg-dot" style="background:#B08AC9"></div>Governance</div><div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Capacity</div></div>
+    </div>
+  </div>
 
+  <div class="g2-1">
+    <div class="card">
+      <div class="ctitle">Constraint Register</div>
+      <div class="csub">Detailed view of the most binding issues, the evidence behind them, and the reform actions linked to each one.</div>
+      <div id="constraintGrid" class="constraint-grid"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Reform Response Tracker</div>
+      <div class="csub">Reform actions connected to the currently displayed constraints.</div>
+      <table class="link-table">
+        <thead><tr><th>Reform</th><th>Pillar</th><th>Linked Constraints</th><th>Priority</th></tr></thead>
+        <tbody id="reformBody"></tbody>
+      </table>
+    </div>
+  </div>
 
+  <div class="sdiv">Hotspot Analysis</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">Sector × Constraint Matrix</div>
+      <div class="csub">Illustrative view of where financing bottlenecks appear most binding across sectors.</div>
+      <table class="heat-table">
+        <thead><tr><th>Sector</th><th>Revenue</th><th>Cost of Capital</th><th>Governance</th><th>Capacity</th></tr></thead>
+        <tbody id="heatBody"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="ctitle">How to Read This View</div>
+      <div class="csub">Quick guide to the main indicators shown on this page.</div>
+      <div class="support-list" style="grid-template-columns:1fr;gap:12px">
+        <div class="support-item"><div class="support-k">Severity indicator</div><div class="support-v">0–100</div><div class="support-n">A higher score signals a more binding financing constraint. Scores are illustrative and meant to demonstrate how the diagnostic can be read.</div></div>
+        <div class="support-item"><div class="support-k">Supporting data</div><div class="support-v">Context block</div><div class="support-n">Each constraint includes a compact evidence pack with proxy metrics, ratios, lags, or counts that explain why the bottleneck matters.</div></div>
+        <div class="support-item"><div class="support-k">Linked reforms</div><div class="support-v">Pillar 2 bridge</div><div class="support-n">Reform chips connect the diagnostic to the strategy and sequencing work under Pillar 2.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/data/constraints.js"></script>
 <script src="js/shared.js"></script>
-
-
-
-
 <script>
-(function(){
-  if(window.Chart){
-    Chart.defaults.animation = {duration: 1400, easing: 'easeOutQuart'};
-    if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
-      Chart.defaults.transitions.active.animation = {duration: 300};
-    }
-  }
-})();
+const C = window.INFF_CONSTRAINTS_DATA;
+const els = {
+  year: document.getElementById('f-year'),
+  category: document.getElementById('f-category'),
+  severity: document.getElementById('f-severity'),
+  status: document.getElementById('f-status')
+};
+C.years.slice().reverse().forEach(y => {
+  const op = document.createElement('option'); op.value = String(y); op.textContent = y; els.year.appendChild(op);
+});
+['change'].forEach(evt => { els.year.addEventListener(evt, render); els.category.addEventListener(evt, render); els.severity.addEventListener(evt, render); });
+
+function sevBucket(v){ if(v >= 80) return 'High'; if(v >= 65) return 'Medium'; return 'Moderate'; }
+function badgeCls(cat){ return cat === 'Revenue' ? 'revenue' : cat === 'Cost of Capital' ? 'cost' : cat === 'Governance' ? 'governance' : 'capacity'; }
+function severityText(v){ return v >= 80 ? 'High Severity' : v >= 65 ? 'Medium Severity' : 'Moderate Severity'; }
+function avg(arr){ return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
+
+function filteredConstraints(){
+  const year = els.year.value, cat = els.category.value, sev = els.severity.value;
+  const yearIdx = year === 'ALL' ? null : C.years.indexOf(Number(year));
+  return C.constraints.map(item => {
+    const dynamicSeverity = yearIdx === null ? item.severity : item.severityByYear[yearIdx];
+    return Object.assign({}, item, { severity: dynamicSeverity, latestYear: year === 'ALL' ? item.latestYear : Number(year) });
+  }).filter(item => {
+    if(cat !== 'ALL' && item.category !== cat) return false;
+    if(sev !== 'ALL' && sevBucket(item.severity) !== sev) return false;
+    return true;
+  });
+}
+
+function renderKpis(rows){
+  const total = rows.length;
+  const avgSev = avg(rows.map(r => r.severity));
+  const high = rows.filter(r => r.severity >= 80).length;
+  const reforms = new Set(rows.flatMap(r => r.reforms));
+  document.getElementById('k-total').textContent = total;
+  document.getElementById('k-total-d').textContent = total ? 'Issues in the current filtered view' : 'No matching issues';
+  document.getElementById('k-sev').textContent = total ? avgSev.toFixed(0) + '/100' : '—';
+  document.getElementById('k-sev-d').textContent = total ? severityText(avgSev) : 'No data';
+  document.getElementById('k-high').textContent = high;
+  document.getElementById('k-high-d').textContent = total ? (Math.round(high/total*100) + '% of current view') : '—';
+  document.getElementById('k-reforms').textContent = reforms.size;
+}
+
+function renderCharts(rows){
+  const cats = ['Revenue','Cost of Capital','Governance','Capacity'];
+  const yearIdx = els.year.value === 'ALL' ? null : C.years.indexOf(Number(els.year.value));
+  const trendSets = cats.map((cat, i) => {
+    const color = ['#5B9FA6','#D4956A','#B08AC9','#6B8CAE'][i];
+    const members = rows.filter(r => r.category === cat);
+    const data = C.years.map((_, idx) => {
+      const vals = members.map(m => m.severityByYear[idx]);
+      return vals.length ? Math.round(avg(vals)) : null;
+    });
+    return {label:cat, data, borderColor:color, backgroundColor:color + '26', tension:.35, fill:false, pointRadius:3, pointHoverRadius:4};
+  });
+  mkChart('severityTrend', {type:'line', data:{labels:C.years.map(String), datasets:trendSets}, options:{plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}}, y:{min:0,max:100,grid:{color:GRID}, ticks:{callback:v=>v}}}, responsive:true, maintainAspectRatio:false}});
+
+  const counts = cats.map(cat => rows.filter(r => r.category === cat).length);
+  mkChart('categoryMix', {type:'doughnut', data:{labels:cats, datasets:[{data:counts, backgroundColor:['#5B9FA6','#D4956A','#B08AC9','#6B8CAE'], borderWidth:0}]}, options:{plugins:{legend:{display:false}}, cutout:'68%', responsive:true, maintainAspectRatio:false}});
+}
+
+function renderCards(rows){
+  const host = document.getElementById('constraintGrid');
+  if(!rows.length){ host.innerHTML = '<div class="empty-state">No constraints match the selected filters. Reset the filters to restore the full dummy portfolio.</div>'; return; }
+  host.innerHTML = rows.map(item => `
+    <div class="constraint-card">
+      <div class="constraint-top">
+        <div>
+          <div class="constraint-name">${item.name}</div>
+          <div class="meta-row" style="margin-top:8px"><span><strong>Owner:</strong> ${item.owner}</span><span><strong>Sector:</strong> ${item.sector}</span><span><strong>Geography:</strong> ${item.geography}</span></div>
+        </div>
+        <span class="badge ${badgeCls(item.category)}">${item.category}</span>
+      </div>
+      <div class="severity-wrap">
+        <div>
+          <div class="severity-num">${item.severity}</div>
+          <div class="severity-label">${severityText(item.severity)}</div>
+        </div>
+        <div>
+          <div class="severity-track"><div class="severity-fill" style="width:${item.severity}%"></div></div>
+          <div class="meta-row" style="margin-top:8px"><span><strong>Trend:</strong> ${item.trend}</span><span><strong>Latest year:</strong> ${item.latestYear}</span></div>
+        </div>
+      </div>
+      <div class="support-list">
+        ${item.supportingData.map(d => `<div class="support-item"><div class="support-k">${d.label}</div><div class="support-v">${d.value}</div><div class="support-n">${d.note}</div></div>`).join('')}
+      </div>
+      <div>
+        <div class="support-k" style="margin-bottom:8px">Linked reform actions</div>
+        <div class="reform-wrap">${item.reforms.map(r => `<span class="reform-chip">${r}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderReforms(rows){
+  const set = new Set(rows.flatMap(r => r.reforms));
+  const body = document.getElementById('reformBody');
+  const ref = C.reformLinks.filter(r => set.has(r.reform));
+  body.innerHTML = ref.map(r => `<tr><td>${r.reform}</td><td>${r.pillar}</td><td>${r.linkedConstraints}</td><td><span class="priority-pill ${r.priority === 'High' ? 'priority-high' : 'priority-medium'}">${r.priority}</span></td></tr>`).join('') || '<tr><td colspan="4" style="color:var(--ink-lt)">No linked reform actions in this filter selection.</td></tr>';
+}
+
+function heatColor(v){ return v >= 80 ? '#B83232' : v >= 65 ? '#F8981D' : v >= 50 ? '#B08AC9' : '#7AAF8A'; }
+function renderHeatmap(){
+  const body = document.getElementById('heatBody');
+  body.innerHTML = C.sectorHeatmap.map(row => `
+    <tr>
+      <td style="font-weight:700;color:var(--ink)">${row.sector}</td>
+      ${['revenue','cost','governance','capacity'].map(key => `
+        <td class="heat-cell"><div class="heat-box"><div class="heat-fill" style="width:${row[key]}%;background:${heatColor(row[key])}"></div></div><div class="cell-note"><span>${row[key]}</span><span>${severityText(row[key]).replace(' Severity','')}</span></div></td>`).join('')}
+    </tr>`).join('');
+}
+
+function render(){
+  const rows = filteredConstraints();
+  const parts = [els.category.value === 'ALL' ? 'All categories' : els.category.value, els.severity.value === 'ALL' ? 'all severities' : els.severity.value.toLowerCase() + ' severity', els.year.value === 'ALL' ? 'all years' : els.year.value];
+  els.status.textContent = parts.join(' · ');
+  renderKpis(rows);
+  renderCharts(rows);
+  renderCards(rows);
+  renderReforms(rows);
+}
+function resetFilters(){ els.year.value='ALL'; els.category.value='ALL'; els.severity.value='ALL'; render(); }
+renderHeatmap();
+render();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script src="js/footer-component.js"></script>
 </body>
 </html>

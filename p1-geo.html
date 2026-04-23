@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Geographic Diagnostics — Nigeria INFF Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
-<style>
 <style>
 
 :root {
@@ -30,34 +28,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5;}
 
-.topnav{background:var(--brand);height:56px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:500;box-shadow:0 2px 12px rgba(0,0,0,.18);}
-.nav-brand{display:flex;flex-direction:column;margin-right:auto;text-decoration:none;}
-.nav-brand .nb-title{font-family:'Literata',serif;font-size:16px;font-weight:700;color:#fff;line-height:1;}
-.nav-brand .nb-sub{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px;}
-.nav-links{display:flex;align-items:center;gap:4px;}
-.nav-links a{font-size:12px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border-radius:6px;transition:all .15s;white-space:nowrap;}
-.nav-links a:hover{color:#fff;background:rgba(255,255,255,.1);}
-.nav-links a.active{color:#fff;font-weight:700;border-bottom:2px solid var(--amber);border-radius:0;padding-bottom:4px;}
 
-.breadbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:8px 24px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-lt);}
-.breadbar a{color:var(--brand);text-decoration:none;font-weight:500;}
-.breadbar a:hover{text-decoration:underline;}
 
-.page-header{background:var(--brand);padding:28px 24px 26px;border-bottom:3px solid var(--amber);}
-.ph-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px;}
-.ph-title{font-family:'Literata',serif;font-size:30px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px;}
-.ph-desc{font-size:12px;color:rgba(255,255,255,.65);max-width:640px;line-height:1.75;}
 
-.fbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:10px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-.fb-group{display:flex;align-items:center;gap:7px;}
-.fb-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);}
-select{font-family:'Sora',sans-serif;font-size:12px;color:var(--ink);background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:5px 28px 5px 9px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath d='M0 0l4.5 5L9 0z' fill='%238888a0'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;cursor:pointer;}
-select:focus{outline:none;border-color:var(--brand);}
-.fb-div{width:1px;height:20px;background:var(--border);}
-.btn-reset{font-family:'Sora',sans-serif;font-size:11px;font-weight:600;color:var(--brand);background:var(--surf);border:1px solid var(--brand-bd);border-radius:6px;padding:5px 12px;cursor:pointer;transition:all .15s;}
-.btn-reset:hover{background:var(--brand);color:#fff;}
-.fb-status{margin-left:auto;font-size:11px;color:var(--ink-lt);}
-.fb-status strong{color:var(--c1);}
 
 .wrap{max-width:1720px;margin:0 auto;padding:28px 0 64px;width:min(calc(100% - 48px),1720px);}
 .card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
@@ -109,18 +82,6 @@ select:focus{outline:none;border-color:var(--brand);}
 .pbar-fill{height:100%;border-radius:4px;background:var(--c1);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
-.opt-c-strip{position:sticky;top:56px;z-index:470;}
-.opt-c-row1{background:#3d2960;padding:7px 24px;display:flex;align-items:center;gap:6px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.08);}
-.opt-c-row1::-webkit-scrollbar{height:3px;}
-.opt-c-row1::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:2px;}
-.opt-c-jumplabel{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);flex-shrink:0;margin-right:6px;}
-.opt-c-bb-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .15s;}
-.opt-c-bb-chip:hover{border-color:rgba(255,255,255,.4);color:#fff !important;filter:brightness(1.12);}
-.opt-c-row2{background:#f0ecf8;padding:5px 24px;display:flex;align-items:center;gap:2px;flex-wrap:wrap;border-bottom:1px solid #d4c8e8;}
-.opt-c-sec-link{font-size:11px;color:#6b5b8a;padding:4px 10px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all .12s;}
-.opt-c-sec-link:hover{color:#532B70;background:rgba(83,43,112,.08);}
-.opt-c-sec-link.active{color:#532B70;font-weight:700;background:rgba(83,43,112,.1);}
-.opt-c-sep{color:#c4b8d8;padding:0 2px;font-size:10px;}
 
 .ch-xl{position:relative;height:300px;}
 .ch-lg{position:relative;height:230px;}
@@ -145,7 +106,13 @@ select:focus{outline:none;border-color:var(--brand);}
 .explorer-band{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:16px;}
 .explorer-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
 .explorer-sub{font-size:11px;color:var(--ink-lt);margin-bottom:16px;}
-.explorer-selectors{display:grid;grid-template-columns:1fr 40px 1fr 160px;gap:10px;align-items:end;margin-bottom:16px;}
+.explorer-selectors{display:grid;grid-template-columns:minmax(0,1fr) 180px minmax(0,1fr);gap:12px;align-items:end;margin-bottom:16px;}
+.explorer-selectors .selector-a{grid-column:1;}
+.explorer-selectors .selector-mid{grid-column:2;}
+.explorer-selectors .selector-b{grid-column:3;}
+.explorer-selectors .selector-a select,.explorer-selectors .selector-mid select,.explorer-selectors .selector-b select{width:100%;}
+.explorer-selectors .selector-mid{justify-self:center;width:100%;}
+.vs-badge{display:none;}
 .sel-label2{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:5px;}
 .vs-badge{display:flex;align-items:center;justify-content:center;height:32px;font-size:11px;font-weight:700;color:var(--ink-lt);}
 .state-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
@@ -179,6 +146,8 @@ select:focus{outline:none;border-color:var(--brand);}
 .ip-adopted{background:#e8f5ee;color:#2e7d52;}.ip-pilot{background:var(--brand-l);color:var(--brand);}.ip-draft{background:#fef6ea;color:#c4710a;}.ip-inprogress{background:#eaf5f5;color:#1f5257;}.ip-none{background:var(--bg);color:var(--ink-lt);border:1px solid var(--border);}
 .qual-score{font-weight:700;}
 .qs-high{color:#2e7d52;}.qs-med{color:#c4710a;}.qs-low{color:#8c1f1f;}
+
+@media (max-width:900px){.explorer-selectors{grid-template-columns:1fr;}.explorer-selectors .selector-a,.explorer-selectors .selector-mid,.explorer-selectors .selector-b{grid-column:auto;} .explorer-selectors .selector-mid{justify-self:stretch;}}
 
 /* Footer upgrade */
 .portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
@@ -219,6 +188,7 @@ width:auto;
 
 </style>
   <link rel="stylesheet" href="assets/header-unified.css">
+<link rel="stylesheet" href="assets/p1-shell.css">
 </head>
 <body data-nav="bb">
 <div id="nav-placeholder" data-include="assets/nav.html"></div>
@@ -308,17 +278,16 @@ width:auto;
   <div class="explorer-title">State Explorer</div>
   <div class="explorer-sub">Select one or two states to see their full financing profile, including flows, sector gaps, and active projects.</div>
   <div class="explorer-selectors">
-    <div><div class="sel-label2">State A</div><select id="sel-a" onchange="render()" style="width:100%;"></select></div>
-    <div class="vs-badge">vs</div>
-    <div><div class="sel-label2">State B (optional)</div><select id="sel-b" onchange="render()" style="width:100%;"></select></div>
-    <div><div class="sel-label2">Sector</div>
-      <select id="sel-sector" onchange="render()" style="width:100%;">
+    <div class="selector-a"><div class="sel-label2">State A</div><select id="sel-a" onchange="render()"></select></div>
+    <div class="selector-mid"><div class="sel-label2">Sector</div>
+      <select id="sel-sector" onchange="render()">
         <option value="ALL">All sectors</option>
         <option value="EDU">Education</option><option value="HEA">Health</option>
         <option value="INF">Infrastructure</option><option value="AGR">Agriculture</option>
         <option value="CLI">Climate</option><option value="DIG">Digital</option>
       </select>
     </div>
+    <div class="selector-b"><div class="sel-label2">State B (optional)</div><select id="sel-b" onchange="render()"></select></div>
   </div>
   <div class="state-cards" id="state-cards"></div>
   <div class="explorer-charts">

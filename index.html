@@ -2,45 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=landing.html">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Nigeria Integrated National Financing Framework Dashboard</title>
-  <link rel="stylesheet" href="assets/header-unified.css">
-</head>
-<body data-nav="">
-<p>Redirecting to <a href="landing.html">landing.html</a>…</p>
-
-
-
-
-<script src="js/shared.js"></script>
-
-
-
-
 <script>
 (function(){
-  if(window.Chart){
-    Chart.defaults.animation = {duration: 1400, easing: 'easeOutQuart'};
-    if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
-      Chart.defaults.transitions.active.animation = {duration: 300};
-    }
-  }
+  var target = new URL('landing.html', window.location.href);
+  window.location.replace(target.href);
 })();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="js/footer-component.js"></script>
+<noscript><meta http-equiv="refresh" content="0; url=landing.html"></noscript>
+<style>
+body{font-family:Arial,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;background:#fff;color:#222}
+a{color:#532B70}
+</style>
+</head>
+<body>
+<p>Redirecting to <a href="landing.html">landing.html</a>…</p>
 </body>
 </html>

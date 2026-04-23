@@ -1,231 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title>Institutional Architecture — Nigeria Integrated National Financing Framework</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Institutional Architecture — Nigeria Integrated National Financing Framework</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Literata:ital,opsz,wght@0,7..72,600;0,7..72,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/header-unified.css">
 <style>
-
 :root {
   --brand:#532B70; --brand-dk:#3a1a52; --brand-l:#f7f4fb; --brand-bd:#d4c8e8;
   --amber:#F8981D; --amber-l:#fef6ea; --amber-dk:#c4710a;
-  --gap:#B83232;   --gap-l:#fdf0f0;
-  --ink:#1C1C2E;   --ink-md:#4a4a62; --ink-lt:#8888a0;
-  --border:#e4e2dc; --bg:#f4f3f0;    --surf:#ffffff;
-  --radius:10px;
-
-  /* Muted qualitative chart palette */
-  --c1:#5B9FA6; /* dusty teal      */
-  --c2:#D4956A; /* warm sand       */
-  --c3:#7AAF8A; /* sage green      */
-  --c4:#6B8CAE; /* dusty blue      */
-  --c5:#B08AC9; /* soft lavender   */
-  --c6:#C9956A; /* terracotta      */
-  --c7:#8AAFAA; /* seafoam         */
-  --c8:#A89F7A; /* warm olive      */
+  --gap:#B83232; --gap-l:#fdf0f0;
+  --ink:#1C1C2E; --ink-md:#4a4a62; --ink-lt:#8888a0;
+  --border:#e4e2dc; --bg:#f4f3f0; --surf:#ffffff; --radius:10px;
+  --c1:#5B9FA6; --c2:#D4956A; --c3:#7AAF8A; --c4:#6B8CAE; --c5:#B08AC9; --c6:#C9956A; --c7:#8AAFAA; --c8:#A89F7A;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5;}
-
-.topnav{background:var(--brand);height:56px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:500;box-shadow:0 2px 12px rgba(0,0,0,.18);}
-.nav-brand{display:flex;flex-direction:row;align-items:center;gap:12px;margin-right:auto;text-decoration:none;}
-.nav-brand-logos{display:flex;align-items:center;gap:10px;}
-.nav-brand-logos img{height:48px;width:auto;}
-.nav-brand-text{display:flex;flex-direction:column;}
-.nav-brand .nb-title{font-family:'Literata',serif;font-size:16px;font-weight:700;color:#fff;line-height:1;}
-.nav-brand .nb-sub{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px;}
-.nav-links{display:flex;align-items:center;gap:4px;}
-.nav-links a{font-size:12px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;padding:6px 14px;border-radius:6px;transition:all .15s;white-space:nowrap;}
-.nav-links a:hover{color:#fff;background:rgba(255,255,255,.1);}
-.nav-links a.active{color:#fff;font-weight:700;border-bottom:2px solid var(--amber);border-radius:0;padding-bottom:4px;}
-
-.breadbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:8px 24px;display:flex;align-items:center;gap:6px;font-size:10px;color:var(--ink-lt);}
-.breadbar a{color:var(--brand);text-decoration:none;font-weight:500;}
-.breadbar a:hover{text-decoration:underline;}
-
-.page-header{background:var(--brand);padding:28px 24px 26px;border-bottom:3px solid var(--amber);}
-.ph-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px;}
-.ph-title{font-family:'Literata',serif;font-size:30px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px;}
-.ph-desc{font-size:12px;color:rgba(255,255,255,.65);max-width:640px;line-height:1.75;}
-
-.fbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:10px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-.fb-group{display:flex;align-items:center;gap:7px;}
-.fb-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);}
-select{font-family:'Sora',sans-serif;font-size:12px;color:var(--ink);background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:5px 28px 5px 9px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath d='M0 0l4.5 5L9 0z' fill='%238888a0'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;cursor:pointer;}
-select:focus{outline:none;border-color:var(--brand);}
-.fb-div{width:1px;height:20px;background:var(--border);}
-.btn-reset{font-family:'Sora',sans-serif;font-size:10px;font-weight:600;color:var(--brand);background:var(--surf);border:1px solid var(--brand-bd);border-radius:6px;padding:5px 12px;cursor:pointer;transition:all .15s;}
-.btn-reset:hover{background:var(--brand);color:#fff;}
-.fb-status{margin-left:auto;font-size:10px;color:var(--ink-lt);}
-.fb-status strong{color:var(--c1);}
-
-.wrap{max-width:1720px;margin:0 auto;padding:28px 0 64px;width:min(calc(100% - 48px),1720px);}
-.card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
-.ctitle{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
-.csub{font-size:10px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5;}
-.cval{font-family:'Literata',serif;font-size:26px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1;}
-.cval-sm{font-family:'Literata',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1;}
-
-.krow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
-.kcard{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px 20px 16px;position:relative;overflow:hidden;}
-.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
-.kc-1::before{background:var(--c1);}
-.kc-2::before{background:var(--c2);}
-.kc-3::before{background:var(--c3);}
-.kc-4::before{background:var(--c4);}
-.kc-5::before{background:var(--c5);}
-.kc-gap::before{background:var(--gap);}
-.klabel{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:8px;line-height:1.4;}
-.kvalue{font-family:'Literata',serif;font-size:30px;font-weight:700;line-height:1;margin-bottom:4px;}
-.kc-1 .kvalue{color:var(--c1);}
-.kc-2 .kvalue{color:var(--c2);}
-.kc-3 .kvalue{color:var(--c3);}
-.kc-4 .kvalue{color:var(--c4);}
-.kc-5 .kvalue{color:var(--c5);}
-.kc-gap .kvalue{color:var(--gap);}
-.ksub{font-size:10px;color:var(--ink-lt);line-height:1.4;}
-.kdelta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px;}
-.kd-good{background:#eaf4f5;color:#3a7a80;}
-.kd-bad {background:var(--gap-l);color:#8c1f1f;}
-.kd-warn{background:var(--amber-l);color:var(--amber-dk);}
-.kd-info{background:var(--brand-l);color:var(--brand);}
-
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;}
-.g2-1{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
-.ch-xs{position:relative;height:90px;}
-.ch-sm{position:relative;height:130px;}
-.ch-md{position:relative;height:185px;}
-.ch-lg{position:relative;height:230px;}
-.sdiv{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:16px;}
-.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;}
-.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink-md);}
-.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
-.pbar-list{display:flex;flex-direction:column;gap:9px;}
-.pbar-meta{display:flex;justify-content:space-between;margin-bottom:3px;font-size:10px;}
-.pbar-name{font-weight:600;color:var(--ink);}
-.pbar-val{color:var(--ink-lt);}
-.pbar-track{height:7px;background:var(--bg);border-radius:4px;overflow:hidden;}
-.pbar-fill{height:100%;border-radius:4px;background:var(--c1);}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-
-.opt-c-strip{position:sticky;top:56px;z-index:470;}
-.opt-c-row1{background:#3d2960;padding:7px 24px;display:flex;align-items:center;gap:6px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.08);}
-.opt-c-jumplabel{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);flex-shrink:0;margin-right:6px;}
-.opt-c-bb-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .15s;}
-.opt-c-bb-chip:hover{border-color:rgba(255,255,255,.4);color:#fff !important;}
-.opt-c-row2{background:#f0ecf8;padding:5px 24px;display:flex;align-items:center;gap:2px;flex-wrap:wrap;border-bottom:1px solid #d4c8e8;}
-.opt-c-sec-link{font-size:10px;color:#6b5b8a;padding:4px 10px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all .12s;}
-.opt-c-sec-link:hover{color:#532B70;background:rgba(83,43,112,.08);}
-.opt-c-sec-link.active{color:#532B70;font-weight:700;background:rgba(83,43,112,.1);}
-.opt-c-sep{color:#c4b8d8;padding:0 2px;font-size:10px;}
-
-.uc-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:48px 24px;text-align:center;}
-.uc-icon{font-size:48px;margin-bottom:20px;line-height:1;}
-.uc-title{font-family:'Literata',serif;font-size:28px;font-weight:700;color:var(--ink);margin-bottom:8px;}
-.uc-sub{font-size:13px;color:var(--ink-lt);margin-bottom:28px;}
-.uc-back{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:#fff;background:var(--brand);padding:10px 22px;border-radius:8px;text-decoration:none;}
-.uc-back:hover{opacity:.88;}
-/* ── site footer (matches landing screenshot) ── */
-.site-footer{background:#d9c8f2;margin-top:36px;padding:22px 0;border-top:1px solid rgba(0,0,0,.06);}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 80px;}
-.footer-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr .9fr;gap:28px;align-items:start;}
-.footer-logos{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
-.footer-logos img{height:32px;width:auto;}
-.footer-logos img.footer-inff-logo{height:50px;width:auto;}
-.footer-brand h3{font-size:18px;font-weight:800;margin:4px 0 6px 0;color:var(--ink);}
-.footer-brand p{max-width:360px;color:rgba(0,0,0,.62);font-size:12px;line-height:1.45;}
-.footer-copy{margin-top:18px;color:rgba(0,0,0,.55);font-size:10px;}
-.footer-col h4{font-size:14px;font-weight:900;letter-spacing:.02em;margin-bottom:10px;color:rgba(0,0,0,.85);}
-.footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;}
-.footer-col a{color:rgba(0,0,0,.65);text-decoration:none;font-size:12px;}
-.footer-col a:hover{color:rgba(0,0,0,.9);text-decoration:underline;}
-.footer-contact{color:rgba(0,0,0,.65);font-size:12px;line-height:1.5;}
-.footer-contact a{color:rgba(0,0,0,.65);text-decoration:none;}
-.footer-contact a:hover{text-decoration:underline;color:rgba(0,0,0,.9);}
-.footer-social{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
-.footer-social .soc{width:32px;height:32px;border-radius:999px;background:#171717;display:grid;place-items:center;text-decoration:none;}
-.footer-social .soc svg{width:16px;height:16px;fill:#fff;}
-@media (max-width: 980px){
-  .footer-grid{grid-template-columns:1fr 1fr;gap:18px;}
-}
-@media (max-width: 560px){
-  .footer-grid{grid-template-columns:1fr;}
-}
-
-
-/* ── header logos ── */
-.nav-brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;}
-.nav-logos{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.nav-logos img{height:28px;width:auto;object-fit:contain;filter:brightness(1.05);}
-.nav-brand-text{display:flex;flex-direction:column;line-height:1;}
-
-
-/* Footer upgrade */
-.portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
-.footer-container{max-width:1200px;margin:auto;padding:42px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
-.footer-col h4{margin-bottom:12px;font-size:14px;font-weight:600;color:#fff}
-.footer-col ul{list-style:none;padding:0;margin:0}
-.footer-col li{margin-bottom:8px;font-size:13px;color:#c9c9d6}
-.footer-col a{color:#c9c9d6;text-decoration:none}
-.footer-col a:hover{color:#fff}
-.footer-brand h3{margin-bottom:10px;font-size:18px}
-.footer-brand p{font-size:13px;line-height:1.7;color:#c9c9d6;max-width:420px}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:16px;font-size:12px;color:#a9a9b6}
-@media (max-width:900px){.footer-container{grid-template-columns:1fr 1fr}}
-@media (max-width:640px){.footer-container{grid-template-columns:1fr}}
-
-.footer-socials{display:flex;gap:14px;margin-top:18px;align-items:center;flex-wrap:wrap;}.footer-socials .fs-ico{width:52px;height:52px;border-radius:999px;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .2s ease, box-shadow .2s ease, background .2s ease;}.footer-socials .fs-ico:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.34);background:#000;}.footer-socials .fs-ico svg{width:24px;height:24px;display:block;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5}
+.wrap{max-width:1720px;margin:0 auto;padding:28px 0 64px;width:min(calc(100% - 48px),1720px)}
+.page-header{background:var(--brand);padding:28px 24px 26px;border-bottom:3px solid var(--amber)}
+.ph-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px}
+.ph-title{font-family:'Literata',serif;font-size:30px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px}
+.ph-desc{font-size:12px;color:rgba(255,255,255,.7);max-width:760px;line-height:1.75}
+.fbar{background:var(--brand-l);border-bottom:1px solid var(--brand-bd);padding:10px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.fb-group{display:flex;align-items:center;gap:7px}.fb-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt)}
+select{font-family:'Sora',sans-serif;font-size:12px;color:var(--ink);background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:5px 28px 5px 9px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='5'%3E%3Cpath d='M0 0l4.5 5L9 0z' fill='%238888a0'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;cursor:pointer}
+select:focus{outline:none;border-color:var(--brand)}
+.fb-div{width:1px;height:20px;background:var(--border)}
+.btn-reset{font-family:'Sora',sans-serif;font-size:10px;font-weight:600;color:var(--brand);background:var(--surf);border:1px solid var(--brand-bd);border-radius:6px;padding:5px 12px;cursor:pointer;transition:all .15s}
+.btn-reset:hover{background:var(--brand);color:#fff}
+.fb-status{margin-left:auto;font-size:10px;color:var(--ink-lt)} .fb-status strong{color:var(--c1)}
+.krow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.kcard,.card{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius)}
+.kcard{padding:20px 20px 16px;position:relative;overflow:hidden}.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kc-1::before{background:var(--c1)}.kc-2::before{background:var(--c2)}.kc-3::before{background:var(--c3)}.kc-4::before{background:var(--c4)}.kc-5::before{background:var(--c5)}.kc-gap::before{background:var(--gap)}
+.klabel{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:8px}
+.kvalue{font-family:'Literata',serif;font-size:30px;font-weight:700;line-height:1;margin-bottom:4px}
+.kc-1 .kvalue{color:var(--c1)} .kc-2 .kvalue{color:var(--c2)} .kc-3 .kvalue{color:var(--c3)} .kc-4 .kvalue{color:var(--c4)} .kc-5 .kvalue{color:var(--c5)} .kc-gap .kvalue{color:var(--gap)}
+.ksub{font-size:10px;color:var(--ink-lt)}
+.kdelta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px}.kd-good{background:#eaf4f5;color:#3a7a80}.kd-warn{background:var(--amber-l);color:var(--amber-dk)}.kd-info{background:var(--brand-l);color:var(--brand)}
+.card{padding:20px}.ctitle{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px}.csub{font-size:10px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5}
+.g2,.g3,.g2-1,.g1-2{display:grid;gap:16px;margin-bottom:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g2-1{grid-template-columns:2fr 1fr}.g1-2{grid-template-columns:1.25fr .75fr}
+.ch-sm{position:relative;height:145px}.ch-md{position:relative;height:210px}.ch-lg{position:relative;height:260px}
+.sdiv{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink-md)}.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.pill.teal{background:#eaf4f5;color:#3a7a80}.pill.amber{background:#fff1e7;color:#b36222}.pill.purple{background:#f1edf8;color:#6d56a7}.pill.blue{background:#eef3fb;color:#47688e}.pill.red{background:#fdf0f0;color:#932f2f}.pill.green{background:#edf8f0;color:#4a8858}
+.opt-c-strip{position:sticky;top:56px;z-index:470}.opt-c-row1{background:#3d2960;padding:7px 24px;display:flex;align-items:center;gap:6px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.08)}
+.opt-c-jumplabel{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);flex-shrink:0;margin-right:6px}.opt-c-bb-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .15s}.opt-c-bb-chip:hover{border-color:rgba(255,255,255,.4);color:#fff !important}
+.opt-c-row2{background:#f0ecf8;padding:5px 24px;display:flex;align-items:center;gap:2px;flex-wrap:wrap;border-bottom:1px solid #d4c8e8}.opt-c-sec-link{font-size:10px;color:#6b5b8a;padding:4px 10px;border-radius:4px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:all .12s}.opt-c-sec-link:hover{color:#532B70;background:rgba(83,43,112,.08)}.opt-c-sec-link.active{color:#532B70;font-weight:700;background:rgba(83,43,112,.1)}.opt-c-sep{color:#c4b8d8;padding:0 2px;font-size:10px}
+.note-card{background:#fbf9fe;border:1px solid #eee6f7;border-radius:12px;padding:16px}.note-card h4{font-size:12px;margin-bottom:8px}.note-card p,.note-card li{font-size:11px;color:var(--ink-md);line-height:1.65}.note-card ul{padding-left:16px}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px 10px;border-bottom:1px solid #f0edf5;text-align:left;font-size:11px;vertical-align:top}.table th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-lt)}
+.metric-list{display:grid;gap:12px}.metric{background:#fbf9fe;border:1px solid #eee6f7;border-radius:10px;padding:12px}.metric .m-k{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-lt);margin-bottom:6px}.metric .m-v{font-family:'Literata',serif;font-size:24px;color:var(--ink);line-height:1}.metric .m-s{font-size:10px;color:var(--ink-lt);margin-top:4px}
+.list{display:grid;gap:10px}.list-item{display:flex;justify-content:space-between;gap:14px;padding:10px 12px;border:1px solid #f0edf5;border-radius:10px;background:#fff}.list-item strong{display:block;font-size:12px;color:var(--ink)}.list-item span{font-size:10px;color:var(--ink-lt)}
+.stack{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;border:1px solid var(--brand-bd);background:var(--brand-l);color:var(--brand);font-size:10px;font-weight:600}
+.progress{height:8px;border-radius:999px;background:#f0edf5;overflow:hidden}.progress > span{display:block;height:100%;border-radius:999px}
+.network-shell{background:linear-gradient(180deg,#fbf9fe 0%,#f6f2fb 100%);border:1px solid #eee6f7;border-radius:14px;padding:12px}.network-svg{width:100%;height:520px;display:block}.node text{font-size:10px;font-weight:700;fill:#fff}.node text.node-text-sm{font-size:9px}.node text.node-text-xs{font-size:8.5px}.node circle{stroke:#fff;stroke-width:4px;filter:drop-shadow(0 10px 18px rgba(83,43,112,.12))}.link{stroke:#d9d1e7;stroke-width:2.5}.link.soft{stroke-dasharray:6 6}.link-label{font-size:10px;fill:#786a93}.ring{fill:none;stroke:#eadff6;stroke-width:1.5;stroke-dasharray:3 6}
+.state-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.state-card{border:1px solid #f0edf5;border-radius:12px;padding:14px;background:#fff}.state-card h4{font-size:14px;margin-bottom:6px}.state-card p{font-size:10px;color:var(--ink-lt);margin-bottom:10px}.status{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:700}.status.active{background:#edf8f0;color:#4a8858}.status.progress{background:#fff5e8;color:#b56d1f}.status.emerging{background:#eef3fb;color:#47688e}
+.readiness-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.readiness-tile{padding:12px;border:1px solid #f0edf5;border-radius:12px;background:#fff;text-align:center}.readiness-tile .rt-v{font-family:'Literata',serif;font-size:22px}.readiness-tile .rt-k{font-size:10px;color:var(--ink-lt);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.heat-grid{display:grid;gap:10px}.heat-row{display:grid;grid-template-columns:180px repeat(4,1fr);gap:8px;align-items:center}.heat-row .label{font-size:11px;font-weight:700;color:var(--ink)}.heat-cell{height:42px;border-radius:10px;padding:6px 8px;color:#fff;font-size:10px;display:flex;flex-direction:column;justify-content:center}.heat-cell small{opacity:.8}
+.site-footer{background:#d9c8f2;margin-top:36px;padding:22px 0;border-top:1px solid rgba(0,0,0,.06)}.footer-inner{max-width:1200px;margin:0 auto;padding:0 80px}.footer-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr .9fr;gap:28px;align-items:start}.footer-logos{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}.footer-logos img{height:32px;width:auto}.footer-logos img.footer-inff-logo{height:50px;width:auto}.footer-brand h3{font-size:18px;font-weight:800;margin:4px 0 6px 0;color:var(--ink)}.footer-brand p{max-width:360px;color:rgba(0,0,0,.62);font-size:12px;line-height:1.45}.footer-copy{margin-top:18px;color:rgba(0,0,0,.55);font-size:10px}.footer-col h4{font-size:14px;font-weight:900;letter-spacing:.02em;margin-bottom:10px;color:rgba(0,0,0,.85)}.footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}.footer-col a{color:rgba(0,0,0,.65);text-decoration:none;font-size:12px}.footer-col a:hover{color:rgba(0,0,0,.9);text-decoration:underline}.footer-contact{color:rgba(0,0,0,.65);font-size:12px;line-height:1.5}
+@media (max-width:1200px){.krow{grid-template-columns:repeat(2,1fr)}.g2,.g2-1,.g1-2,.state-grid,.readiness-grid{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}.heat-row{grid-template-columns:1fr 1fr}.network-svg{height:620px}}
+@media (max-width:720px){.wrap{width:min(calc(100% - 24px),1720px)}.krow,.g3,.state-grid,.readiness-grid{grid-template-columns:1fr}.fb-status{width:100%;margin-left:0}.heat-row{grid-template-columns:1fr}.network-svg{height:760px}}
 </style>
-  <link rel="stylesheet" href="assets/header-unified.css">
 </head>
 <body data-nav="bb">
 <div id="nav-placeholder" data-include="assets/nav.html"></div>
 <div id="breadcrumb-placeholder" data-include="assets/partials/breadcrumbs/p4-architecture.html"></div>
 <div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:#6B8CAE;color:#fff;">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p4-architecture.html" class="opt-c-sec-link active">Institutional Architecture</a><span class="opt-c-sep">·</span><a href="p4-partners.html" class="opt-c-sec-link ">Partner Contributions</a><span class="opt-c-sep">·</span><a href="p4-subnational.html" class="opt-c-sec-link ">Subnational Coordination</a></div></div>
-<div class="uc-wrap">
-  <div class="uc-icon">🚧</div>
-  <div class="uc-title">Under Construction</div>
-  <div class="uc-sub">Institutional Architecture</div>
-  <a href="overview.html" class="uc-back">← Back to Overview</a>
+<div class="page-header"><div class="ph-eyebrow">Pillar 4 · Governance &amp; Coordination</div><div class="ph-title">Institutional Architecture</div><div class="ph-desc">Maps the governance system behind Nigeria’s INFF, showing who leads, who convenes, and how technical, partner and private sector inputs move through the coordination structure.</div></div>
+<div class="fbar"><div class="fb-group"><span class="fb-label">View</span><select id="f-view"><option>National governance map</option><option>Federal core institutions</option><option>Partner interface layer</option><option>State coordination layer</option></select></div><div class="fb-div"></div><div class="fb-group"><span class="fb-label">Institution type</span><select id="f-type"><option>All institutions</option><option>Lead ministries</option><option>Steering committees</option><option>Technical working groups</option><option>Development partners</option><option>Private platforms</option></select></div><button class="btn-reset" type="button" onclick="resetFilters()">Reset</button><div class="fb-status">Showing: <strong id="f-status">National governance map · all institution types</strong></div></div>
+<div class="wrap">
+
+<div class="krow">
+  <div class="kcard kc-1"><div class="klabel">Coordinating Institutions</div><div class="kvalue" id="k-inst">12</div><div class="ksub">Lead ministries, committees, TWGs, partners and platforms in the selected architecture</div><div class="kdelta kd-good">Lead structure mapped</div></div>
+  <div class="kcard kc-2"><div class="klabel">Active Coordination Links</div><div class="kvalue" id="k-links">31</div><div class="ksub">Formal reporting, convening, technical and advisory linkages</div><div class="kdelta kd-info">Interactive network view</div></div>
+  <div class="kcard kc-3"><div class="klabel">Working Groups Engaged</div><div class="kvalue" id="k-twgs">4</div><div class="ksub">Technical clusters feeding reform delivery and evidence reviews</div><div class="kdelta kd-warn">2 cross-cutting groups</div></div>
+  <div class="kcard kc-4"><div class="klabel">Private Sector Platforms</div><div class="kvalue" id="k-private">3</div><div class="ksub">Platforms linked into policy dialogue, pipeline shaping and investment mobilisation</div><div class="kdelta kd-info">Structured participation</div></div>
 </div>
 
+<div class="sdiv">Institutional Architecture</div>
+<div class="g1-2">
+  <div class="card">
+    <div class="ctitle">Interactive Coordination Network</div>
+    <div class="csub">Maps the working relationships between lead institutions, coordination bodies, technical groups, partners and private sector platforms within the INFF governance structure.</div>
+    <div class="network-shell">
+      <svg class="network-svg" id="networkSvg"></svg>
+    </div>
+    <div class="legend" id="networkLegend"></div>
+  </div>
+  <div class="card">
+    <div class="ctitle">Role Summary</div>
+    <div class="csub">Compact view of who convenes, who provides technical leadership and where implementation feedback comes from.</div>
+    <div class="metric-list" id="roleSummary"></div>
+  </div>
+</div>
 
+<div class="g2">
+  <div class="card">
+    <div class="ctitle">Institution Register</div>
+    <div class="csub">Reference register of the institutions, platforms and coordination bodies represented in the active governance view.</div>
+    <table class="table">
+      <thead><tr><th>Institution / Platform</th><th>Type</th><th>Primary role</th><th>Cadence</th></tr></thead>
+      <tbody id="instBody"></tbody>
+    </table>
+  </div>
+  <div class="card">
+    <div class="ctitle">Coordination Pathway</div>
+    <div class="csub">How issues move through the governance model from technical review to decision and implementation follow-up.</div>
+    <div class="list" id="pathwayList"></div>
+    <div class="note-card" style="margin-top:14px">
+      <h4>Design note</h4>
+      <p>This page is intentionally built as a governance map rather than a narrative page, because the guidance calls for the institutional architecture to be visualised as an interactive network map and to make the coordination logic immediately legible.</p>
+    </div>
+  </div>
+</div>
 
-
-
-
-
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="js/data/p4Architecture.js"></script>
 <script src="js/shared.js"></script>
-
-
-
-
 <script>
-(function(){
-  if(window.Chart){
-    Chart.defaults.animation = {duration: 1400, easing: 'easeOutQuart'};
-    if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
-      Chart.defaults.transitions.active.animation = {duration: 300};
-    }
-  }
-})();
+const A = window.INFF_P4_ARCHITECTURE_DATA;
+const ARCH_VIEW_MAP = {
+  'National governance map': null,
+  'Federal core institutions': new Set(['secretariat','steering','budget','finance','dmo','tax','fin-twg','data','ppp']),
+  'Partner interface layer': new Set(['secretariat','steering','budget','finance','partners','private','ppp','fin-twg','data']),
+  'State coordination layer': new Set(['secretariat','budget','finance','states','data','partners'])
+};
+const ARCH_TYPE_MAP = {
+  'All institutions': null,
+  'Lead ministries': new Set(['lead']),
+  'Steering committees': new Set(['steering']),
+  'Technical working groups': new Set(['twg']),
+  'Development partners': new Set(['partners']),
+  'Private platforms': new Set(['private'])
+};
+const NODE_BY_ID = Object.fromEntries(A.network.nodes.map(n => [n.id, n]));
+const POINT_MAP = new Map(A.network.nodes.map(n => [`${n.x},${n.y}`, n.id]));
+function linkEndpoints(link){
+  return {from: POINT_MAP.get(`${link.x1},${link.y1}`), to: POINT_MAP.get(`${link.x2},${link.y2}`)};
+}
+function currentArchitectureFilters(){
+  return {
+    view: document.getElementById('f-view').value,
+    type: document.getElementById('f-type').value
+  };
+}
+function selectedNodes(filters){
+  const viewSet = ARCH_VIEW_MAP[filters.view];
+  const typeSet = ARCH_TYPE_MAP[filters.type];
+  return A.network.nodes.filter(n => {
+    const okView = !viewSet || viewSet.has(n.id);
+    const okType = !typeSet || typeSet.has(n.category) || (n.category === 'secretariat' && filters.type === 'All institutions');
+    return okView && okType;
+  });
+}
+function filteredInstitutions(filters){
+  const typeLabel = filters.type;
+  return A.institutions.filter(r => {
+    if (typeLabel === 'All institutions') return true;
+    const map = {
+      'Lead ministries':'Lead ministry',
+      'Steering committees':'Steering committee',
+      'Technical working groups':'Technical working group',
+      'Development partners':'Development partners',
+      'Private platforms':'Private sector platform'
+    };
+    return r.type === map[typeLabel];
+  });
+}
+function filteredPathway(filters){
+  if (filters.view === 'Partner interface layer') return A.pathway.filter((_,i)=>[0,1,3].includes(i));
+  if (filters.view === 'State coordination layer') return A.pathway.filter((_,i)=>[0,1,3].includes(i));
+  return A.pathway;
+}
+function renderArchitecture(){
+  const filters = currentArchitectureFilters();
+  const nodes = selectedNodes(filters);
+  const nodeIds = new Set(nodes.map(n => n.id));
+  const links = A.network.links.filter(l => {
+    const ep = linkEndpoints(l);
+    return nodeIds.has(ep.from) && nodeIds.has(ep.to);
+  });
+  const labels = A.network.labels.filter((_, idx) => filters.view === 'National governance map' ? true : idx < 2 || filters.view === 'State coordination layer');
+  const filteredInst = filteredInstitutions(filters);
+  const twgCount = nodes.filter(n => n.category === 'twg').length;
+  const privateCount = nodes.filter(n => n.category === 'private').length;
+  document.getElementById('f-status').textContent = `${filters.view} · ${filters.type.toLowerCase()}`;
+  document.getElementById('k-inst').textContent = nodes.length;
+  document.getElementById('k-links').textContent = links.length;
+  document.getElementById('k-twgs').textContent = twgCount;
+  document.getElementById('k-private').textContent = privateCount;
+  const svg = document.getElementById('networkSvg');
+  svg.setAttribute('viewBox', `0 0 ${A.network.width} ${A.network.height}`);
+  svg.innerHTML = [
+    ...A.network.rings.map(r => `<circle class="ring" cx="${r.cx}" cy="${r.cy}" r="${r.r}"></circle>`),
+    ...links.map(l => `<line class="link${l.soft ? ' soft' : ''}" x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}"></line>`),
+    ...labels.map(t => `<text class="link-label" x="${t.x}" y="${t.y}">${t.text}</text>`),
+    ...nodes.map(n => { const textClass = n.r <= 24 ? 'node-text-xs' : n.r <= 30 ? 'node-text-sm' : ''; const startY = n.y - ((n.lines.length - 1) * 7); return `<g class="node"><circle cx="${n.x}" cy="${n.y}" r="${n.r}" fill="${n.fill}"></circle><text x="${n.x}" y="${startY}" text-anchor="middle" dominant-baseline="middle" class="${textClass}">${n.lines.map((line, i) => `<tspan x="${n.x}" dy="${i === 0 ? 0 : 14}">${line}</tspan>`).join('')}</text></g>` })
+  ].join('');
+  const visibleCategories = new Set(nodes.map(n => n.category));
+  document.getElementById('networkLegend').innerHTML = A.network.legend.filter(item => {
+    const key = item.label.includes('secretariat') ? 'secretariat' : item.label.includes('Steering') ? 'steering' : item.label.includes('Lead') ? 'lead' : item.label.includes('Technical') ? 'twg' : item.label.includes('Development') ? 'partners' : 'private';
+    return visibleCategories.has(key);
+  }).map(item => `<div class="leg"><div class="leg-dot" style="background:${item.color}"></div>${item.label}</div>`).join('');
+  document.getElementById('roleSummary').innerHTML = [
+    { key:'Visible institutions', value:String(nodes.length), summary:'Institutions and platforms currently included in the selected governance view.' },
+    { key:'Coordination links', value:String(links.length), summary:'Working relationships and reporting connections visible in the current selection.' },
+    { key:'Institution layer', value:filters.type === 'All institutions' ? 'All' : filters.type, summary:'Institution type currently emphasized in the map and register.' },
+    { key:'Governance view', value:filters.view.replace(' layer',''), summary:'Current coordination layer applied across the network, register and pathway.' }
+  ].map(item => `<div class="metric"><div class="m-k">${item.key}</div><div class="m-v">${item.value}</div><div class="m-s">${item.summary}</div></div>`).join('');
+  document.getElementById('instBody').innerHTML = filteredInst.map(r => `<tr><td><strong>${r.name}</strong></td><td>${r.type}</td><td>${r.role}</td><td>${r.cadence}</td></tr>`).join('');
+  document.getElementById('pathwayList').innerHTML = filteredPathway(filters).map(step => `<div class="list-item"><div><strong>${step.title}</strong><span>${step.detail}</span></div><span class="pill ${step.pillClass}">${step.pill}</span></div>`).join('');
+}
+function resetFilters(){
+  document.getElementById('f-view').value = 'National governance map';
+  document.getElementById('f-type').value = 'All institutions';
+  renderArchitecture();
+}
+document.getElementById('f-view').addEventListener('change', renderArchitecture);
+document.getElementById('f-type').addEventListener('change', renderArchitecture);
+renderArchitecture();
+if(window.Chart){ Chart.defaults.animation = {duration: 1400, easing: 'easeOutQuart'}; if (Chart.defaults.transitions && Chart.defaults.transitions.active) { Chart.defaults.transitions.active.animation = {duration: 300}; } }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script src="js/footer-component.js"></script>
 </body>
 </html>
