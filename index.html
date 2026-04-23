@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Nigeria Integrated National Financing Framework Dashboard</title>
 <script>
-(function(){
-  var target = new URL('landing.html', window.location.href);
-  window.location.replace(target.href);
+(function () {
+  var path = window.location.pathname;
+  var needsSlash = !path.endsWith('/');
+  var target = needsSlash ? path + '/landing.html' : path + 'landing.html';
+  window.location.replace(target + window.location.search + window.location.hash);
 })();
 </script>
 <noscript><meta http-equiv="refresh" content="0; url=landing.html"></noscript>
