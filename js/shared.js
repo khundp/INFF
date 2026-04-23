@@ -35,11 +35,21 @@
     const jobs = includeNodes.map(async (node) => {
       const file = node.getAttribute('data-include');
       if (!file) return;
+      const url = new URL(file, document.baseURI).href;
+      const cacheKey = 'inff:partial:' + url;
       try {
-        const url = new URL(file, document.baseURI).href;
-        const res = await fetch(url, { cache: 'no-cache' });
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) {
+          node.innerHTML = cached;
+        }
+      } catch (_) {}
+      if (node.innerHTML.trim()) return;
+      try {
+        const res = await fetch(url, { cache: 'default' });
         if (!res.ok) throw new Error(`Failed to load ${file}: ${res.status}`);
-        node.innerHTML = await res.text();
+        const html = await res.text();
+        node.innerHTML = html;
+        try { sessionStorage.setItem(cacheKey, html); } catch (_) {}
       } catch (err) {
         console.error('Shared include failed:', err);
       }
