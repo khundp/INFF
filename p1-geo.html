@@ -525,7 +525,7 @@ function normalizeStateName(n) {
 }
 function getGeoPromise() {
   if (!nigeriaGeoPromise) {
-    nigeriaGeoPromise = fetch('assets/data/nigeriaADM1.geojson', { cache: 'force-cache' }).then(function(r){ return r.json(); });
+    nigeriaGeoPromise = fetch('assets/data/nigeriaADM1.geojson').then(function(r){ return r.json(); });
   }
   return nigeriaGeoPromise;
 }

@@ -12,15 +12,30 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0} body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5}
 .wrap{max-width:1720px;margin:0 auto;padding:28px 0 64px;width:min(calc(100% - 48px),1720px)}
 .krow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}.kcard,.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius)}.kcard{padding:20px 20px 16px;position:relative;overflow:hidden}.kcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}.kc-1::before{background:var(--c1)}.kc-2::before{background:var(--c2)}.kc-3::before{background:var(--c3)}.kc-4::before{background:var(--c4)}.klabel{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:8px}.kvalue{font-family:'Literata',serif;font-size:30px;font-weight:700;line-height:1;margin-bottom:4px}.kc-1 .kvalue{color:var(--c1)}.kc-2 .kvalue{color:var(--c2)}.kc-3 .kvalue{color:var(--c3)}.kc-4 .kvalue{color:var(--c4)}.ksub{font-size:10px;color:var(--ink-lt)}.kdelta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px}.kd-good{background:#eaf4f5;color:#3a7a80}.kd-warn{background:var(--amber-l);color:#c4710a}.kd-info{background:var(--brand-l);color:var(--brand)}
-.sdiv{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:16px}.g2,.g3,.g2-1{display:grid;gap:16px;margin-bottom:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g2-1{grid-template-columns:2fr 1fr}.card{padding:20px}.ctitle{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px}.csub{font-size:10px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5}.ch-lg{position:relative;height:245px}.ch-md{position:relative;height:210px}
+.sdiv{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-lt);padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:16px}.g2,.g3,.g2-1{display:grid;gap:16px;margin-bottom:16px}.g2{grid-template-columns:minmax(0,1.45fr) minmax(0,1.15fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2-1{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start}.card{padding:20px}.ctitle{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px}.csub{font-size:10px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5}.ch-lg{position:relative;height:300px}.ch-md{position:relative;height:210px}
 .source-table{width:100%;border-collapse:collapse}.source-table th,.source-table td{padding:12px 10px;border-bottom:1px solid #f0edf5;text-align:left;vertical-align:top;font-size:11px}.source-table th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-lt)}
 .domains{display:flex;flex-wrap:wrap;gap:6px}.domain-chip{font-size:10px;font-weight:600;color:var(--brand);background:var(--brand-l);border:1px solid var(--brand-bd);padding:4px 8px;border-radius:999px}
 .score{display:inline-flex;align-items:center;gap:8px}.score-track{width:92px;height:8px;background:#f0edf5;border-radius:999px;overflow:hidden}.score-fill{height:100%;border-radius:999px}.qual-pill{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:700}.qual-strong{background:#eaf4f5;color:#3a7a80}.qual-moderate{background:#fff5e8;color:#b56d1f}.qual-watch{background:#fdf0f0;color:#9a2d2d}
 .alert-list{display:flex;flex-direction:column;gap:12px}.alert-card{border-radius:10px;padding:12px 14px;border:1px solid var(--border);background:#fff}.alert-card.high{background:#fff6f6;border-color:#f1d6d6}.alert-card.medium{background:#fffaf2;border-color:#f2e3c0}.alert-card.low{background:#f7fbfb;border-color:#d5ebed}.alert-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:4px}.alert-title{font-weight:700;color:var(--ink)}.alert-level{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .glossary-list{display:flex;flex-direction:column;gap:10px}.glossary-item{padding:12px;border:1px solid #eee6f7;border-radius:10px;background:#faf8fc}.glossary-item strong{display:block;margin-bottom:5px;color:var(--ink)}
 .legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink-md)}.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.rev-comp{display:grid;grid-template-columns:210px minmax(0,1fr);gap:16px;align-items:center;min-height:250px;height:250px;margin-top:8px;overflow:hidden}
+.rev-ring-wrap{position:relative;width:190px;height:190px;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.rev-ring-canvas{width:190px !important;height:190px !important}
+.rev-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2;pointer-events:none;padding:0 28px}
+.rev-center .mini{font-size:10px;font-weight:600;letter-spacing:1.4px;color:#7e7b90;text-transform:uppercase;line-height:1.25}
+.rev-center .big{font-size:16px;font-weight:800;color:#1d1a38;line-height:1.05;margin:5px 0 4px}
+.rev-center .yr{font-size:10px;line-height:1.35;color:#7e7b90;max-width:92px}
+.rev-bars{display:grid;grid-template-columns:repeat(6,minmax(44px,1fr));gap:8px;align-items:end;min-height:190px;height:190px;padding:12px 2px 26px;position:relative;min-width:0}
+.rev-bars::before{content:"";position:absolute;left:0;right:0;top:16px;bottom:22px;background:repeating-linear-gradient(to top, transparent 0 29px, rgba(125,120,160,.12) 29px 30px);pointer-events:none}
+.rev-col{position:relative;height:154px;display:flex;align-items:flex-end;justify-content:center;gap:8px;min-width:0}
+.rev-pill{width:18px;border-radius:999px;position:relative;z-index:1;transform-origin:bottom center;animation:riseUp .95s ease-out both}
+.rev-pill.meta{animation-delay:.08s}
+.rev-year{position:absolute;left:50%;bottom:-26px;transform:translateX(-50%);font-size:10px;font-weight:700;color:#7e7b90}
+@keyframes riseUp{from{transform:scaleY(.04);opacity:.15}to{transform:scaleY(1);opacity:1}}
 @media (max-width:1200px){.krow{grid-template-columns:repeat(2,1fr)}.g2,.g2-1,.g3{grid-template-columns:1fr}}
-@media (max-width:720px){.wrap{width:min(calc(100% - 24px),1720px)}.krow{grid-template-columns:1fr}.source-table{display:block;overflow:auto}}
+@media (max-width:900px){.rev-comp{grid-template-columns:1fr;min-height:250px;height:auto}.rev-bars{grid-template-columns:repeat(6,minmax(40px,1fr));min-height:170px;height:170px}}
+@media (max-width:720px){.wrap{width:min(calc(100% - 24px),1720px)}.krow{grid-template-columns:1fr}.source-table{display:block;overflow:auto}.rev-ring-wrap{width:170px;height:170px}.rev-ring-canvas{width:170px !important;height:170px !important}.rev-center{padding:0 24px}}
 </style>
 </head>
 <body data-nav="bb">
@@ -57,9 +72,9 @@
     </div>
     <div class="card">
       <div class="ctitle">Update Frequency Mix</div>
-      <div class="csub">Distribution of expected refresh cadences in the current source portfolio</div>
-      <div class="ch-md"><canvas id="freqMix"></canvas></div>
-      <div class="legend"><div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Monthly</div><div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Quarterly</div><div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Semi-Annual</div><div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Annual</div></div>
+      <div class="csub">Donut chart for update cadence on the left and portfolio quality trend bars on the right.</div>
+      <div id="freqMix" class="rev-comp"></div>
+      <div class="legend"><div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Monthly / Completeness</div><div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Quarterly</div><div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Semi-Annual</div><div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Annual</div><div class="leg"><div class="leg-dot" style="background:#B08AC9"></div>Metadata Coverage</div></div>
     </div>
   </div>
 
@@ -72,24 +87,17 @@
         <tbody id="sourceBody"></tbody>
       </table>
     </div>
-    <div class="card">
-      <div class="ctitle">Integrity Alerts</div>
-      <div class="csub">Priority issues that affect completeness, timeliness, definitions or reconciliation quality.</div>
-      <div id="alertList" class="alert-list"></div>
-    </div>
-  </div>
-
-  <div class="sdiv">Definitions &amp; Metadata</div>
-  <div class="g2">
-    <div class="card">
-      <div class="ctitle">Portfolio Quality Trend</div>
-      <div class="csub">Dummy trend of portfolio-wide completeness and metadata coverage over time</div>
-      <div class="ch-lg"><canvas id="trendChart"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="ctitle">Glossary</div>
-      <div class="csub">Core definitions used in the data integrity module</div>
-      <div id="glossaryList" class="glossary-list"></div>
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="ctitle">Integrity Alerts</div>
+        <div class="csub">Priority issues that affect completeness, timeliness, definitions or reconciliation quality.</div>
+        <div id="alertList" class="alert-list"></div>
+      </div>
+      <div class="card">
+        <div class="ctitle">Glossary</div>
+        <div class="csub">Core definitions used in the data integrity module</div>
+        <div id="glossaryList" class="glossary-list"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -123,13 +131,99 @@ function renderKpis(rows){
   document.getElementById('k-meta').textContent = rows.length ? m.toFixed(0) + '%' : '—';
   document.getElementById('k-watch').textContent = rows.filter(r=>r.quality === 'Watchlist').length;
 }
+function shortInstitutionLabel(value){
+  const map = {
+    'Federal Inland Revenue Service (FIRS)':'FIRS',
+    'Nigeria Customs Service':'Customs',
+    'Budget Office of the Federation':'Budget Office',
+    'Debt Management Office (DMO)':'DMO',
+    'Central Bank of Nigeria (CBN)':'CBN',
+    'National Bureau of Statistics (NBS)':'NBS',
+    'Office of the Accountant-General':'Accountant-General',
+    'National Pension Commission (PenCom)':'PenCom',
+    'Nigerian Exchange / SEC filings':'NGX / SEC',
+    'World Bank & AfDB portfolios':'WB / AfDB',
+    'UN agencies & pooled funds':'UN funds',
+    'Climate finance reporting partners':'Climate partners'
+  };
+  return map[value] || value;
+}
 function renderCharts(rows){
-  const labels = rows.map(r => r.institution.length > 24 ? r.institution.slice(0,24) + '…' : r.institution);
-  mkChart('qualityChart', {type:'bar', data:{labels, datasets:[{label:'Completeness', data:rows.map(r=>r.completeness), backgroundColor:'#5B9FA6', borderRadius:4},{label:'Metadata', data:rows.map(r=>r.metadata), backgroundColor:'#B08AC9', borderRadius:4}]}, options:{plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}, ticks:{font:{size:10}}}, y:{min:0,max:100,grid:{color:GRID}, ticks:{callback:v=>v+'%'}}}, responsive:true, maintainAspectRatio:false}});
+  const labels = rows.map(r => shortInstitutionLabel(r.institution));
+  mkChart('qualityChart', {
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:'Completeness', data:rows.map(r=>r.completeness), backgroundColor:'#5B9FA6', borderRadius:5, barPercentage:.78, categoryPercentage:.72},
+        {label:'Metadata', data:rows.map(r=>r.metadata), backgroundColor:'#B08AC9', borderRadius:5, barPercentage:.78, categoryPercentage:.72}
+      ]
+    },
+    options:{
+      animation:{duration:1400,easing:'easeOutQuart'},
+      plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1f1d36', padding:10, displayColors:true, callbacks:{title:(items)=>rows[items[0].dataIndex]?.institution || ''}}},
+      scales:{
+        x:{
+          grid:{display:false},
+          ticks:{
+            font:{size:9, weight:'700'},
+            color:'#7e7b90',
+            maxRotation:50,
+            minRotation:50,
+            align:'end',
+            crossAlign:'far',
+            padding:8,
+            autoSkip:false
+          }
+        },
+        y:{min:0,max:100,grid:{color:GRID}, border:{display:false}, ticks:{stepSize:10, callback:v=>v+'%', font:{size:11, weight:'600'}, color:'#8b88a0', padding:6}}
+      },
+      responsive:true,
+      maintainAspectRatio:false,
+      layout:{padding:{top:6,right:8,left:6,bottom:48}}
+    }
+  });
   const freqLabels = ['Monthly','Quarterly','Semi-Annual','Annual'];
   const freqCounts = freqLabels.map(label => rows.filter(r=>r.frequency===label).length);
-  mkChart('freqMix', {type:'doughnut', data:{labels:freqLabels, datasets:[{data:freqCounts, backgroundColor:['#5B9FA6','#D4956A','#7AAF8A','#6B8CAE'], borderWidth:0}]}, options:{plugins:{legend:{display:false}}, cutout:'68%', responsive:true, maintainAspectRatio:false}});
-  mkChart('trendChart', {type:'line', data:{labels:DS.years.map(String), datasets:[{label:'Completeness', data:DS.completenessTrend, borderColor:'#5B9FA6', backgroundColor:'#5B9FA626', tension:.35, pointRadius:3},{label:'Metadata', data:DS.metadataTrend, borderColor:'#B08AC9', backgroundColor:'#B08AC926', tension:.35, pointRadius:3}]}, options:{plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}}, y:{min:0,max:100,grid:{color:GRID}, ticks:{callback:v=>v+'%'}}}, responsive:true, maintainAspectRatio:false}});
+  const freqColors = ['#5B9FA6','#D4956A','#7AAF8A','#6B8CAE'];
+  document.getElementById('freqMix').innerHTML = `
+    <div class="rev-ring-wrap">
+      <canvas id="freqMixDonut" class="rev-ring-canvas"></canvas>
+      <div class="rev-center"><div class="mini">Active Sources</div><div class="big">${rows.length}</div><div class="yr">Current filtered view</div></div>
+    </div>
+    <div class="rev-bars">
+      ${DS.years.map((year, idx) => {
+        const compHeight = Math.max(60, DS.completenessTrend[idx] * 1.52);
+        const metaHeight = Math.max(52, DS.metadataTrend[idx] * 1.52);
+        return `
+        <div class="rev-col">
+          <div class="rev-pill" title="Completeness ${year}: ${DS.completenessTrend[idx]}%" style="height:${compHeight}px;background:#5B9FA6"></div>
+          <div class="rev-pill meta" title="Metadata ${year}: ${DS.metadataTrend[idx]}%" style="height:${metaHeight}px;background:#B08AC9"></div>
+          <div class="rev-year">${year}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  mkChart('freqMixDonut', {
+    type:'doughnut',
+    data:{
+      labels:freqLabels,
+      datasets:[{data:freqCounts, backgroundColor:freqColors, borderWidth:0, hoverOffset:4}]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      cutout:'72%',
+      animation:{duration:1400,easing:'easeOutQuart'},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'#1f1d36',
+          padding:10,
+          callbacks:{label:(ctx)=>`${ctx.label}: ${ctx.raw} source${ctx.raw===1?'':'s'}`}
+        }
+      }
+    }
+  });
 }
 function renderTable(rows){
   document.getElementById('sourceBody').innerHTML = rows.map(r => `<tr>

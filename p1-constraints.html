@@ -28,22 +28,22 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-si
 .g2,.g3,.g2-1{display:grid;gap:16px;margin-bottom:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g2-1{grid-template-columns:2fr 1fr}
 .card{padding:20px}.ctitle{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:3px}.csub{font-size:10px;color:var(--ink-lt);margin-bottom:14px;line-height:1.5}.ch-lg{position:relative;height:245px}.ch-md{position:relative;height:210px}
 .legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink-md)}.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-.constraint-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.constraint-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 18px 16px;display:flex;flex-direction:column;gap:14px;min-height:278px}
-.constraint-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.constraint-name{font-family:'Literata',serif;font-size:22px;line-height:1.25;color:var(--ink)}
-.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.constraint-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.constraint-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:12px;min-height:220px}
+.constraint-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.constraint-name{font-family:'Literata',serif;font-size:20px;line-height:1.28;color:var(--ink)}
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
 .badge.revenue{background:#eaf4f5;color:#3a7a80}.badge.cost{background:#fff1e7;color:#b36222}.badge.governance{background:#f1edf8;color:#6d56a7}.badge.capacity{background:#eef3fb;color:#47688e}
-.severity-wrap{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center}.severity-num{font-family:'Literata',serif;font-size:38px;line-height:1;color:var(--gap)}.severity-label{font-size:10px;color:var(--ink-lt);text-transform:uppercase;letter-spacing:.08em}
+.severity-wrap{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center}.severity-num{font-family:'Literata',serif;font-size:34px;line-height:1;color:var(--gap)}.severity-label{font-size:10px;color:var(--ink-lt);text-transform:uppercase;letter-spacing:.08em}
 .severity-track{height:10px;background:#f0edf5;border-radius:999px;overflow:hidden}.severity-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#7AAF8A 0%, #F8981D 55%, #B83232 100%)}
-.meta-row{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:11px;color:var(--ink-md)}.meta-row strong{color:var(--ink)}
-.support-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.support-item{background:#faf8fc;border:1px solid #eee6f7;border-radius:8px;padding:10px}.support-k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-lt);margin-bottom:4px}.support-v{font-size:17px;font-weight:700;color:var(--ink)}.support-n{font-size:10px;color:var(--ink-lt);line-height:1.45;margin-top:3px}
-.reform-wrap{display:flex;flex-wrap:wrap;gap:8px}.reform-chip{background:var(--brand-l);color:var(--brand);border:1px solid var(--brand-bd);padding:5px 9px;border-radius:999px;font-size:10px;font-weight:600}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:11px;color:var(--ink-md)}.meta-row strong{color:var(--ink)}
+.support-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}.support-item{background:#faf8fc;border:1px solid #eee6f7;border-radius:8px;padding:10px}.support-k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-lt);margin-bottom:4px}.support-v{font-size:15px;font-weight:700;color:var(--ink)}.support-n{display:none}
+.reform-wrap{display:flex;flex-wrap:wrap;gap:6px}.reform-chip{background:var(--brand-l);color:var(--brand);border:1px solid var(--brand-bd);padding:5px 8px;border-radius:999px;font-size:10px;font-weight:600}
 .heat-table,.link-table{width:100%;border-collapse:collapse}.heat-table th,.heat-table td,.link-table th,.link-table td{padding:11px 10px;border-bottom:1px solid #f0edf5;text-align:left;font-size:11px}.heat-table th,.link-table th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-lt)}
 .heat-cell{min-width:96px}.heat-box{height:12px;border-radius:999px;background:#f1edf8;overflow:hidden;position:relative}.heat-fill{height:100%;border-radius:999px}.cell-note{display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(--ink-lt)}
 .priority-pill{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:700}.priority-high{background:#fdf0f0;color:#9a2d2d}.priority-medium{background:#fff5e8;color:#b56d1f}
 .empty-state{padding:40px 16px;text-align:center;color:var(--ink-lt);border:1px dashed var(--brand-bd);border-radius:12px;background:#fbf9fe}
-@media (max-width:1200px){.krow{grid-template-columns:repeat(2,1fr)}.g2,.g2-1,.constraint-grid{grid-template-columns:1fr}.g3{grid-template-columns:1fr}}
-@media (max-width:720px){.wrap{width:min(calc(100% - 24px),1720px)}.krow{grid-template-columns:1fr}.support-list{grid-template-columns:1fr}.severity-wrap{grid-template-columns:1fr}.constraint-name{font-size:20px}}
+@media (max-width:1200px){.krow{grid-template-columns:repeat(2,1fr)}.g2,.g2-1{grid-template-columns:1fr}.constraint-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:1fr}}
+@media (max-width:720px){.wrap{width:min(calc(100% - 24px),1720px)}.krow,.constraint-grid{grid-template-columns:1fr}.support-list{grid-template-columns:1fr}.severity-wrap{grid-template-columns:1fr}.constraint-name{font-size:20px}}
 </style>
 </head>
 <body data-nav="bb">
@@ -86,21 +86,11 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-si
     </div>
   </div>
 
-  <div class="g2-1">
-    <div class="card">
+  <div class="card" style="margin-bottom:16px">
       <div class="ctitle">Constraint Register</div>
-      <div class="csub">Detailed view of the most binding issues, the evidence behind them, and the reform actions linked to each one.</div>
+      <div class="csub">Eight simplified cards showing the constraint name, category, severity, key supporting data and linked Pillar 2 reforms.</div>
       <div id="constraintGrid" class="constraint-grid"></div>
     </div>
-    <div class="card">
-      <div class="ctitle">Reform Response Tracker</div>
-      <div class="csub">Reform actions connected to the currently displayed constraints.</div>
-      <table class="link-table">
-        <thead><tr><th>Reform</th><th>Pillar</th><th>Linked Constraints</th><th>Priority</th></tr></thead>
-        <tbody id="reformBody"></tbody>
-      </table>
-    </div>
-  </div>
 
   <div class="sdiv">Hotspot Analysis</div>
   <div class="g2">
@@ -182,9 +172,15 @@ function renderCharts(rows){
       const vals = members.map(m => m.severityByYear[idx]);
       return vals.length ? Math.round(avg(vals)) : null;
     });
-    return {label:cat, data, borderColor:color, backgroundColor:color + '26', tension:.35, fill:false, pointRadius:3, pointHoverRadius:4};
+    return {label:cat, data, backgroundColor:color, borderRadius:4, maxBarThickness:22};
   });
-  mkChart('severityTrend', {type:'line', data:{labels:C.years.map(String), datasets:trendSets}, options:{plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}}, y:{min:0,max:100,grid:{color:GRID}, ticks:{callback:v=>v}}}, responsive:true, maintainAspectRatio:false}});
+  mkChart('severityTrend', barCfg(C.years.map(String), trendSets, { yfmt:v=>v }));
+  const severityTrendChart = document.getElementById('severityTrend');
+  if (severityTrendChart && severityTrendChart._chart) {
+    severityTrendChart._chart.options.scales.y.min = 0;
+    severityTrendChart._chart.options.scales.y.max = 100;
+    severityTrendChart._chart.update();
+  }
 
   const counts = cats.map(cat => rows.filter(r => r.category === cat).length);
   mkChart('categoryMix', {type:'doughnut', data:{labels:cats, datasets:[{data:counts, backgroundColor:['#5B9FA6','#D4956A','#B08AC9','#6B8CAE'], borderWidth:0}]}, options:{plugins:{legend:{display:false}}, cutout:'68%', responsive:true, maintainAspectRatio:false}});
@@ -192,14 +188,13 @@ function renderCharts(rows){
 
 function renderCards(rows){
   const host = document.getElementById('constraintGrid');
-  if(!rows.length){ host.innerHTML = '<div class="empty-state">No constraints match the selected filters. Reset the filters to restore the full dummy portfolio.</div>'; return; }
-  host.innerHTML = rows.map(item => `
+  if(!rows.length){ host.innerHTML = '<div class="empty-state" style="grid-column:1 / -1">No constraints match the selected filters. Reset the filters to restore the full dummy portfolio.</div>'; return; }
+  host.innerHTML = rows.map(item => {
+    const evidence = item.supportingData.slice(0,2);
+    return `
     <div class="constraint-card">
       <div class="constraint-top">
-        <div>
-          <div class="constraint-name">${item.name}</div>
-          <div class="meta-row" style="margin-top:8px"><span><strong>Owner:</strong> ${item.owner}</span><span><strong>Sector:</strong> ${item.sector}</span><span><strong>Geography:</strong> ${item.geography}</span></div>
-        </div>
+        <div class="constraint-name">${item.name}</div>
         <span class="badge ${badgeCls(item.category)}">${item.category}</span>
       </div>
       <div class="severity-wrap">
@@ -209,25 +204,20 @@ function renderCards(rows){
         </div>
         <div>
           <div class="severity-track"><div class="severity-fill" style="width:${item.severity}%"></div></div>
-          <div class="meta-row" style="margin-top:8px"><span><strong>Trend:</strong> ${item.trend}</span><span><strong>Latest year:</strong> ${item.latestYear}</span></div>
+          <div class="meta-row" style="margin-top:8px"><span><strong>Trend:</strong> ${item.trend}</span><span><strong>Year:</strong> ${item.latestYear}</span></div>
         </div>
       </div>
       <div class="support-list">
-        ${item.supportingData.map(d => `<div class="support-item"><div class="support-k">${d.label}</div><div class="support-v">${d.value}</div><div class="support-n">${d.note}</div></div>`).join('')}
+        ${evidence.map(d => `<div class="support-item"><div class="support-k">${d.label}</div><div class="support-v">${d.value}</div></div>`).join('')}
       </div>
       <div>
-        <div class="support-k" style="margin-bottom:8px">Linked reform actions</div>
-        <div class="reform-wrap">${item.reforms.map(r => `<span class="reform-chip">${r}</span>`).join('')}</div>
+        <div class="support-k" style="margin-bottom:6px">Linked reforms</div>
+        <div class="reform-wrap">${item.reforms.slice(0,3).map(r => `<span class="reform-chip">${r}</span>`).join('')}</div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
-function renderReforms(rows){
-  const set = new Set(rows.flatMap(r => r.reforms));
-  const body = document.getElementById('reformBody');
-  const ref = C.reformLinks.filter(r => set.has(r.reform));
-  body.innerHTML = ref.map(r => `<tr><td>${r.reform}</td><td>${r.pillar}</td><td>${r.linkedConstraints}</td><td><span class="priority-pill ${r.priority === 'High' ? 'priority-high' : 'priority-medium'}">${r.priority}</span></td></tr>`).join('') || '<tr><td colspan="4" style="color:var(--ink-lt)">No linked reform actions in this filter selection.</td></tr>';
-}
 
 function heatColor(v){ return v >= 80 ? '#B83232' : v >= 65 ? '#F8981D' : v >= 50 ? '#B08AC9' : '#7AAF8A'; }
 function renderHeatmap(){
@@ -247,7 +237,6 @@ function render(){
   renderKpis(rows);
   renderCharts(rows);
   renderCards(rows);
-  renderReforms(rows);
 }
 function resetFilters(){ els.year.value='ALL'; els.category.value='ALL'; els.severity.value='ALL'; render(); }
 renderHeatmap();
