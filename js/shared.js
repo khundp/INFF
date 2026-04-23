@@ -16,6 +16,8 @@
 
 (function () {
 
+  window.INFF_BASE_URL = new URL('./', document.baseURI).href;
+
   function ensureStickyNav() {
     if (!document.getElementById('shared-sticky-nav-fix')) {
       const style = document.createElement('style');
@@ -34,11 +36,12 @@
       const file = node.getAttribute('data-include');
       if (!file) return;
       try {
-        const res = await fetch(file);
+        const url = new URL(file, document.baseURI).href;
+        const res = await fetch(url, { cache: 'no-cache' });
         if (!res.ok) throw new Error(`Failed to load ${file}: ${res.status}`);
         node.innerHTML = await res.text();
       } catch (err) {
-        console.error(err);
+        console.error('Shared include failed:', err);
       }
     });
 
@@ -57,13 +60,32 @@
         if (activeLink) activeLink.classList.add('active');
       }
       ensureStickyNav();
+      manageBuildingBlockStickyStack();
       document.dispatchEvent(new CustomEvent('shared:loaded'));
     });
+  }
+
+
+
+  function manageBuildingBlockStickyStack() {
+    return;
+  }
+
+  function initP1SmoothCollapse() {
+    if (document.body?.dataset?.nav !== 'bb') return;
+    const update = () => {
+      const y = window.pageYOffset || document.documentElement.scrollTop || 0;
+      document.body.classList.toggle('bb-compact', y > 52);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
   }
 
   document.addEventListener('DOMContentLoaded', function () {
     ensureStickyNav();
     initSharedUi();
+    manageBuildingBlockStickyStack();
+    initP1SmoothCollapse();
   });
 
   if (window.Chart) {
