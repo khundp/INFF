@@ -1,5 +1,5 @@
 window.INFF_CONSTRAINTS_DATA = {
-  years: [2021, 2022, 2023, 2024, 2025],
+  years: [2020, 2021, 2022, 2023, 2024, 2025],
   categories: ['Revenue','Cost of Capital','Governance','Capacity'],
   constraints: [
     {
@@ -18,7 +18,7 @@ window.INFF_CONSTRAINTS_DATA = {
         {label:'Affected flow', value:'NGN 1.2T', note:'foregone annual revenue potential'}
       ],
       reforms:['Digital taxpayer registry integration','E-invoicing expansion','Risk-based audit sequencing'],
-      severityByYear:[58,64,71,82,88]
+      severityByYear:[54,58,64,71,82,88]
     },
     {
       id:'c2',
@@ -36,7 +36,7 @@ window.INFF_CONSTRAINTS_DATA = {
         {label:'Crowding-out signal', value:'High', note:'banks prefer sovereign paper'}
       ],
       reforms:['Blended finance framework','Credit enhancement facility','Domestic bond market deepening'],
-      severityByYear:[62,66,73,79,84]
+      severityByYear:[57,62,66,73,79,84]
     },
     {
       id:'c3',
@@ -54,7 +54,7 @@ window.INFF_CONSTRAINTS_DATA = {
         {label:'Metadata coverage', value:'61%', note:'definitions incomplete'}
       ],
       reforms:['Unified chart of financing accounts','Common reporting template','Quarterly fund disclosure protocol'],
-      severityByYear:[79,81,80,78,76]
+      severityByYear:[77,79,81,80,78,76]
     },
     {
       id:'c4',
@@ -72,7 +72,7 @@ window.INFF_CONSTRAINTS_DATA = {
         {label:'States with PMU gaps', value:'23', note:'dummy estimate'}
       ],
       reforms:['Project preparation facility','State PMU training window','Standard appraisal toolkit'],
-      severityByYear:[68,72,77,79,81]
+      severityByYear:[64,68,72,77,79,81]
     },
     {
       id:'c5',
@@ -90,7 +90,7 @@ window.INFF_CONSTRAINTS_DATA = {
         {label:'FX risk pass-through', value:'High', note:'limits private participation'}
       ],
       reforms:['Green guarantee platform','Climate project aggregation vehicle','Local currency blended window'],
-      severityByYear:[55,60,66,70,73]
+      severityByYear:[50,55,60,66,70,73]
     },
     {
       id:'c6',
@@ -108,7 +108,7 @@ window.INFF_CONSTRAINTS_DATA = {
         {label:'Potential upside', value:'NGN 520B', note:'annual estimate'}
       ],
       reforms:['GIS-enabled property rolls','IGR digitisation','State revenue benchmarking'],
-      severityByYear:[63,67,70,75,79]
+      severityByYear:[59,63,67,70,75,79]
     },
     {
       id:'c7',
@@ -126,7 +126,7 @@ window.INFF_CONSTRAINTS_DATA = {
         {label:'Double-counting risk', value:'Medium', note:'between climate and sector tags'}
       ],
       reforms:['Unified development finance taxonomy','Climate tagging protocol','Partner data exchange template'],
-      severityByYear:[74,72,71,69,67]
+      severityByYear:[76,74,72,71,69,67]
     },
     {
       id:'c8',
@@ -144,16 +144,22 @@ window.INFF_CONSTRAINTS_DATA = {
         {label:'Training completion', value:'54%', note:'staff reached in last cycle'}
       ],
       reforms:['INFF analytics academy','Shared BI service desk','Data steward designation'],
-      severityByYear:[76,72,69,66,64]
+      severityByYear:[79,76,72,69,66,64]
     }
   ],
   sectorHeatmap: [
-    {sector:'Revenue Mobilisation', revenue:88, cost:42, governance:74, capacity:63},
-    {sector:'Infrastructure', revenue:46, cost:84, governance:58, capacity:61},
-    {sector:'Health & Social Protection', revenue:39, cost:55, governance:69, capacity:72},
     {sector:'Education', revenue:34, cost:49, governance:62, capacity:68},
+    {sector:'Health & Social Protection', revenue:39, cost:55, governance:69, capacity:72},
+    {sector:'Infrastructure', revenue:46, cost:84, governance:58, capacity:61},
+    {sector:'Agriculture', revenue:41, cost:53, governance:60, capacity:59},
     {sector:'Climate & Environment', revenue:37, cost:73, governance:66, capacity:57},
-    {sector:'Sub-national Finance', revenue:79, cost:52, governance:64, capacity:81}
+    {sector:'Digital & ICT', revenue:52, cost:47, governance:63, capacity:58},
+    {sector:'Governance', revenue:45, cost:39, governance:76, capacity:67},
+    {sector:'Social Protection', revenue:36, cost:51, governance:68, capacity:74},
+    {sector:'Energy', revenue:44, cost:71, governance:57, capacity:55},
+    {sector:'Water & Sanitation', revenue:38, cost:58, governance:61, capacity:64},
+    {sector:'Revenue Mobilisation', revenue:88, cost:42, governance:74, capacity:63},
+    {sector:'Subnational finance', revenue:79, cost:52, governance:64, capacity:81}
   ],
   reformLinks: [
     {reform:'Digital taxpayer registry integration', pillar:'Pillar 2', linkedConstraints:3, priority:'High'},

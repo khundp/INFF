@@ -1,5 +1,5 @@
 window.INFF_DATA_SOURCES = {
-  years:[2021,2022,2023,2024,2025],
+  years:[2020,2021,2022,2023,2024,2025],
   institutions:[
     {
       id:'ds1', institution:'Federal Inland Revenue Service (FIRS)', type:'Domestic Public', domains:['Tax Revenues','VAT','CIT','PIT proxies'], frequency:'Monthly', completeness:94, metadata:92, latestUpdate:'2025-Q4', definitions:'Comprehensive', quality:'Strong', notes:'Main source for federal tax categories and compliance indicators.'
@@ -38,8 +38,8 @@ window.INFF_DATA_SOURCES = {
       id:'ds12', institution:'Climate finance reporting partners', type:'International Private', domains:['Climate funds','Impact investors','Blended vehicles'], frequency:'Annual', completeness:68, metadata:74, latestUpdate:'2025', definitions:'Basic', quality:'Watchlist', notes:'Project tagging and concessionality fields remain uneven.'
     }
   ],
-  completenessTrend:[72,76,79,82,84],
-  metadataTrend:[64,68,72,76,80],
+  completenessTrend:[70,72,76,79,82,84],
+  metadataTrend:[60,64,68,72,76,80],
   updateFrequencyMix:[
     {label:'Monthly', value:4},
     {label:'Quarterly', value:6},

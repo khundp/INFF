@@ -63,7 +63,7 @@ window.INFF_P4_ARCHITECTURE_DATA = {
     { key:'External interface', value:'Partner and private platforms', summary:'Partner and private sector platforms channel finance, advice and delivery feedback into the coordination system.' }
   ],
   institutions: [
-    { name:'Federal Ministry of Budget & Economic Planning', type:'Lead ministry', role:'Leads development plan alignment, reform prioritisation and cross-pillar results oversight', cadence:'Monthly' },
+    { name:'INFF Steering Committee', type:'Lead ministry', role:'Leads development plan alignment, reform prioritisation and cross-pillar results oversight', cadence:'Monthly' },
     { name:'Federal Ministry of Finance', type:'Lead ministry', role:'Anchors public finance strategy, mobilisation measures and fiscal reform coordination', cadence:'Monthly' },
     { name:'Debt Management Office', type:'Core agency', role:'Provides debt strategy inputs, financing risk analysis and market coordination support', cadence:'Bi-monthly' },
     { name:'INFF Steering Committee', type:'Steering committee', role:'Confirms priorities, resolves escalated issues and maintains whole-of-government alignment', cadence:'Quarterly' },
