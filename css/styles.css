@@ -662,3 +662,100 @@ body[data-nav="bb"] .wrap > .layout{
 .page-landscape{
   overflow-x:hidden;
 }
+
+
+/* Unified Building Block sticky stack for all P1 pages */
+:root{
+  --inff-topnav-h:56px;
+  --inff-jumpstrip-h:74px;
+  --inff-sticky-offset:calc(var(--inff-topnav-h) + var(--inff-jumpstrip-h));
+}
+html body .opt-c-strip{
+  position:sticky !important;
+  top:var(--inff-topnav-h) !important;
+  z-index:470 !important;
+  margin:0 !important;
+}
+html body .opt-c-row2{
+  border-bottom:1px solid #d4c8e8 !important;
+}
+html body .opt-c-sec-link{
+  font-weight:500;
+}
+html body .opt-c-sec-link.active{
+  font-weight:700 !important;
+  color:#532B70 !important;
+  background:rgba(83,43,112,.1) !important;
+}
+html body .fbar{
+  position:sticky;
+  top:var(--inff-sticky-offset);
+  z-index:455;
+  margin-top:0 !important;
+  box-shadow:0 6px 14px rgba(26,23,45,.06);
+}
+html body #breadcrumb-placeholder,
+html body #header-placeholder,
+html body .breadbar,
+html body .opt-c-strip + #header-placeholder,
+html body .opt-c-strip + .page-header,
+html body .opt-c-strip + div{
+  margin-top:0 !important;
+}
+@media (max-width:900px){
+  :root{--inff-jumpstrip-h:82px;}
+  html body .fbar{top:var(--inff-sticky-offset);}
+}
+@media (max-width:640px){
+  :root{--inff-jumpstrip-h:90px;}
+  html body .fbar{top:var(--inff-sticky-offset);}
+}
+
+
+/* v5: robust sticky stack for all P1 pages */
+html, body{
+  overflow-x:hidden;
+}
+body[data-nav="bb"],
+body[data-nav="bb"] main,
+body[data-nav="bb"] .wrap,
+body[data-nav="bb"] .layout,
+body[data-nav="bb"] #breadcrumb-placeholder,
+body[data-nav="bb"] #header-placeholder{
+  overflow:visible !important;
+}
+body[data-nav="bb"] #nav-placeholder{
+  position:sticky !important;
+  top:0 !important;
+  z-index:500 !important;
+}
+body[data-nav="bb"] #nav-placeholder > .topnav{
+  position:relative !important;
+  top:0 !important;
+  z-index:500 !important;
+}
+body[data-nav="bb"] .opt-c-strip{
+  position:sticky !important;
+  top:56px !important;
+  z-index:490 !important;
+  transform:translateZ(0);
+  will-change:transform;
+}
+body[data-nav="bb"] .fbar{
+  position:sticky !important;
+  top:var(--inff-sticky-offset) !important;
+  z-index:485 !important;
+  transform:translateZ(0);
+  will-change:transform;
+}
+body[data-nav="bb"] .wrap,
+body[data-nav="bb"] .layout{
+  position:relative;
+  z-index:1;
+}
+body[data-nav="bb"] .fbar + .wrap,
+body[data-nav="bb"] .fbar + main,
+body[data-nav="bb"] #header-placeholder + .fbar + .wrap{
+  position:relative;
+  z-index:1;
+}
