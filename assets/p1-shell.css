@@ -1,0 +1,118 @@
+
+:root{
+  --inff-topnav-h:56px;
+  --inff-jumpstrip-h:74px;
+  --inff-sticky-offset:calc(var(--inff-topnav-h) + var(--inff-jumpstrip-h));
+  --inff-shell-z-nav:900;
+  --inff-shell-z-jump:890;
+  --inff-shell-z-filter:880;
+}
+html,body{overflow-x:hidden;}
+body[data-nav="bb"],
+body[data-nav="bb"] main,
+body[data-nav="bb"] .wrap,
+body[data-nav="bb"] .layout,
+body[data-nav="bb"] #breadcrumb-placeholder,
+body[data-nav="bb"] #header-placeholder{overflow:visible !important;}
+body[data-nav="bb"] #nav-placeholder{position:sticky !important;top:0 !important;z-index:var(--inff-shell-z-nav) !important;}
+body[data-nav="bb"] #nav-placeholder > .topnav{position:relative !important;top:0 !important;z-index:var(--inff-shell-z-nav) !important;}
+body[data-nav="bb"] .opt-c-strip{
+  position:sticky !important;
+  top:var(--inff-topnav-h) !important;
+  z-index:var(--inff-shell-z-jump) !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:#4a2f6b !important;
+  transform:none !important;
+  will-change:auto !important;
+}
+body[data-nav="bb"] .opt-c-row1,
+body[data-nav="bb"] .opt-c-row2{margin:0 !important;}
+body[data-nav="bb"] .opt-c-row2{border-bottom:1px solid #d4c8e8 !important;}
+body[data-nav="bb"] .opt-c-sec-link{font-weight:500 !important;}
+body[data-nav="bb"] .opt-c-sec-link.active{font-weight:700 !important;color:#532B70 !important;background:rgba(83,43,112,.10) !important;}
+body[data-nav="bb"] .fbar{
+  position:sticky !important;
+  top:var(--inff-sticky-offset) !important;
+  z-index:var(--inff-shell-z-filter) !important;
+  margin-top:0 !important;
+  box-shadow:0 6px 14px rgba(26,23,45,.06) !important;
+  transform:none !important;
+  will-change:auto !important;
+}
+
+/* smooth shared collapse for all P1 pages */
+body[data-nav="bb"] .breadbar,
+body[data-nav="bb"] .page-header,
+body[data-nav="bb"] .ph-header{
+  overflow:hidden;
+  transition:max-height .32s ease, opacity .22s ease, padding .32s ease, border-width .32s ease, transform .32s ease, margin .32s ease;
+  will-change:max-height, opacity, transform;
+}
+body[data-nav="bb"] .breadbar{max-height:40px;opacity:1;transform:translateY(0);}
+body[data-nav="bb"] .page-header,
+body[data-nav="bb"] .ph-header{max-height:180px;opacity:1;transform:translateY(0);}
+body[data-nav="bb"].bb-compact .breadbar{
+  max-height:0 !important;
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  border-bottom-width:0 !important;
+  opacity:0 !important;
+  transform:translateY(-8px) !important;
+}
+body[data-nav="bb"].bb-compact .page-header,
+body[data-nav="bb"].bb-compact .ph-header{
+  max-height:0 !important;
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  border-bottom-width:0 !important;
+  opacity:0 !important;
+  transform:translateY(-12px) !important;
+}
+body[data-nav="bb"] .fbar + .wrap,
+body[data-nav="bb"] .fbar + main,
+body[data-nav="bb"] .fbar + .page,
+body[data-nav="bb"] .fbar + .content{position:relative !important;z-index:1 !important;}
+@media (max-width:900px){:root{--inff-topnav-h:52px;--inff-jumpstrip-h:82px;}}
+@media (max-width:640px){:root{--inff-jumpstrip-h:90px;}}
+
+
+body[data-nav="bb"] #breadcrumb-placeholder,
+body[data-nav="bb"] #header-placeholder{
+  display:block;
+  overflow:hidden !important;
+  position:relative;
+  z-index:12;
+  background:transparent;
+  transition:max-height .34s ease, opacity .24s ease, transform .34s ease;
+  will-change:max-height, opacity, transform;
+}
+body[data-nav="bb"] #breadcrumb-placeholder{max-height:48px;opacity:1;transform:translateY(0);}
+body[data-nav="bb"] #header-placeholder{max-height:260px;opacity:1;transform:translateY(0);}
+body[data-nav="bb"] .ph-header .subnav{
+  transition:max-height .28s ease, opacity .2s ease, margin .28s ease, transform .28s ease;
+  max-height:60px;
+  opacity:1;
+  transform:translateY(0);
+  overflow:hidden;
+}
+body[data-nav="bb"].bb-compact #breadcrumb-placeholder{
+  max-height:0 !important;
+  opacity:0 !important;
+  transform:translateY(-8px) !important;
+}
+body[data-nav="bb"].bb-compact #header-placeholder{
+  max-height:0 !important;
+  opacity:0 !important;
+  transform:translateY(-12px) !important;
+}
+body[data-nav="bb"].bb-compact .ph-header .subnav{
+  max-height:0 !important;
+  opacity:0 !important;
+  margin-top:0 !important;
+  transform:translateY(-6px) !important;
+}
+body[data-nav="bb"] .wrap,
+body[data-nav="bb"] .card,
+body[data-nav="bb"] canvas,
+body[data-nav="bb"] svg{transform:none !important;}
