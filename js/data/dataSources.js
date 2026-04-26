@@ -20,7 +20,7 @@ window.INFF_DATA_SOURCES = {
       id:'ds6', institution:'National Bureau of Statistics (NBS)', type:'Domestic Public', domains:['GDP','State indicators','Price indices'], frequency:'Quarterly', completeness:88, metadata:91, latestUpdate:'2025-Q4', definitions:'Comprehensive', quality:'Strong', notes:'Anchor source for GDP normalisation, denominators and comparable state series.'
     },
     {
-      id:'ds7', institution:'Office of the Accountant-General', type:'Domestic Public', domains:['Fiscal outturns','Treasury flows','Special accounts'], frequency:'Quarterly', completeness:79, metadata:70, latestUpdate:'2025-Q3', definitions:'Moderate', quality:'Watchlist', notes:'Some lag in reconciliation and differing coding for earmarked accounts.'
+      id:'ds7', institution:'Office of the Accountant-General', type:'Domestic Public', domains:['Fiscal outturns','Treasury flows','Special accounts'], frequency:'Quarterly', completeness:79, metadata:70, latestUpdate:'2025-Q3', definitions:'Moderate', quality:'Pipeline', notes:'Some lag in reconciliation and differing coding for earmarked accounts.'
     },
     {
       id:'ds8', institution:'National Pension Commission (PenCom)', type:'Domestic Private', domains:['Pension assets','Mandatory savings schemes'], frequency:'Quarterly', completeness:85, metadata:83, latestUpdate:'2025-Q4', definitions:'Good', quality:'Strong', notes:'Supports pension and long-term domestic finance assessment.'
@@ -35,7 +35,7 @@ window.INFF_DATA_SOURCES = {
       id:'ds11', institution:'UN agencies & pooled funds', type:'International Public', domains:['Grants','Technical assistance','Thematic funds'], frequency:'Semi-Annual', completeness:72, metadata:80, latestUpdate:'2025-H2', definitions:'Moderate', quality:'Moderate', notes:'Coverage varies by agency and coding standard.'
     },
     {
-      id:'ds12', institution:'Climate finance reporting partners', type:'International Private', domains:['Climate funds','Impact investors','Blended vehicles'], frequency:'Annual', completeness:68, metadata:74, latestUpdate:'2025', definitions:'Basic', quality:'Watchlist', notes:'Project tagging and concessionality fields remain uneven.'
+      id:'ds12', institution:'Climate finance reporting partners', type:'International Private', domains:['Climate funds','Impact investors','Blended vehicles'], frequency:'Annual', completeness:68, metadata:74, latestUpdate:'2025', definitions:'Basic', quality:'Pipeline', notes:'Project tagging and concessionality fields remain uneven.'
     }
   ],
   completenessTrend:[70,72,76,79,82,84],
