@@ -41,7 +41,7 @@
 <body data-nav="bb">
 <div id="nav-placeholder" data-include="assets/nav.html"></div>
 <div id="breadcrumb-placeholder" data-include="assets/partials/breadcrumbs/p1-datasources.html"></div>
-<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link">Constraints &amp; Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link active">Data Sources &amp; Integrity</a></div></div>
+<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link">Financing Landscape</a><span class="opt-c-sep">|</span><a href="p1-gap.html" class="opt-c-sec-link">Financing Gap Analysis</a><span class="opt-c-sep">|</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">|</span><a href="p1-constraints.html" class="opt-c-sec-link">Constraints &amp; Bottlenecks</a><span class="opt-c-sep">|</span><a href="p1-datasources.html" class="opt-c-sec-link active">Data Sources &amp; Integrity</a></div></div>
 <div id="header-placeholder" data-include="assets/partials/headers/p1-datasources.html"></div>
 
 <div class="fbar">
@@ -51,7 +51,7 @@
   <div class="fb-div"></div>
   <div class="fb-group"><span class="fb-label">Completeness</span><select id="f-completeness"><option value="ALL">All Scores</option><option value="90">90% and above</option><option value="80">80% and above</option><option value="70">70% and above</option></select></div>
   <button class="btn-reset" onclick="resetFilters()">Reset</button>
-  <div class="fb-status">Showing: <strong id="f-status">All institutions · all cadences · all completeness levels</strong></div>
+  <div class="fb-status">Showing: <strong id="f-status">All institutions | All cadences | All completeness levels</strong></div>
 </div>
 
 <div class="wrap">
@@ -59,7 +59,7 @@
     <div class="kcard kc-1"><div class="klabel">Contributing Institutions</div><div class="kvalue" id="k-inst">—</div><div class="ksub">Data providers in the current filtered view</div><div class="kdelta kd-good">Dummy registry</div></div>
     <div class="kcard kc-2"><div class="klabel">Average Completeness</div><div class="kvalue" id="k-comp">—</div><div class="ksub">Mean completeness score across the filtered institutions</div><div class="kdelta kd-warn" id="k-comp-d">—</div></div>
     <div class="kcard kc-3"><div class="klabel">Average Metadata Coverage</div><div class="kvalue" id="k-meta">—</div><div class="ksub">Share of definitions, methods and caveats captured</div><div class="kdelta kd-info">Definitions and metadata</div></div>
-    <div class="kcard kc-4"><div class="klabel">Institutions on Watchlist</div><div class="kvalue" id="k-watch">—</div><div class="ksub">Sources marked watchlist for integrity follow-up</div><div class="kdelta kd-info">Timeliness or quality issues</div></div>
+    <div class="kcard kc-4"><div class="klabel">Institutions on Pipeline</div><div class="kvalue" id="k-watch">—</div><div class="ksub">Sources marked pipeline for integrity follow-up</div><div class="kdelta kd-info">Timeliness or quality issues</div></div>
   </div>
 
   <div class="sdiv">Data Integrity Overview</div>
@@ -129,7 +129,7 @@ function renderKpis(rows){
   document.getElementById('k-comp').textContent = rows.length ? c.toFixed(0) + '%' : '—';
   document.getElementById('k-comp-d').textContent = rows.length ? (c >= 85 ? 'Strong coverage' : c >= 75 ? 'Moderate coverage' : 'Follow-up needed') : 'No matching sources';
   document.getElementById('k-meta').textContent = rows.length ? m.toFixed(0) + '%' : '—';
-  document.getElementById('k-watch').textContent = rows.filter(r=>r.quality === 'Watchlist').length;
+  document.getElementById('k-watch').textContent = rows.filter(r=>r.quality === 'Pipeline').length;
 }
 function shortInstitutionLabel(value){
   const map = {
@@ -245,7 +245,7 @@ function renderGlossary(){
 }
 function render(){
   const rows = filteredSources();
-  filters.status.textContent = [filters.type.value === 'ALL' ? 'All institutions' : filters.type.value, filters.freq.value === 'ALL' ? 'all cadences' : filters.freq.value.toLowerCase(), filters.comp.value === 'ALL' ? 'all completeness levels' : filters.comp.value + '% and above'].join(' · ');
+  filters.status.textContent = [filters.type.value === 'ALL' ? 'All institutions' : filters.type.value, filters.freq.value === 'ALL' ? 'All cadences' : filters.freq.value, filters.comp.value === 'ALL' ? 'All completeness levels' : filters.comp.value + '% and above'].join(' | ');
   renderKpis(rows); renderCharts(rows); renderTable(rows);
 }
 function resetFilters(){ filters.type.value='ALL'; filters.freq.value='ALL'; filters.comp.value='ALL'; render(); }

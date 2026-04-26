@@ -49,7 +49,7 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-si
 <body data-nav="bb">
 <div id="nav-placeholder" data-include="assets/nav.html"></div>
 <div id="breadcrumb-placeholder" data-include="assets/partials/breadcrumbs/p1-constraints.html"></div>
-<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link active">Constraints &amp; Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link">Data Sources &amp; Integrity</a></div></div>
+<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link">Financing Landscape</a><span class="opt-c-sep">|</span><a href="p1-gap.html" class="opt-c-sec-link">Financing Gap Analysis</a><span class="opt-c-sep">|</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">|</span><a href="p1-constraints.html" class="opt-c-sec-link active">Constraints &amp; Bottlenecks</a><span class="opt-c-sep">|</span><a href="p1-datasources.html" class="opt-c-sec-link">Data Sources &amp; Integrity</a></div></div>
 <div id="header-placeholder" data-include="assets/partials/headers/p1-constraints.html"></div>
 
 <div class="fbar">
@@ -59,7 +59,7 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-si
   <div class="fb-div"></div>
   <div class="fb-group"><span class="fb-label">Severity</span><select id="f-severity"><option value="ALL">All Levels</option><option value="High">High (80+)</option><option value="Medium">Medium (65–79)</option><option value="Moderate">Moderate (&lt;65)</option></select></div>
   <button class="btn-reset" onclick="resetFilters()">Reset</button>
-  <div class="fb-status">Showing: <strong id="f-status">All categories · all severities · all years</strong></div>
+  <div class="fb-status">Showing: <strong id="f-status">All categories | All severities | All years</strong></div>
 </div>
 
 <div class="wrap">
@@ -233,7 +233,7 @@ function renderHeatmap(){
 function render(){
   const rows = filteredConstraints();
   const parts = [els.category.value === 'ALL' ? 'All categories' : els.category.value, els.severity.value === 'ALL' ? 'all severities' : els.severity.value.toLowerCase() + ' severity', els.year.value === 'ALL' ? 'all years' : els.year.value];
-  els.status.textContent = parts.join(' · ');
+  els.status.textContent = parts.join(' | ');
   renderKpis(rows);
   renderCharts(rows);
   renderCards(rows);

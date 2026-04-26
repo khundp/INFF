@@ -193,7 +193,7 @@ width:auto;
 <body data-nav="bb">
 <div id="nav-placeholder" data-include="assets/nav.html"></div>
 <div id="breadcrumb-placeholder" data-include="assets/partials/breadcrumbs/p1-geo.html"></div>
-<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link ">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link ">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link active">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link ">Constraints &amp; Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link ">Data Sources &amp; Integrity</a></div></div>
+<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link ">Financing Landscape</a><span class="opt-c-sep">|</span><a href="p1-gap.html" class="opt-c-sec-link ">Financing Gap Analysis</a><span class="opt-c-sep">|</span><a href="p1-geo.html" class="opt-c-sec-link active">Geographic Diagnostics</a><span class="opt-c-sep">|</span><a href="p1-constraints.html" class="opt-c-sec-link ">Constraints &amp; Bottlenecks</a><span class="opt-c-sep">|</span><a href="p1-datasources.html" class="opt-c-sec-link ">Data Sources &amp; Integrity</a></div></div>
 <div id="header-placeholder" data-include="assets/partials/headers/p1-geo.html"></div>
 
 <div class="fbar">
@@ -216,7 +216,7 @@ width:auto;
     </select>
   </div>
   <button class="btn-reset" onclick="resetFilters()">Reset</button>
-  <div class="fb-status">Showing: <strong id="f-status">All Nigeria &middot; All Sectors &middot; All Years</strong></div>
+  <div class="fb-status">Showing: <strong id="f-status">All Nigeria | All Sectors | All Years</strong></div>
 </div>
 
 <div class="wrap">
@@ -663,7 +663,7 @@ function render() {
   var explorerSector = selSec !== 'ALL' ? selSec : fSec;
   var explorerSectorName = explorerSector === 'ALL' ? 'All Sectors' : (INFF.meta.sectors[explorerSector] || explorerSector);
 
-  document.getElementById('f-status').textContent = 'All Nigeria · ' + secName + ' · ' + yrLabel;
+  document.getElementById('f-status').textContent = 'All Nigeria | ' + secName + ' | ' + yrLabel;
 
   var viewStates = buildGeoView(yr, fSec);
 
@@ -674,13 +674,13 @@ function render() {
   var topSec  = fSec === 'ALL' ? getTopSectorForGeo(yr) : { name: secName, gapPct: avgGap };
 
   document.getElementById('k-coverage').textContent     = statesWithData;
-  document.getElementById('k-coverage-sub').textContent = 'of 37 states · filtered data coverage';
-  document.getElementById('k-coverage-d').textContent   = yrLabel + ' · ' + secName;
+  document.getElementById('k-coverage-sub').textContent = 'of 37 states | Filtered data coverage';
+  document.getElementById('k-coverage-d').textContent   = yrLabel + ' | ' + secName;
   document.getElementById('k-avg-gap').textContent      = avgGap.toFixed(1) + '%';
-  document.getElementById('k-avg-sub').textContent      = (avgGap > 50 ? 'Critical' : 'Moderate') + ' · ' + secName + ' · ' + yrLabel;
+  document.getElementById('k-avg-sub').textContent      = (avgGap > 50 ? 'Critical' : 'Moderate') + ' | ' + secName + ' | ' + yrLabel;
   document.getElementById('k-avg-d').textContent        = avgGap > 50 ? 'Above 50% — critical' : 'Monitor closely';
   document.getElementById('k-top-sec').textContent      = topSec ? topSec.name : '—';
-  document.getElementById('k-top-sub').textContent      = (topSec ? topSec.gapPct.toFixed(1) : '0') + '% unfunded · ' + yrLabel;
+  document.getElementById('k-top-sub').textContent      = (topSec ? topSec.gapPct.toFixed(1) : '0') + '% unfunded | ' + yrLabel;
   document.getElementById('k-top-d').textContent        = fSec === 'ALL' ? 'Largest sector gap nationally' : 'Current selected sector';
   document.getElementById('k-quality').textContent      = avgQual.toFixed(0);
   document.getElementById('k-quality-d').textContent    = avgQual < 50 ? '↑ Needs improvement' : 'Score improving';
@@ -695,7 +695,7 @@ function render() {
     return '<div class="ranked-item">'
       + '<div class="ranked-meta">'
       + '<span class="ranked-name">' + st.name + '</span>'
-      + '<span class="ranked-amt">US$' + (st.viewGap || 0).toFixed(2) + 'B · ' + (st.viewGapPct || 0).toFixed(0) + '% unmet</span>'
+      + '<span class="ranked-amt">US$' + (st.viewGap || 0).toFixed(2) + 'B | ' + (st.viewGapPct || 0).toFixed(0) + '% unmet</span>'
       + '</div>'
       + '<div class="ranked-track"><div class="ranked-fill" style="width:' + w + '%;background:#B83232;"></div></div>'
       + '</div>';
@@ -814,8 +814,8 @@ function render() {
       + '<div class="shc-kpis">'
       + '<div><div class="shc-kpi-label">Financing Gap</div>'
       + '<div class="shc-kpi-val" style="color:' + valColor + '">$' + (yd.gap || 0).toFixed(2) + 'B</div>'
-      + '<div class="shc-kpi-sub">' + gp.toFixed(0) + '% of need unmet · ' + explorerSectorName + '</div></div>'
-      + '<div><div class="shc-kpi-label">SDG Need</div>'
+      + '<div class="shc-kpi-sub">' + gp.toFixed(0) + '% of need unmet | ' + explorerSectorName + '</div></div>'
+      + '<div><div class="shc-kpi-label">Need</div>'
       + '<div class="shc-kpi-val">$' + (yd.need || 0).toFixed(2) + 'B</div>'
       + '<div class="shc-kpi-sub">Mobilised: $' + (yd.mob || 0).toFixed(2) + 'B</div></div>'
       + '<div><div class="shc-kpi-label">' + (isAllStates ? 'Population Total' : 'Population') + '</div>'
@@ -867,7 +867,7 @@ function render() {
   var projB = scB ? INFF.getProjects({ state:scB, sector: explorerSector === 'ALL' ? undefined : explorerSector }) : [];
   var allProj = projA.concat(projB).slice(0,12);
   document.getElementById('proj-title').textContent = 'Active International Projects — ' + (stA ? stA.name : 'All States') + (stB ? ' & ' + stB.name : '');
-  document.getElementById('proj-sub').textContent   = 'Showing ' + allProj.length + ' active projects · ' + explorerSectorName;
+  document.getElementById('proj-sub').textContent   = 'Showing ' + allProj.length + ' active projects | ' + explorerSectorName;
   var stCls = function(s){ return s==='Active'?'sp-on':s==='Delayed'?'sp-del':s==='At Risk'?'sp-risk':'sp-comp'; };
   document.getElementById('proj-tbody').innerHTML = allProj.length
     ? allProj.map(function(p){
@@ -909,7 +909,7 @@ function render() {
       + '</tr>';
   }).join('');
   document.getElementById('cov-note').textContent =
-    '+ ' + Math.max(0, covStates.length - 15) + ' additional states outside the top 15 · ' + secName + ' · ' + yrLabel;
+    '+ ' + Math.max(0, covStates.length - 15) + ' additional states outside the top 15 | ' + secName + ' | ' + yrLabel;
 }
 
 

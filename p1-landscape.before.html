@@ -56,44 +56,11 @@
 .oil-pill-card:hover .oil-pill{transform:translateY(-4px);box-shadow:inset 0 -10px 18px rgba(255,255,255,.18),0 10px 20px rgba(31,27,61,.08);}
 .oil-pill-meta{font-size:11px;color:#6a6f85;text-align:center;line-height:1.2;}
 @media (max-width: 900px){.oil-redesign{gap:10px;overflow:auto;padding-bottom:12px}.oil-pill-card{min-width:120px}.oil-pill{width:56px}}
-.oil-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;align-items:center;min-height:240px}
-.oil-donut-wrap{position:relative;width:180px;height:180px;border-radius:50%;margin:0 auto;background:#eee;flex:0 0 180px}
-.oil-donut-wrap::after{content:"";position:absolute;inset:26px;background:#fff;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.03)}
-.oil-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2;pointer-events:none}
-.oil-donut-center .mini{font-size:11px;letter-spacing:1.2px;color:#7e7b90;text-transform:uppercase}
-.oil-donut-center .big{font-size:18px;font-weight:800;color:#1d1a38;line-height:1.05;margin:3px 0}
-.oil-donut-center .yr{font-size:12px;color:#7e7b90}
-.oil-chart-wrap{min-width:0}
-@media (max-width: 900px){.oil-layout{grid-template-columns:1fr;gap:12px}.oil-donut-wrap{width:160px;height:160px}.oil-donut-wrap::after{inset:24px}}
-
 
 
 .legend{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;margin-top:10px}
 .leg{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-md)}
 .leg-dot{width:10px;height:10px;border-radius:999px;flex:0 0 10px}
-
-/* Private investment detail table */
-.private-table-card{margin-top:0}
-.private-table{width:100%;border-collapse:collapse;font-size:11px}
-.private-table th{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-lt);padding:7px 10px;border-bottom:2px solid var(--border);text-align:left;white-space:nowrap}
-.private-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--ink-md);vertical-align:middle}
-.private-table tr:hover td{background:var(--bg)}
-.private-table .num{font-weight:800;color:var(--ink);white-space:nowrap}
-.private-table .status-pill{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:800;white-space:nowrap}
-.private-table .status-active{background:#eaf4f5;color:#3a7a80}
-.private-table .status-pipeline{background:var(--amber-l);color:var(--amber-dk)}
-.private-table .status-watch{background:var(--brand-l);color:var(--brand)}
-.private-table .gap-pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap}
-.private-table .gp-critical{background:#fce8e8;color:#8c1f1f}
-.private-table .gp-high{background:#fef3e0;color:#c4710a}
-.private-table .gp-moderate{background:#eaf5f5;color:#1f5257}
-.private-table .gap-bar-cell{width:120px;min-width:120px}
-.private-table .gap-bar-bg{height:6px;background:var(--bg);border-radius:3px;overflow:hidden}
-.private-table .gap-bar-fill{height:100%;border-radius:3px;background:var(--c1)}
-.private-table .investment-bar{display:flex;align-items:center;gap:8px;min-width:150px}
-.private-table .investment-bar .gap-bar-bg{flex:1;min-width:76px}
-.private-table .investment-bar .gap-text{font-size:10px;font-weight:800;color:var(--ink);white-space:nowrap}
-@media (max-width:900px){.private-table-wrap{overflow:auto}.private-table{min-width:960px}}
 
 @keyframes growUp{from{transform:scaleY(.08);opacity:.35}to{transform:scaleY(1);opacity:1}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -211,19 +178,6 @@ width:auto;
 }
 
 .footer-socials{display:flex;gap:14px;margin-top:18px;align-items:center;flex-wrap:wrap;}.footer-socials .fs-ico{width:52px;height:52px;border-radius:999px;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .2s ease, box-shadow .2s ease, background .2s ease;}.footer-socials .fs-ico:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.34);background:#000;}.footer-socials .fs-ico svg{width:24px;height:24px;display:block;}
-
-
-/* Domestic private charts with left-side donut */
-.private-donut-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:46px;align-items:center}
-.private-donut-wrap{position:relative;height:230px;display:flex;align-items:center;justify-content:center}
-.private-donut-wrap canvas{max-width:210px;max-height:210px}
-.private-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
-.private-donut-center .mini{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-lt)}
-.private-donut-center .big{font-family:"Literata",serif;font-size:22px;font-weight:800;color:var(--ink);line-height:1.05;margin-top:3px}
-.private-donut-center .yr{font-size:10px;color:var(--ink-lt);margin-top:4px}
-.private-chart-wrap{min-width:0}
-@media (max-width:1100px){.private-donut-layout{grid-template-columns:1fr}.private-donut-wrap{height:210px}}
-
 </style>
   <link rel="stylesheet" href="assets/header-unified.css">
 <link rel="stylesheet" href="assets/p1-shell.css">
@@ -308,18 +262,7 @@ width:auto;
       <div class="card">
         <div class="ctitle">Oil, Gas &amp; Natural Resource Revenues</div>
         <div class="csub" id="dp-oil-sub">USD Billions | 2020–2025</div>
-        <div class="oil-layout">
-          <div id="dp-oil-donut" class="oil-donut-wrap" aria-label="Oil, Gas and Natural Resource Revenue donut chart">
-            <div class="oil-donut-center">
-              <div class="mini">Total</div>
-              <div class="big" id="dp-oil-total">—</div>
-              <div class="yr" id="dp-oil-period">2020–2025</div>
-            </div>
-          </div>
-          <div class="oil-chart-wrap">
-            <div id="dp-oil-redesign" class="oil-redesign"></div>
-          </div>
-        </div>
+        <div id="dp-oil-redesign" class="oil-redesign"></div>
       </div>
     </div>
     <div class="card rev-flow-card">
@@ -405,65 +348,45 @@ width:auto;
     <div class="card">
       <div class="ctitle">Private Investment by Source</div>
       <div class="csub">USD Billions | 2020–2025</div>
-      <div class="private-donut-layout">
-        <div class="private-donut-wrap" aria-label="Private Investment by Source donut chart">
-          <canvas id="dpr-source-donut"></canvas>
-          <div class="private-donut-center">
-            <div class="mini">Total</div>
-            <div class="big" id="dpr-source-total">—</div>
-            <div class="yr" id="dpr-source-period">2020–2025</div>
-          </div>
-        </div>
-        <div class="private-chart-wrap">
-          <div class="ch-lg"><canvas id="dpr-source"></canvas></div>
-        </div>
-      </div>
+      <div class="ch-lg"><canvas id="dpr-source"></canvas></div>
       <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Commercial Banks</div>
-        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>MFIs</div>
-        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Insurance Companies</div>
-        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Pension Funds</div>
-        <div class="leg"><div class="leg-dot" style="background:#B08AC9"></div>Other</div>
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>FDI</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Portfolio</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Private Equity</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Capital Market</div>
+        <div class="leg"><div class="leg-dot" style="background:#B08AC9"></div>Retained Earnings</div>
       </div>
     </div>
     <div class="card">
       <div class="ctitle">Private Investment by Sector</div>
       <div class="csub">% share of total | Selected year</div>
-      <div class="private-donut-layout">
-        <div class="private-donut-wrap" aria-label="Private Investment by Sector donut chart">
-          <canvas id="dpr-sector-donut"></canvas>
-          <div class="private-donut-center">
-            <div class="mini">Share</div>
-            <div class="big" id="dpr-sector-total">100%</div>
-            <div class="yr" id="dpr-sector-period">Selected year</div>
-          </div>
-        </div>
-        <div class="private-chart-wrap">
-          <div class="ch-lg"><canvas id="dpr-sector"></canvas></div>
-        </div>
-      </div>
+      <div class="ch-lg"><canvas id="dpr-sector"></canvas></div>
     </div>
   </div>
 
-  <div class="sdiv">Private Investment Detail</div>
-  <div class="card private-table-card">
-    <div class="ctitle" style="margin-bottom:3px;" id="dpr-table-title">Active Private Investment Records — All States</div>
-    <div class="csub" style="margin-bottom:12px;" id="dpr-table-sub">Showing 12 active records | All Sectors</div>
-    <div class="private-table-wrap">
-      <table class="private-table">
-        <thead>
-          <tr>
-            <th>Partner</th>
-            <th>State</th>
-            <th>Source</th>
-            <th>Sector</th>
-            <th>Instrument</th>
-            <th>Total Investment</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="dpr-table-body"></tbody>
-      </table>
+  <div class="sdiv">Capital Market &amp; FDI Detail</div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle">FDI by Origin Region</div>
+      <div class="csub">USD Billions | 2020–2025</div>
+      <div class="ch-md"><canvas id="dpr-fdi"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Europe</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Asia</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>N. America</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Other</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Capital Market Instruments</div>
+      <div class="csub">USD Billions | 2020–2025</div>
+      <div class="ch-md"><canvas id="dpr-cap"></canvas></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Bonds</div>
+        <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>Equities</div>
+        <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Comm. Paper</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Derivatives</div>
+      </div>
     </div>
   </div>
 </div>
@@ -811,7 +734,7 @@ function renderBorrowingInstrumentCharts(yr) {
   const total = r1(donutValues.reduce((a,b)=>a+b,0));
   const donutColors = data.colors;
   mkChart('dp-borrow', borrowingChartCfg(data));
-  mkChart('dp-borrow-donut', themedDonutCfg(donutValues, donutColors, data.labels, '66%'));
+  mkChart('dp-borrow-donut', donutCfg(donutValues, donutColors, '66%'));
   const totalEl = document.getElementById('dp-borrow-total');
   const periodEl = document.getElementById('dp-borrow-period');
   const subEl = document.getElementById('dp-borrow-sub');
@@ -862,29 +785,11 @@ function renderOilResourceRevenue(filters) {
   const { yr = 'ALL', state = 'ALL', sector = 'ALL' } = filters || {};
   const items = getOilResourceData(yr, state, sector);
   const maxVal = Math.max(...items.map(i => i.total), 1);
-  const donut = document.getElementById('dp-oil-donut');
-  const oilTotal = r1(items.reduce((sum, item) => sum + (item.total || 0), 0));
-  if (donut) {
-    let start = 0;
-    const grad = items.map(item => {
-      const pct = oilTotal ? ((item.total || 0) / oilTotal) * 360 : 0;
-      const end = start + pct;
-      const out = `${item.color} ${start}deg ${end}deg`;
-      start = end;
-      return out;
-    }).join(', ');
-    donut.style.background = `conic-gradient(${grad})`;
-    donut.setAttribute('data-tip', items.map(item => `${item.label}: ${fmt(item.total || 0)}`).join('<br>'));
-  }
-  const totalEl = document.getElementById('dp-oil-total');
-  if (totalEl) totalEl.textContent = fmt(oilTotal);
-  const periodEl = document.getElementById('dp-oil-period');
-  if (periodEl) periodEl.textContent = yr === 'ALL' ? '2020–2025' : String(yr);
   const sub = document.getElementById('dp-oil-sub');
   if (sub) sub.textContent = yr === 'ALL'
     ? 'USD Billions | Total 2020–2025 | Responds to year, state and sector filters'
     : `USD Billions | ${yr} View | Responds to year, state and sector filters`;
-  const metaLabel = yr === 'ALL' ? '2020–2025' : String(yr);
+  const metaLabel = yr === 'ALL' ? 'All Years' : String(yr);
   host.innerHTML = items.map(item => {
     const height = Math.max(96, Math.round((item.total / maxVal) * 170));
     return `
@@ -898,8 +803,6 @@ function renderOilResourceRevenue(filters) {
       </div>`;
   }).join('');
   bindTip(host);
-  const oilLayout = document.querySelector('.oil-layout');
-  if (oilLayout) bindTip(oilLayout);
 }
 
 function render() {
@@ -915,7 +818,7 @@ function render() {
   const hiBar  = (i) => selIdx < 0 || i === selIdx ? P[0] : P[0] + '30';
 
   if (activeTab === 'dp')  renderDP(d, dp, selIdx, hiBar, yrNum, sc, sec, yr, isAllYears);
-  if (activeTab === 'dpr') renderDPR(d, dp, selIdx, hiBar, yr);
+  if (activeTab === 'dpr') renderDPR(d, dp, selIdx, hiBar);
   if (activeTab === 'ip')  renderIP(d, dp, selIdx, hiBar);
   if (activeTab === 'ipr') renderIPR(d, dp, selIdx, hiBar);
 }
@@ -946,132 +849,21 @@ function renderDP(d, dp, selIdx, hiBar, yrNum, sc, sec, yr, isAllYears) {
   mkChart('dp-earmark',stacked(['Infra','Education','Health','Social','SWF'], P, 7));
 }
 
-
-function getPrivateSourceData(seed = 2) {
-  const labels = ['Commercial Banks','MFIs','Insurance Companies','Pension Funds','Other'];
-  const colors = [P[0], P[1], P[2], P[3], P[4]];
-  // Dummy data organised so the 2020–2025 total equals ₦79.1B.
-  const annualTotals = [9.6, 10.8, 12.0, 13.6, 15.4, 17.7];
-  const shares = [0.37, 0.23, 0.18, 0.14, 0.08];
-  const series = labels.map((label, i) => ({
-    label,
-    color: colors[i],
-    values: annualTotals.map(total => r1(total * shares[i]))
-  }));
-  return { labels, colors, series, annualTotals };
-}
-
-function privateSourceChartCfg(data) {
-  const datasets = data.series.map(item => ({
-    label: item.label,
-    data: item.values,
-    backgroundColor: YEARS.map((_, j) => yearTone(item.color, j)),
-    borderRadius: 3,
-    stack: 's'
-  }));
-  return barCfg(YLABELS, datasets, { stacked: true, yfmt: v => '₦' + v + 'B' });
-}
-
-function getPrivateSectorData(total = 79.1) {
-  const labels = ['Infrastructure','Energy','Manufacturing','Digital','Agriculture','Health','Education'];
-  const shares = [0.28, 0.22, 0.18, 0.14, 0.09, 0.05, 0.04];
-  const colors = P.slice(0,7);
-  const values = shares.map(share => r1(total * share));
-  const drift = r1(total - values.reduce((a,b)=>a+b,0));
-  values[values.length - 1] = r1(values[values.length - 1] + drift);
-  return { labels, values, colors };
-}
-
-function updatePrivateDonutCenter(totalId, periodId, totalText, periodText) {
-  const totalEl = document.getElementById(totalId);
-  const periodEl = document.getElementById(periodId);
-  if (totalEl) totalEl.textContent = totalText;
-  if (periodEl) periodEl.textContent = periodText;
-}
-
-
-function getPrivateInvestmentRows(total, sectorData, sourceData, yr) {
-  const period = yr === 'ALL' ? '2020–2025' : String(yr);
-  const seed = yr === 'ALL' ? 0 : Math.max(0, YEARS.indexOf(parseInt(yr)));
-  const baseRows = [
-    ['Access Bank SME Finance Desk','Lagos','Commercial Banks','Manufacturing','Term Loan',0.115,64,'High','Active'],
-    ['Stanbic IBTC Infrastructure Finance','Rivers','Commercial Banks','Infrastructure','Syndicated Loan',0.135,82,'Critical','Active'],
-    ['LAPO Microfinance Bank','Kano','MFIs','Digital','Microcredit',0.072,38,'Moderate','Pipeline'],
-    ['AB Microfinance Agribusiness Line','Kaduna','MFIs','Agriculture','Working Capital',0.066,59,'High','Active'],
-    ['Leadway Assurance Investment Pool','Oyo','Insurance Companies','Health','Insurance Reserve Investment',0.078,42,'Moderate','Active'],
-    ['AIICO Climate Risk Cover','Benue','Insurance Companies','Agriculture','Risk Cover',0.055,57,'High','Pipeline'],
-    ['ARM Pension Infrastructure Fund','Abuja FCT','Pension Funds','Infrastructure','Infrastructure Fund',0.122,88,'Critical','Active'],
-    ['Stanbic IBTC Pension Energy Allocation','Delta','Pension Funds','Energy','Corporate Bond',0.094,66,'High','Active'],
-    ['Verod Digital Growth Fund','Enugu','Other','Digital','Private Equity',0.061,35,'Moderate','Pipeline'],
-    ['TLcom Education Technology Fund','Edo','Other','Education','Venture Capital',0.052,31,'Moderate','Active'],
-    ['First Bank Renewable Mini-grid Portfolio','Niger','Commercial Banks','Energy','Project Finance',0.092,72,'High','Active'],
-    ['AXA Mansard Health Facility Expansion','Ogun','Insurance Companies','Health','Equity Participation',0.058,44,'Moderate','Pipeline']
-  ];
-  const factor = 1 + seed * 0.035;
-  let rows = baseRows.map(r => ({
-    partner:r[0], state:r[1], source:r[2], sector:r[3], instrument:r[4], value:r1(total * r[5] * factor), gapExposure:r[6], gapLevel:r[7], status:r[8], period
-  }));
-  const rowTotal = rows.reduce((a,b)=>a+b.value,0) || 1;
-  const scale = total / rowTotal;
-  rows = rows.map(row => ({...row, value:r1(row.value * scale)}));
-  const drift = r1(total - rows.reduce((a,b)=>a+b.value,0));
-  rows[rows.length - 1].value = r1(rows[rows.length - 1].value + drift);
-  return rows;
-}
-
-function renderPrivateInvestmentTable(rows, yr) {
-  const body = document.getElementById('dpr-table-body');
-  if (!body) return;
-  const title = document.getElementById('dpr-table-title');
-  const sub = document.getElementById('dpr-table-sub');
-  if (title) title.textContent = 'Active Private Investment Records — All States';
-  if (sub) sub.textContent = `Showing ${rows.length} active records | All Sectors | ${yr === 'ALL' ? '2020–2025' : yr}`;
-  const statusClass = { Active:'status-active', Pipeline:'status-pipeline', Pipeline:'status-watch' };
-  const maxInvestment = Math.max(...rows.map(row => row.value), 1);
-  body.innerHTML = rows.map(row => `
-    <tr>
-      <td><strong>${row.partner}</strong></td>
-      <td>${row.state}</td>
-      <td>${row.source}</td>
-      <td>${row.sector}</td>
-      <td>${row.instrument}</td>
-      <td class="gap-bar-cell" title="Total investment: ${fmt(row.value)}">
-        <div class="investment-bar">
-          <div class="gap-bar-bg"><div class="gap-bar-fill" style="width:${Math.max(6, row.value / maxInvestment * 100)}%;"></div></div>
-          <span class="gap-text">${fmt(row.value)}</span>
-        </div>
-      </td>
-      <td><span class="status-pill ${statusClass[row.status] || 'status-active'}">${row.status}</span></td>
-    </tr>`).join('');
-}
-
 // ── TAB 2: DOMESTIC PRIVATE ──
-function renderDPR(d, dp, selIdx, hiBar, yr) {
+function renderDPR(d, dp, selIdx, hiBar) {
   const val = d.priv || 0;
   document.getElementById('dpr-k1').textContent = fmt(val);
   document.getElementById('dpr-k2').textContent = fmt(val * 0.38);
   document.getElementById('dpr-k4').textContent = fmt(val * 0.22);
 
-  const sourceData = getPrivateSourceData(2);
-  const selectedIdx = yr === 'ALL' ? -1 : YEARS.indexOf(parseInt(yr));
-  const sourceDonutValues = sourceData.series.map(item => (
-    selectedIdx >= 0 ? item.values[selectedIdx] : r1(item.values.reduce((a,b)=>a+b,0))
-  ));
-  const sourceTotal = r1(sourceDonutValues.reduce((a,b)=>a+b,0));
-  mkChart('dpr-source', privateSourceChartCfg(sourceData));
-  mkChart('dpr-source-donut', themedDonutCfg(sourceDonutValues, sourceData.colors, sourceData.labels, '66%'));
-  updatePrivateDonutCenter('dpr-source-total', 'dpr-source-period', fmt(sourceTotal), yr === 'ALL' ? '2020–2025' : String(yr));
-
-  const sectorData = getPrivateSectorData(sourceTotal);
+  mkChart('dpr-source', stacked(['FDI','Portfolio','Private Equity','Capital Market','Retained'], P, 2));
   mkChart('dpr-sector', hbarCfg(
-    sectorData.labels,
-    [{data:sectorData.values, backgroundColor: sectorData.colors, borderRadius:4}],
-    {yfmt: v=>'₦'+v+'B'}
+    ['Infrastructure','Energy','Manufacturing','Digital','Agriculture','Health','Education'],
+    [{data:[28,22,18,14,9,5,4], backgroundColor: P.slice(0,7), borderRadius:4}],
+    {yfmt: v=>v+'%'}
   ));
-  mkChart('dpr-sector-donut', themedDonutCfg(sectorData.values, sectorData.colors, sectorData.labels, '66%'));
-  updatePrivateDonutCenter('dpr-sector-total', 'dpr-sector-period', fmt(sourceTotal), yr === 'ALL' ? '2020–2025' : String(yr));
-
-  renderPrivateInvestmentTable(getPrivateInvestmentRows(sourceTotal, sectorData, sourceData, yr), yr);
+  mkChart('dpr-fdi', stacked(['Europe','Asia','N. America','Other'], P, 4));
+  mkChart('dpr-cap', stacked(['Bonds','Equities','Comm Paper','Derivatives'], P, 6));
 }
 
 // ── TAB 3: INT'L PUBLIC ──
@@ -1279,44 +1071,6 @@ function bindTip(container){
   });
 }
 
-
-function themedDonutCfg(data, colors, labels, cutout = '66%') {
-  return {
-    type: 'doughnut',
-    data: {
-      labels,
-      datasets: [{ data, backgroundColor: colors, borderWidth: 0 }]
-    },
-    options: {
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          enabled: false,
-          external(context) {
-            const tip = flowTooltip();
-            const tooltip = context.tooltip;
-            if (!tooltip || tooltip.opacity === 0) {
-              tip.style.opacity = '0';
-              return;
-            }
-            const idx = tooltip.dataPoints?.[0]?.dataIndex ?? 0;
-            const label = labels[idx] || '';
-            const value = data[idx] || 0;
-            tip.innerHTML = `${label}<br>${fmt(value)}`;
-            tip.style.opacity = '1';
-            tip.style.left = tooltip.caretX + context.chart.canvas.getBoundingClientRect().left + 'px';
-            tip.style.top = tooltip.caretY + context.chart.canvas.getBoundingClientRect().top + 'px';
-          }
-        }
-      },
-      animation: { duration: 1400, easing: 'easeOutQuart' },
-      cutout,
-      responsive: true,
-      maintainAspectRatio: false
-    }
-  };
-}
-
 function renderRevenueComposition(snapshot, yr){
   const total = snapshot.total || 0;
   const tax = snapshot.tax || 0;
@@ -1476,16 +1230,10 @@ function renderRevenueFlows(snapshot, filters){
       h:branchH
     }));
 
-    const taxMidH = Math.round(height * 0.24);
-    const nonMidH = Math.round(height * 0.18);
-    const avg = arr => arr.reduce((a,b)=>a+b,0) / Math.max(1, arr.length);
-    const taxMidCenter = Math.round(avg(taxYs) + branchH / 2);
-    const nonMidCenter = Math.round(avg(nonYs) + branchH / 2);
-
     nodes = [
       {key:'TOTAL', x:xPos.left, y:Math.round(height * 0.08), w:nodeW, h:Math.round(height * 0.84), cls:'flow-node', label:'TOTAL', anchor:'start', dx:nodeW + 10},
-      {key:'A', x:xPos.col2, y:Math.max(12, taxMidCenter - Math.round(taxMidH / 2)), w:nodeW, h:taxMidH, cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-10},
-      {key:'B', x:xPos.col2, y:Math.max(12, nonMidCenter - Math.round(nonMidH / 2)), w:nodeW, h:nonMidH, cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-10},
+      {key:'A', x:xPos.col2, y:Math.round(height * 0.18), w:nodeW, h:Math.round(height * 0.34), cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-10},
+      {key:'B', x:xPos.col2, y:Math.round(height * 0.60), w:nodeW, h:Math.round(height * 0.20), cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-10},
       ...taxBranchNodes.map(s => ({...s, w:nodeW, cls:'flow-node gold', anchor:'start', dx:nodeW + 10})),
       ...nonBranchNodes.map(s => ({...s, w:nodeW, cls:'flow-node gold', anchor:'start', dx:nodeW + 10}))
     ];

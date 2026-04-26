@@ -169,7 +169,7 @@ width:auto;
 <body data-nav="bb">
 <div id="nav-placeholder" data-include="assets/nav.html"></div>
 <div id="breadcrumb-placeholder" data-include="assets/partials/breadcrumbs/p1-gap.html"></div>
-<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link">Financing Landscape</a><span class="opt-c-sep">·</span><a href="p1-gap.html" class="opt-c-sec-link active">Financing Gap Analysis</a><span class="opt-c-sep">·</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">·</span><a href="p1-constraints.html" class="opt-c-sec-link">Constraints &amp; Bottlenecks</a><span class="opt-c-sep">·</span><a href="p1-datasources.html" class="opt-c-sec-link">Data Sources &amp; Integrity</a></div></div>
+<div class="opt-c-strip"><div class="opt-c-row1"><span class="opt-c-jumplabel">Jump to</span><a href="p1-landscape.html" class="opt-c-bb-chip" style="background:#5B9FA6;color:#fff;">Assessments &amp; Diagnostics</a><a href="p2-reforms.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Integrated Financing Strategy</a><a href="p3-indicators.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Monitoring, Review &amp; Accountability</a><a href="p4-architecture.html" class="opt-c-bb-chip" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">Governance &amp; Coordination</a></div><div class="opt-c-row2"><a href="p1-landscape.html" class="opt-c-sec-link">Financing Landscape</a><span class="opt-c-sep">|</span><a href="p1-gap.html" class="opt-c-sec-link active">Financing Gap Analysis</a><span class="opt-c-sep">|</span><a href="p1-geo.html" class="opt-c-sec-link">Geographic Diagnostics</a><span class="opt-c-sep">|</span><a href="p1-constraints.html" class="opt-c-sec-link">Constraints &amp; Bottlenecks</a><span class="opt-c-sep">|</span><a href="p1-datasources.html" class="opt-c-sec-link">Data Sources &amp; Integrity</a></div></div>
 <div id="header-placeholder" data-include="assets/partials/headers/p1-gap.html"></div>
 
 <div class="fbar">
@@ -210,7 +210,7 @@ width:auto;
     </select>
   </div>
   <button class="btn-reset" onclick="resetFilters()">Reset</button>
-  <div class="fb-status">Showing: <strong id="f-status">All Nigeria · All Sectors · 2025</strong></div>
+  <div class="fb-status">Showing: <strong id="f-status">All Nigeria | All Sectors | 2025</strong></div>
 </div>
 
 <div class="wrap">
@@ -220,11 +220,11 @@ width:auto;
     <div class="kcard kc-gap">
       <div class="klabel">Total Financing Gap</div>
       <div class="kvalue" id="k-gap">—</div>
-      <div class="ksub" id="k-gap-sub">All sectors · 2025</div>
+      <div class="ksub" id="k-gap-sub">All sectors | 2025</div>
       <div class="kdelta kd-bad" id="k-gap-d">—</div>
     </div>
     <div class="kcard kc-2">
-      <div class="klabel">Gap as % of SDG Need</div>
+      <div class="klabel">Gap as % of Need</div>
       <div class="kvalue" id="k-gapPct">—</div>
       <div class="ksub">Target: below 30% by 2027</div>
       <div class="kdelta kd-bad" id="k-gapPct-d">—</div>
@@ -232,7 +232,7 @@ width:auto;
     <div class="kcard kc-3">
       <div class="klabel">% of Gap Closed</div>
       <div class="kvalue" id="k-closed">—</div>
-      <div class="ksub">Cumulative progress · selected year</div>
+      <div class="ksub">Cumulative progress | Selected year</div>
       <div class="kdelta kd-good" id="k-closed-d">—</div>
     </div>
     <div class="kcard kc-4">
@@ -247,17 +247,17 @@ width:auto;
   <div class="g2">
     <div class="card">
       <div class="ctitle">Gap Closure Trend</div>
-      <div class="csub">Financing need · mobilised · gap · NGN Billions · 2020–2025</div>
+      <div class="csub">Financing need | Mobilised | Gap | USD Billions | 2020–2025</div>
       <div class="ch-lg"><canvas id="c-trend"></canvas></div>
       <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#6B8CAE;border-radius:50%;"></div>SDG Need</div>
+        <div class="leg"><div class="leg-dot" style="background:#6B8CAE;border-radius:50%;"></div>Need</div>
         <div class="leg"><div class="leg-dot" style="background:#5B9FA6;border-radius:50%;"></div>Mobilised</div>
         <div class="leg"><div class="leg-dot" style="background:#D4956A;border-radius:50%;"></div>Gap</div>
       </div>
     </div>
     <div class="card">
       <div class="ctitle">Gap by Sector</div>
-      <div class="csub">Absolute gap · NGN Billions · selected year</div>
+      <div class="csub">Absolute gap | USD Billions | Selected year</div>
       <div class="ch-lg"><canvas id="c-sector-gap"></canvas></div>
     </div>
   </div>
@@ -266,12 +266,12 @@ width:auto;
   <div class="g2">
     <div class="card">
       <div class="ctitle">Financing Need vs Mobilised by State</div>
-      <div class="csub">Each bubble = one state · size = population · selected year</div>
+      <div class="csub">Each bubble = one state | Size = population | Selected year</div>
       <div class="ch-xl"><canvas id="c-scatter"></canvas></div>
     </div>
     <div class="card">
       <div class="ctitle">Gap Profile by Sector</div>
-      <div class="csub">% of SDG need unfunded · radar · selected year</div>
+      <div class="csub">% of need unfunded | Radar | Selected year</div>
       <div class="radar-wrap"><canvas id="c-radar"></canvas></div>
     </div>
   </div>
@@ -280,7 +280,7 @@ width:auto;
   <div class="g2">
     <div class="card">
       <div class="ctitle">Gap Composition by Financing Source</div>
-      <div class="csub">How much of the gap falls in each source category · 2020–2025</div>
+      <div class="csub">How much of the gap falls in each source category | 2020–2025</div>
       <div class="ch-lg"><canvas id="c-composition"></canvas></div>
       <div class="legend">
         <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Domestic Public</div>
@@ -291,7 +291,7 @@ width:auto;
     </div>
     <div class="card">
       <div class="ctitle">% Gap Closed by Sector</div>
-      <div class="csub">Progress rings · selected year — larger = more gap closed</div>
+      <div class="csub">Progress rings | Selected year — larger = more gap closed</div>
       <div class="ring-row" id="ring-row" style="margin-top:16px;"></div>
     </div>
   </div>
@@ -302,12 +302,12 @@ width:auto;
     <div class="sp-sub">Northeast &amp; Northwest states face disproportionate financing gaps against the national average</div>
     <div class="sp-grid">
       <div class="sp-kpi">
-        <div class="sp-label">Avg Gap % · NE/NW States</div>
+        <div class="sp-label">Avg Gap % | NE/NW States</div>
         <div class="sp-val red" id="sp-fragile-gap">—</div>
         <div class="sp-note">vs national avg below</div>
       </div>
       <div class="sp-kpi">
-        <div class="sp-label">Avg Gap % · Stable States</div>
+        <div class="sp-label">Avg Gap % | Stable States</div>
         <div class="sp-val teal" id="sp-stable-gap">—</div>
         <div class="sp-note">national average</div>
       </div>
@@ -322,14 +322,14 @@ width:auto;
   <!-- STATE TABLE -->
   <div class="card" style="margin-bottom:0;">
     <div class="ctitle" style="margin-bottom:3px;">Top 15 States by Financing Gap</div>
-    <div class="csub" style="margin-bottom:16px;">Ranked by absolute gap · selected year · click column headers to sort</div>
+    <div class="csub" style="margin-bottom:16px;">Ranked by absolute gap | Selected year | Click column headers to sort</div>
     <table class="state-table" id="state-table">
       <thead>
         <tr>
           <th>#</th>
           <th>State</th>
           <th>Region</th>
-          <th>SDG Need (B)</th>
+          <th>Need (B)</th>
           <th>Mobilised (B)</th>
           <th>Gap (B)</th>
           <th>Gap %</th>
@@ -374,7 +374,7 @@ function render() {
   const scName = sc  === 'ALL' ? 'All Nigeria' : INFF.states[sc]?.name || sc;
   const secName = sec === 'ALL' ? 'All Sectors' : INFF.meta.sectors[sec];
   const yrLabel = yr  === 'ALL' ? 'All Years' : yr;
-  document.getElementById('f-status').textContent = `${scName} · ${secName} · ${yrLabel}`;
+  document.getElementById('f-status').textContent = `${scName} | ${secName} | ${yrLabel}`;
 
   const d  = sc === 'ALL' ? INFF.getNational(yrNum, secKey) : (INFF.getState(sc, yrNum, secKey) || {});
   const dp = sc === 'ALL' ? INFF.getNational(yrNum-1, secKey) : (INFF.getState(sc, yrNum-1, secKey) || {});
@@ -387,7 +387,7 @@ function render() {
   const prevClosed = dp.gapClosed ?? 0;
 
   document.getElementById('k-gap').textContent    = fmt(gapVal);
-  document.getElementById('k-gap-sub').textContent = `${secName} · ${yrLabel}`;
+  document.getElementById('k-gap-sub').textContent = `${secName} | ${yrLabel}`;
   document.getElementById('k-gapPct').textContent  = gapPct.toFixed(1) + '%';
   document.getElementById('k-closed').textContent  = closed.toFixed(1) + '%';
 
@@ -421,7 +421,7 @@ function render() {
       labels: YLABELS,
       datasets: [
         {
-          label: 'SDG Need',
+          label: 'Need',
           data: needSeries,
           borderColor: '#6B8CAE',
           backgroundColor: 'rgba(107,140,174,.08)',
@@ -538,8 +538,8 @@ function render() {
         }
       },
       scales: {
-        x: { title: { display: true, text: 'SDG Need (NGN Billions)', font: { size:10 } }, grid: { color:'#eef0f3' }, ticks: { font: { size:10 } } },
-        y: { title: { display: true, text: 'Financing Mobilised (NGN Billions)', font: { size:10 } }, grid: { color:'#eef0f3' }, ticks: { font: { size:10 } } }
+        x: { title: { display: true, text: 'Need (USD Billions)', font: { size:10 } }, grid: { color:'#eef0f3' }, ticks: { font: { size:10 } } },
+        y: { title: { display: true, text: 'Financing Mobilised (USD Billions)', font: { size:10 } }, grid: { color:'#eef0f3' }, ticks: { font: { size:10 } } }
       },
       responsive: true, maintainAspectRatio: false
     }

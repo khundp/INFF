@@ -110,7 +110,22 @@ select:focus{outline:none;border-color:var(--brand);}
 .pbar-fill{height:100%;border-radius:4px;background:var(--c1);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
+.src-layout{display:grid;grid-template-columns:190px minmax(0,1fr);gap:22px;align-items:center;}
+.src-donut-wrap{position:relative;height:190px;display:flex;align-items:center;justify-content:center;}
+.src-donut-wrap canvas{max-width:190px;max-height:190px;}
+.src-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;}
+.src-donut-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-lt);line-height:1.2;}
+.src-donut-value{font-family:"Literata",serif;font-size:20px;font-weight:700;color:var(--ink);line-height:1.1;margin-top:3px;}
+.src-donut-sub{font-size:9px;color:var(--ink-lt);margin-top:3px;}
 .src-track{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin-bottom:3px;}
+.src-item{margin-bottom:12px;}
+.src-meta{display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px;gap:8px;}
+.src-name{font-weight:600;color:var(--ink);display:flex;align-items:center;gap:6px;}
+.src-swatch{width:8px;height:8px;border-radius:2px;display:inline-block;flex:0 0 8px;}
+.src-year-legend{gap:16px;}
+.src-year-legend .leg-dot{display:flex;width:30px;height:10px;gap:2px;background:transparent;border-radius:0;}
+.src-year-legend .leg-dot span{width:6px;height:10px;border-radius:2px;display:block;}
+@media (max-width:900px){.src-layout{grid-template-columns:1fr}.src-donut-wrap{height:170px;}}
 
 .sector-mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px;align-items:stretch;}
 .sector-tile{position:relative;border-radius:18px;padding:16px 18px;color:#fff;font-weight:800;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;box-shadow:inset 0 -18px 30px rgba(0,0,0,.04);min-height:84px;}
@@ -249,7 +264,7 @@ select:focus{outline:none;border-color:var(--brand);}
     </select>
   </div>
   <button class="btn-reset" onclick="resetFilters()">Reset</button>
-  <div class="fb-status">Showing: <strong id="f-status">All Nigeria · All Sectors · All Years</strong></div>
+  <div class="fb-status">Showing: <strong id="f-status">All Nigeria | All Sectors | All Years</strong></div>
 </div>
 
 <div class="wrap">
@@ -258,13 +273,13 @@ select:focus{outline:none;border-color:var(--brand);}
     <div class="kcard kc-1">
       <div class="klabel">Total Financing Mobilised</div>
       <div class="kvalue" id="k-mob">—</div>
-      <div class="ksub" id="k-mob-sub">vs SDG need · All Years</div>
+      <div class="ksub" id="k-mob-sub">vs need | All Years</div>
       <div class="kdelta kd-good" id="k-mob-d">—</div>
     </div>
     <div class="kcard kc-gap">
       <div class="klabel">Estimated Financing Gap</div>
       <div class="kvalue" id="k-gap">—</div>
-      <div class="ksub" id="k-gap-sub">All sectors · All Years</div>
+      <div class="ksub" id="k-gap-sub">All sectors | All Years</div>
       <div class="kdelta kd-bad" id="k-gap-d">—</div>
     </div>
     <div class="kcard kc-2">
@@ -284,7 +299,7 @@ select:focus{outline:none;border-color:var(--brand);}
   <div class="g3">
     <div class="card">
       <div class="ctitle">Financing Mobilised by Year</div>
-      <div class="csub">NGN Billions · all sources</div>
+      <div class="csub">USD Billions | All sources</div>
       <div class="cval" id="cv-mob">—</div>
       <div class="ch-sm"><canvas id="c-mob"></canvas></div>
     </div>
@@ -305,16 +320,25 @@ select:focus{outline:none;border-color:var(--brand);}
   <div class="g2">
     <div class="card">
       <div class="ctitle">Financing by Source</div>
-      <div class="csub" id="src-sub">Prior year vs selected year · NGN Billions</div>
-      <div id="src-bars"></div>
-      <div class="legend" style="margin-top:14px;">
-        <div class="leg"><div class="leg-dot" style="background:var(--c1);opacity:.5;"></div>Prior year</div>
-        <div class="leg"><div class="leg-dot" style="background:var(--c1);"></div>Selected year</div>
+      <div class="csub" id="src-sub">Prior year vs selected year | USD Billions</div>
+      <div class="src-layout">
+        <div class="src-donut-wrap" aria-label="Financing by Source donut chart">
+          <canvas id="c-source-donut"></canvas>
+          <div class="src-donut-center">
+            <div class="src-donut-label">Total</div>
+            <div class="src-donut-value" id="src-donut-total">—</div>
+            <div class="src-donut-sub" id="src-donut-period">Selected year</div>
+          </div>
+        </div>
+        <div>
+          <div id="src-bars"></div>
+          <div id="src-year-legend" class="legend src-year-legend" style="margin-top:14px;"></div>
+        </div>
       </div>
     </div>
     <div class="card">
       <div class="ctitle">Financing by Sector</div>
-      <div class="csub">Share of total mobilised · selected year</div>
+      <div class="csub">Share of total mobilised | Selected year</div>
       <div class="sector-mosaic" id="sector-mosaic" aria-label="Financing by Sector visualization"></div>
     </div>
   </div>
@@ -334,7 +358,7 @@ select:focus{outline:none;border-color:var(--brand);}
     </div>
     <div class="alert-row">
       <div class="alert-dot ad-blue"></div>
-      <div class="alert-text"><strong>INFF review milestone workshop in 45 days</strong> — Joint TWG session scheduled for April 18, 2026 · Abuja</div>
+      <div class="alert-text"><strong>INFF review milestone workshop in 45 days</strong> — Joint TWG session scheduled for April 18, 2026 | Abuja</div>
       <div class="alert-arrow">→</div>
     </div>
   </div>
@@ -344,7 +368,7 @@ select:focus{outline:none;border-color:var(--brand);}
   <div class="art-grid">
     <div class="art-card">
  <div class="art-img"><img src="assets/images/featured-asc.jpeg" alt="Beaming the Light on a Hidden Sector: Artisanal and Small-scale Mining"></div>      <div class="art-body">
-        <div class="art-tag">Domestic Finance · Mining</div>
+        <div class="art-tag">Domestic Finance | Mining</div>
         <div class="art-title">Beaming the Light on a Hidden Sector: Artisanal and Small-scale Mining as a Vital Sector for Sustainable Development in Nigeria</div>
         <div class="art-excerpt">UNDP and the EU, through the INFF, embarked on a series of activities to address financing gaps in Nigeria's artisanal mining sector.</div>
         <a href="#" class="art-link">Learn More →</a>
@@ -353,7 +377,7 @@ select:focus{outline:none;border-color:var(--brand);}
     <div class="art-card">
  <div class="art-img"><img src="assets/images/featured-psi.jpeg" alt="Promoting Private Sector Investments"></div>
       <div class="art-body">
-        <div class="art-tag">Private Finance · Subnational</div>
+        <div class="art-tag">Private Finance | Subnational</div>
         <div class="art-title">Promoting Private Sector Investments at Sub-National Level through the INFF: Ongoing Pilot in Gombe State</div>
         <div class="art-excerpt">UNDP and the EU are piloting a subnational private sector investment facilitation model in Gombe State as a replicable template for other states.</div>
         <a href="#" class="art-link">Learn More →</a>
@@ -362,7 +386,7 @@ select:focus{outline:none;border-color:var(--brand);}
     <div class="art-card">
       <div class="art-img"><img src="assets/images/featured-inff-sdgs.jpeg" alt="Integrated National Financing Framework event"></div>
       <div class="art-body">
-        <div class="art-tag">Sustainable Finance · SDGs</div>
+        <div class="art-tag">Sustainable Finance | SDGs</div>
         <div class="art-title">Integrated National Financing Framework, Designed To Address SDGS Financial Challenge</div>
         <div class="art-excerpt">The Senior Special Assistant to the President on Sustainable Development Goals (SSAP-SDGs), Princess Adejoke Orelope-Adefulire stated that the Integrated National Financing Framework (INFF), designed in 2022, serves as a planning and delivery tool to finance sustainable development at national and sub-national levels and enable policy makers to increase investments in the Sustainable Development Goals (SDGs).</div>
         <a href="#" class="art-link">Learn More →</a>
@@ -371,7 +395,7 @@ select:focus{outline:none;border-color:var(--brand);}
     <div class="art-card">
       <div class="art-img"><img src="assets/images/featured-nicps.jpeg" alt="NICPS launch event"></div>
       <div class="art-body">
-        <div class="art-tag">Investment Climate · Subnational</div>
+        <div class="art-tag">Investment Climate | Subnational</div>
         <div class="art-title">Unlocking Investment Opportunities at the Sub-national Level: Launch of the Nigerian Investment Certification Programme (NICPS) in Three States</div>
         <div class="art-excerpt">The lack of timely, up-to-date, and reliable data on investment opportunities in Nigeria poses a major hurdle for potential investors seeking to engage with the country's investment ecosystem. This scarcity of data impedes informed decision-making and undermines investor confidence, particularly at the sub-national level, where information availability varies widely.</div>
         <a href="#" class="art-link">Learn More →</a>
@@ -29380,8 +29404,8 @@ function hbarCfg(labels,datasets,opts={}){
   }};
 }
 function donutCfg(data,colors,cutout='68%'){
-  return{type:'doughnut',data:{datasets:[{data,backgroundColor:colors,borderWidth:0}]},
-    options:{plugins:{legend:{display:false}},cutout,responsive:true,maintainAspectRatio:false}};
+  return{type:'doughnut',data:{datasets:[{data,backgroundColor:colors,borderWidth:0,hoverOffset:5}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:(ctx)=>`${ctx.label || ''}: ${fmt(ctx.raw)}`}}},cutout,responsive:true,maintainAspectRatio:false}};
 }
 </script>
 <script>
@@ -29428,19 +29452,19 @@ function render() {
   const sec = document.getElementById('f-sector').value;
   const secName = sec === 'ALL' ? 'All Sectors' : INFF.meta.sectors[sec];
   const yrLabel = yr === 'ALL' ? 'All Years' : yr;
-  document.getElementById('f-status').textContent = `All Nigeria · ${secName} · ${yrLabel}`;
+  document.getElementById('f-status').textContent = `All Nigeria | ${secName} | ${yrLabel}`;
 
   const d  = getD(yr, sec);
   const dp = getPrev(yr, sec);
 
   // KPIs
   document.getElementById('k-mob').textContent     = fmt(d.mobNGN);
-  document.getElementById('k-mob-sub').textContent = `vs ${fmt(d.needNGN)} SDG need · ${yrLabel}`;
+  document.getElementById('k-mob-sub').textContent = `vs ${fmt(d.needNGN)} need | ${yrLabel}`;
   document.getElementById('k-gap').textContent     = fmt(d.gapNGN);
-  document.getElementById('k-gap-sub').textContent = `${secName} · ${yrLabel}`;
+  document.getElementById('k-gap-sub').textContent = `${secName} | ${yrLabel}`;
   document.getElementById('k-closed').textContent  = fmt(d.gapClosed, '%');
   document.getElementById('k-reforms').textContent = String(INFF.kpis.activeReforms).padStart(2,'0');
-  document.getElementById('k-reforms-sub').textContent = `${INFF.kpis.reformsOnTrack} on track · ${INFF.kpis.reformsAtRisk} at risk`;
+  document.getElementById('k-reforms-sub').textContent = `${INFF.kpis.reformsOnTrack} on track | ${INFF.kpis.reformsAtRisk} at risk`;
   document.getElementById('k-reforms-d').textContent   = `${INFF.kpis.reformsAtRisk} at risk`;
 
   if (dp) {
@@ -29488,25 +29512,37 @@ function render() {
   // Source bars
   const prevYrNum = yr === 'ALL' ? 'Total 2020–2024' : Math.max(2020, parseInt(yr)-1);
   const d2 = yr === 'ALL' ? getPrev(yr, sec) : INFF.getNational(prevYrNum, secKey);
+  const sourceColors = ['#5B9FA6','#74B7BC','#D4956A','#E2B18C'];
+  const sourcePrevColors = ['#5B9FA677','#74B7BC77','#D4956A77','#E2B18C77'];
   const sources = [
-    {name:"Domestic Public",   cur:d.dp,    prev:d2.dp},
-    {name:"Domestic Private",  cur:d.priv,  prev:d2.priv},
-    {name:"Int'l Public",      cur:d.ip,    prev:d2.ip},
-    {name:"Int'l Private",     cur:d.ipriv, prev:d2.ipriv},
+    {name:"Domestic Public",   cur:d.dp,    prev:d2.dp,    color:sourceColors[0], prevColor:sourcePrevColors[0]},
+    {name:"Domestic Private",  cur:d.priv,  prev:d2.priv,  color:sourceColors[1], prevColor:sourcePrevColors[1]},
+    {name:"Int'l Public",      cur:d.ip,    prev:d2.ip,    color:sourceColors[2], prevColor:sourcePrevColors[2]},
+    {name:"Int'l Private",     cur:d.ipriv, prev:d2.ipriv, color:sourceColors[3], prevColor:sourcePrevColors[3]},
   ];
   document.getElementById('src-sub').textContent = yr === 'ALL'
-    ? `Total 2020–2024 vs Total 2020–2025 · NGN Billions`
-    : `${prevYrNum} vs ${yr} · NGN Billions`;
+    ? `Total 2020–2024 vs Total 2020–2025 | USD Billions`
+    : `${prevYrNum} vs ${yr} | USD Billions`;
   const maxV = Math.max(...sources.map(s=>Math.max(s.cur,s.prev))) || 1;
   document.getElementById('src-bars').innerHTML = sources.map(s=>`
-    <div style="margin-bottom:12px;">
-      <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px;">
-        <span style="font-weight:600;color:var(--ink)">${s.name}</span>
+    <div class="src-item">
+      <div class="src-meta">
+        <span class="src-name"><span class="src-swatch" style="background:${s.color}"></span>${s.name}</span>
         <span style="color:var(--ink-lt)">${fmt(s.prev)} → ${fmt(s.cur)}</span>
       </div>
-      <div class="src-track"><div class="src-bar" style="width:${s.prev/maxV*100}%;background:var(--c1);opacity:.45;"></div></div>
-      <div class="src-track"><div class="src-bar" style="width:${s.cur/maxV*100}%;background:var(--c1);"></div></div>
+      <div class="src-track" title="Prior year"><div class="src-bar" style="width:${s.prev/maxV*100}%;background:${s.prevColor};"></div></div>
+      <div class="src-track" title="Selected year"><div class="src-bar" style="width:${s.cur/maxV*100}%;background:${s.color};"></div></div>
     </div>`).join('');
+  document.getElementById('src-year-legend').innerHTML = `
+    <div class="leg"><div class="leg-dot">${sources.map(s=>`<span style="background:${s.prevColor}"></span>`).join('')}</div>Prior year</div>
+    <div class="leg"><div class="leg-dot">${sources.map(s=>`<span style="background:${s.color}"></span>`).join('')}</div>Selected year</div>
+  `;
+  mkChart('c-source-donut', {
+    ...donutCfg(sources.map(s=>s.cur), sources.map(s=>s.color), '64%'),
+    data:{labels:sources.map(s=>s.name), datasets:[{data:sources.map(s=>s.cur), backgroundColor:sources.map(s=>s.color), borderWidth:0, hoverOffset:5}]}
+  });
+  document.getElementById('src-donut-total').textContent = fmt(sources.reduce((a,s)=>a+s.cur,0));
+  document.getElementById('src-donut-period').textContent = yr === 'ALL' ? '2020–2025' : yr;
 
   // Sector mosaic
   const secArr = Object.values(INFF.bySector).sort((a,b)=>b.sharePct-a.sharePct).slice(0,5);
