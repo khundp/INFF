@@ -428,7 +428,7 @@ width:auto;
     </div>
     <div class="card">
       <div class="ctitle">Private Investment by Sector</div>
-      <div class="csub">% share of total | Selected year</div>
+      <div class="csub">share of total | Selected year</div>
       <div class="private-donut-layout">
         <div class="private-donut-wrap" aria-label="Private Investment by Sector donut chart">
           <canvas id="dpr-sector-donut"></canvas>
@@ -1066,7 +1066,536 @@ function renderDPR(d, dp, selIdx, hiBar, yr) {
   mkChart('dpr-sector', hbarCfg(
     sectorData.labels,
     [{data:sectorData.values, backgroundColor: sectorData.colors, borderRadius:4}],
-    {yfmt: v=>'₦'+v+'B'}
+    {yfmt: v=>'$'+v+'B'}
+  ));
+  mkChart('dpr-sector-donut', themedDonutCfg(sectorData.values, sectorData.colors, sectorData.labels, '66%'));
+  updatePrivateDonutCenter('dpr-sector-total', 'dpr-sector-period', fmt(sourceTotal), yr === 'ALL' ? '2020–2025' : String(yr));
+
+  renderPrivateInvestmentTable(getPrivateInvestmentRows(sourceTotal, sectorData, sourceData, yr), yr);
+}
+
+// ── TAB 3: INT'L PUBLIC ──
+function normalizeShares(items){
+  const total = items.reduce((sum, item) => sum + item.value, 0) || 1;
+  return items.map(item => ({ ...item, value: r1(item.value / total * 100) }));
+}
+
+function getIPInstrumentProfile(val) {
+  return normalizeShares([
+    { label:'Loans', value: val * 0.55, color:P[0] },
+    { label:'Grants', value: val * 0.30, color:P[1] },
+    { label:'Other', value: val * 0.15, color:P[2] }
+  ]);
+}
+
+function getIPSectorProfile(sec) {
+  const items = [
+    { label:'Infrastructure', value:24 },
+    { label:'Energy', value:17 },
+    { label:'Agriculture', value:15 },
+    { label:'Climate & Environment', value:11 },
+    { label:'Health', value:10 },
+    { label:'Social Protection', value:9 },
+    { label:'Education', value:8 },
+    { label:'Governance', value:6 }
+  ];
+  const secName = sec === 'ALL' ? '' : String(INFF.meta.sectors[sec] || sec).toLowerCase();
+  if (secName) {
+    items.forEach(item => {
+      const key = item.label.toLowerCase();
+      if ((secName.includes('infra') && key.includes('infrastructure')) ||
+          (secName.includes('energ') && key.includes('energy')) ||
+          (secName.includes('agri') && key.includes('agriculture')) ||
+          (secName.includes('clim') && key.includes('climate')) ||
+          (secName.includes('health') && key.includes('health')) ||
+          (secName.includes('social') && key.includes('social')) ||
+          (secName.includes('educ') && key.includes('education')) ||
+          (secName.includes('govern') && key.includes('governance'))) item.value *= 1.45;
+    });
+  }
+  return normalizeShares(items);
+}
+
+function renderIPInstrumentSectorFlow(val, sec, yr) {
+  const wrap = document.getElementById('ip-flow');
+  if (!wrap) return;
+  const baseWidth = 1244;
+  const width = Math.max(980, Math.round(wrap.clientWidth || baseWidth));
+  const sx = width / baseWidth;
+  const height = Math.round(parseFloat(getComputedStyle(wrap).height) || 248);
+  const scaleX = x => Math.round(x * sx);
+  const instruments = getIPInstrumentProfile(val);
+  const sectors = getIPSectorProfile(sec);
+  const totalAmount = val || 1;
+  const midNodes = instruments.map((item, i) => ({
+    key:'M'+i, label:item.label, amount:r1(totalAmount * item.value / 100), x:scaleX(470), y:[14,108,222][i], h:[78,92,42][i], cls:'ip-flow-node'
+  }));
+  const rightNodes = sectors.map((item, i) => ({
+    key:'R'+i, label:item.label, amount:r1(totalAmount * item.value / 100), x:scaleX(1234), y:[0,36,72,108,144,178,212,244][i], h:[26,26,26,22,20,18,18,14][i], cls:'ip-flow-node gold'
+  }));
+  const instrumentSectorSplit = {
+    Loans:[0.46,0.24,0.08,0.07,0.03,0.03,0.03,0.06],
+    Grants:[0.10,0.05,0.28,0.18,0.16,0.12,0.08,0.03],
+    Other:[0.08,0.10,0.12,0.22,0.16,0.14,0.10,0.08]
+  };
+  const nodes = [
+    {key:'TOTAL', label:'TOTAL', amount:totalAmount, x:scaleX(2), y:0, h:286, cls:'ip-flow-node'},
+    ...midNodes,
+    ...rightNodes
+  ];
+  const links = [
+    ...midNodes.map(node => ['TOTAL', node.key, node.amount, 'ip-flow-link-a']),
+    ...midNodes.flatMap((node, idx) => rightNodes.map((rnode, j) => [node.key, rnode.key, r1(node.amount * instrumentSectorSplit[instruments[idx].label][j]), idx === 1 ? 'ip-flow-link-b' : 'ip-flow-link-a']))
+  ];
+
+  const byKey = Object.fromEntries(nodes.map(n => [n.key, n]));
+  const outgoing = {};
+  const incoming = {};
+  links.forEach(([src, dst, amount]) => {
+    outgoing[src] = (outgoing[src] || 0) + amount;
+    incoming[dst] = (incoming[dst] || 0) + amount;
+  });
+  const outOffsets = {};
+  const inOffsets = {};
+  const maxStroke = 150;
+  function pathFor(s, t, amount){
+    const sx = s.x + 10, sy = s.y + (outOffsets[s.key] || 0) + amount / (outgoing[s.key] || amount) * s.h / 2;
+    const tx = t.x, ty = t.y + (inOffsets[t.key] || 0) + amount / (incoming[t.key] || amount) * t.h / 2;
+    outOffsets[s.key] = (outOffsets[s.key] || 0) + amount / (outgoing[s.key] || amount) * s.h;
+    inOffsets[t.key] = (inOffsets[t.key] || 0) + amount / (incoming[t.key] || amount) * t.h;
+    const c1 = sx + (tx - sx) * 0.38;
+    const c2 = sx + (tx - sx) * 0.72;
+    const width = Math.max(2, amount / totalAmount * maxStroke);
+    return { d:`M ${sx} ${sy} C ${c1} ${sy}, ${c2} ${ty}, ${tx} ${ty}`, width };
+  }
+
+  const yearLabel = yr === 'ALL' ? '2020–2025 total' : `${yr} snapshot`;
+  document.getElementById('ip-flow-sub').textContent = `${yearLabel} | Instrument-to-sector mapping for international public finance`;
+  wrap.innerHTML = `
+    <svg viewBox="0 0 ${width} 290" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="ipFlowGradA" x1="0" x2="1">
+          <stop offset="0%" stop-color="#8f82f3"></stop>
+          <stop offset="100%" stop-color="#ead46d"></stop>
+        </linearGradient>
+        <linearGradient id="ipFlowGradB" x1="0" x2="1">
+          <stop offset="0%" stop-color="#7f72ef"></stop>
+          <stop offset="100%" stop-color="#d5bf66"></stop>
+        </linearGradient>
+      </defs>
+      ${links.map((link, i) => { const src = byKey[link[0]], dst = byKey[link[1]], amount = link[2], cls = link[3]; const path = pathFor(src, dst, amount); return `<path data-animate="link" class="${cls}" data-tip="${src.label} → ${dst.label}<br>${fmt(amount)}<br>${yearLabel}" d="${path.d}" stroke-width="${path.width}" style="animation-delay:${0.08 * i}s"></path>`; }).join('')}
+      ${nodes.map((node, i) => `<g data-animate="node" data-tip="${node.label}<br>${fmt(node.amount)}<br>${yearLabel}" style="animation-delay:${0.18 + i*0.05}s"><rect class="${node.cls}" x="${node.x}" y="${node.y}" width="10" height="${node.h}"></rect><text class="ip-flow-label" x="${node.key === 'TOTAL' ? node.x + 14 : node.x - 8}" y="${node.y + node.h/2}" dominant-baseline="middle" text-anchor="${node.key === 'TOTAL' ? 'start' : 'end'}">${node.label}</text></g>`).join('')}
+    </svg>`;
+  bindTip(wrap);
+}
+
+function renderIP(d, dp, selIdx, hiBar) {
+  const val = d.ip || 0;
+  const { yr, sec } = getFilters();
+  document.getElementById('ip-k1').textContent = fmt(val);
+  document.getElementById('ip-k2').textContent = fmt(val * 0.38);
+  document.getElementById('ip-total').textContent = fmt(val);
+
+  const tot = (d.dp||0)+(d.priv||0)+(d.ip||0)+(d.ipriv||0)||1;
+  const share = r1(val/tot*100);
+  const instrumentProfile = getIPInstrumentProfile(val);
+  const sectorProfile = getIPSectorProfile(sec);
+  mkChart('ip-share', donutCfg([share, 100-share], [P[0], '#e8e6e2']));
+
+  const partners = ['World Bank','AfDB','EU','GIZ','USAID','Green Climate','FCDO','JICA'];
+  const vals = [340,310,150,120,80,95,60,55];
+  const maxV = Math.max(...vals);
+  document.getElementById('ip-partners').innerHTML = partners.map((p,i) => `
+    <div class="pbar-item" style="margin-bottom:7px;">
+      <div class="pbar-meta"><span class="pbar-name">${p}</span><span class="pbar-val">$${vals[i]}M</span></div>
+      <div class="pbar-track"><div class="pbar-fill" style="width:${vals[i]/maxV*100}%;background:${P[i%P.length]};"></div></div>
+    </div>`).join('');
+
+  mkChart('ip-instrument', donutCfg(instrumentProfile.map(item => item.value), [P[0],P[1],P[2]]));
+  mkChart('ip-years', barCfg(YLABELS, [{
+    data: YEARS.map((_,i) => r1(val*(0.78+i*0.04)*(1+Math.sin(i)*0.04))),
+    backgroundColor: YLABELS.map((_,i) => hiBar(i)), borderRadius:4
+  }], {yfmt: v=>'₦'+v+'B'}));
+  mkChart('ip-sectors', hbarCfg(
+    sectorProfile.map(item => item.label),
+    [{data: sectorProfile.map(item => item.value), backgroundColor:P.slice(0,sectorProfile.length), borderRadius:4}],
+    {yfmt: v=>v+'%'}
+  ));
+  mkChart('ip-mix', stacked(['Loans','Grants','Tech Assistance','Budget Support'], P, 8));
+  mkChart('ip-disb', barCfg(
+    ['World Bank','AfDB','EU','USAID','JICA','GIZ'],
+    [
+      {label:'Committed', data:[340,310,150,80,65,55], backgroundColor:P[0], borderRadius:4},
+      {label:'Disbursed', data:[230,220,112,58,40,42], backgroundColor:P[1], borderRadius:4},
+    ], {yfmt: v=>'$'+v+'M'}
+  ));
+  renderIPInstrumentSectorFlow(val, sec, yr);
+}
+
+// ── TAB 4: INT'L PRIVATE ──
+function renderIPR(d, dp, selIdx, hiBar) {
+  const val = d.ipriv || 0;
+  document.getElementById('ipr-k1').textContent = fmt(val);
+  document.getElementById('ipr-k2').textContent = fmt(val * 0.45);
+  document.getElementById('ipr-k3').textContent = fmt(val * 0.28);
+
+  mkChart('ipr-remit',  stacked(['Formal (Bank/MTO)','Informal','Diaspora Bonds'], P, 9));
+  mkChart('ipr-fdi', hbarCfg(
+    ['Infrastructure','Energy','Manufacturing','Financial Svcs','Agriculture','Digital'],
+    [{data:[30,25,18,12,10,5], backgroundColor:P.slice(0,6), borderRadius:4}],
+    {yfmt: v=>v+'%'}
+  ));
+  mkChart('ipr-port',  stacked(['Equities','Bonds','Private Bonds'],          P, 11));
+  mkChart('ipr-blend', stacked(['Guarantees','Concessional Tranche','First-Loss'], P, 13));
+}
+
+
+let flowMode = 'type';
+
+function toggleFlowMode(){
+  flowMode = flowMode === 'type' ? 'sector' : 'type';
+  const btn = document.getElementById('flow-toggle');
+  btn.classList.toggle('on', flowMode === 'sector');
+  btn.setAttribute('aria-pressed', flowMode === 'sector' ? 'true' : 'false');
+  const yr = document.getElementById('f-year').value;
+  const state = document.getElementById('f-state').value;
+  const sector = document.getElementById('f-sector').value;
+  const snapshot = getRevenueTypeSnapshot(state, sector, yr);
+  const { yrNum } = getData(yr, state, sector);
+  renderRevenueFlows(snapshot, { yr, yrNum, state, sector });
+}
+
+function flowTooltip(){
+  let el = document.getElementById('flow-tooltip');
+  if(!el){ el = document.createElement('div'); el.id='flow-tooltip'; el.className='flow-tooltip'; document.body.appendChild(el); }
+  return el;
+}
+
+function bindTip(container){
+  const tip = flowTooltip();
+  container.querySelectorAll('[data-tip]').forEach(el=>{
+    el.addEventListener('mousemove', e=>{ tip.innerHTML = el.dataset.tip; tip.style.opacity='1'; tip.style.left = e.clientX+'px'; tip.style.top = e.clientY+'px'; });
+    el.addEventListener('mouseleave', ()=> tip.style.opacity='0');
+  });
+}
+
+
+function themedDonutCfg(data, colors, labels, cutout = '66%') {
+  return {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: colors, borderWidth: 0 }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: false,
+          external(context) {
+            const tip = flowTooltip();
+            const tooltip = context.tooltip;
+            if (!tooltip || tooltip.opacity === 0) {
+              tip.style.opacity = '0';
+              return;
+            }
+            const idx = tooltip.dataPoints?.[0]?.dataIndex ?? 0;
+            const label = labels[idx] || '';
+            const value = data[idx] || 0;
+            tip.innerHTML = `${label}<br>${fmt(value)}`;
+            tip.style.opacity = '1';
+            tip.style.left = tooltip.caretX + context.chart.canvas.getBoundingClientRect().left + 'px';
+            tip.style.top = tooltip.caretY + context.chart.canvas.getBoundingClientRect().top + 'px';
+          }
+        }
+      },
+      animation: { duration: 1400, easing: 'easeOutQuart' },
+      cutout,
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  };
+}
+
+function renderRevenueComposition(snapshot, yr){
+  const total = snapshot.total || 0;
+  const tax = snapshot.tax || 0;
+  const nontax = snapshot.nonTax || 0;
+  const segs = [
+    {label:'Tax Revenue', value:tax, color:P[0]},
+    {label:'Non-Tax Revenue', value:nontax, color:P[1]}
+  ];
+  const sum = segs.reduce((a,b)=>a+b.value,0) || 1;
+  let start = 0;
+  const grad = segs.map(s=>{ const end = start + s.value/sum*360; const out = `${s.color} ${start}deg ${end}deg`; start=end; return out; }).join(', ');
+  const bars = snapshot.series || [];
+  const maxTotal = Math.max(...bars.map(row => (row.tax || 0) + (row.nonTax || 0)), 1);
+  document.getElementById('dp-composition').innerHTML = `
+    <div class="rev-ring" style="background:conic-gradient(${grad})">
+      <div class="rev-center"><div class="mini">Total Revenue</div><div class="big">${fmt(total)}</div><div class="yr">${snapshot.label}</div></div>
+    </div>
+    <div>
+      <div class="rev-bars">
+        ${bars.map((row,i)=>{
+          const rowTotal = (row.tax || 0) + (row.nonTax || 0);
+          const taxH = Math.max(10, (row.tax || 0) / maxTotal * 145);
+          const nonH = Math.max(10, (row.nonTax || 0) / maxTotal * 145);
+          const op = yearOpacity(i);
+          return `<div class="rev-col">
+            <div class="rev-pill" data-tip="Tax Revenue<br>${row.year}: ${fmt(row.tax || 0)}" style="height:${taxH}px;background:${P[0]};opacity:${op};animation:growUp .75s ease ${i*0.08}s both"></div>
+            <div class="rev-pill" data-tip="Non-Tax Revenue<br>${row.year}: ${fmt(row.nonTax || 0)}" style="height:${nonH}px;background:${P[1]};opacity:${op};animation:growUp .75s ease ${0.05+i*0.08}s both"></div>
+            <div class="rev-year" style="opacity:${op};color:${op === 1 ? 'var(--brand)' : '#8a84a8'}">${row.year}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  document.getElementById('dp-comp-sub').textContent = yr === 'ALL'
+    ? 'Tax and Non-Tax Revenue | Two bars per year | Total 2020–2025'
+    : `Tax and Non-Tax Revenue | Selected year ${yr} highlighted`;
+  document.querySelectorAll('.rev-ring, .rev-center').forEach(el=> el.setAttribute('data-tip', segs.map(s=>`${s.label}: ${fmt(s.value)}`).join('<br>')));
+  bindTip(document.getElementById('dp-composition'));
+}
+
+
+function renderRevenueFlows(snapshot, filters){
+  const wrap = document.getElementById('dp-flow');
+  const width = Math.max(560, Math.round(wrap.clientWidth || 680));
+  const height = Math.round(parseFloat(getComputedStyle(wrap).height) || 230);
+  const nodeW = Math.max(10, Math.round(width * 0.012));
+  const sec = filters.sector || 'ALL';
+  const view = filters.yr === 'ALL'
+    ? { total: snapshot.total, tax: snapshot.tax, nonTax: snapshot.nonTax, fees: r1(snapshot.total * 0.05), losses: r1(snapshot.total * 0.08), label: 'Total flow | 2020–2025' }
+    : { total: snapshot.total, tax: snapshot.tax, nonTax: snapshot.nonTax, fees: r1(snapshot.total * 0.05), losses: r1(snapshot.total * 0.08), label: `${filters.yr} flow` };
+  const tax = view.tax;
+  const non = view.nonTax;
+  const fees = view.fees;
+  const losses = view.losses;
+
+  const xPos = {
+    left: Math.round(width * 0.02),
+    col2: Math.round(width * 0.26),
+    col3: Math.round(width * 0.50),
+    col4: Math.round(width * 0.74),
+    right: Math.round(width * 0.97) - nodeW
+  };
+  const hPos = {
+    total: Math.round(height * 0.78),
+    typeA: Math.round(height * 0.34),
+    typeB: Math.round(height * 0.27),
+    midA: Math.round(height * 0.36),
+    midB: Math.round(height * 0.22),
+    outA: Math.round(height * 0.40),
+    outB: Math.round(height * 0.17),
+    smallTop: Math.max(14, Math.round(height * 0.06)),
+    house: Math.round(height * 0.34)
+  };
+
+  const sectorProfiles = {
+    ALL: [['INF',0.24],['EDU',0.18],['HEA',0.18],['AGR',0.14],['ENE',0.14],['WAT',0.12]],
+    EDU: [['EDU',0.28],['HEA',0.22],['SOC',0.16],['DIG',0.12],['WAT',0.12],['INF',0.10]],
+    HEA: [['HEA',0.30],['SOC',0.22],['WAT',0.16],['EDU',0.14],['DIG',0.10],['INF',0.08]],
+    INF: [['INF',0.32],['ENE',0.20],['WAT',0.16],['DIG',0.14],['AGR',0.10],['CLI',0.08]],
+    AGR: [['AGR',0.30],['WAT',0.18],['INF',0.16],['CLI',0.14],['ENE',0.12],['DIG',0.10]],
+    CLI: [['CLI',0.28],['ENE',0.20],['WAT',0.18],['AGR',0.14],['INF',0.12],['DIG',0.08]],
+    DIG: [['DIG',0.30],['EDU',0.18],['GOV',0.16],['INF',0.14],['HEA',0.12],['ENE',0.10]],
+    GOV: [['GOV',0.28],['SOC',0.20],['EDU',0.16],['DIG',0.14],['HEA',0.12],['INF',0.10]],
+    SOC: [['SOC',0.30],['HEA',0.24],['EDU',0.16],['WAT',0.12],['GOV',0.10],['DIG',0.08]],
+    ENE: [['ENE',0.34],['INF',0.20],['CLI',0.16],['DIG',0.12],['AGR',0.10],['WAT',0.08]],
+    WAT: [['WAT',0.30],['HEA',0.20],['AGR',0.18],['INF',0.14],['CLI',0.10],['SOC',0.08]]
+  };
+  const sectorTaxMix = { EDU:0.72, HEA:0.70, INF:0.62, AGR:0.55, CLI:0.58, DIG:0.64, GOV:0.78, SOC:0.74, ENE:0.60, WAT:0.66 };
+
+  let nodes = [];
+  let links = [];
+
+  if (flowMode === 'sector') {
+    const profile = sectorProfiles[sec] || sectorProfiles.ALL;
+    const sectorTotal = Math.max(0, tax + non);
+    const sectorYs = [0.10,0.39,0.68,0.10,0.39,0.68].map(v => Math.round(height * v));
+    const sectorNodes = profile.map(([code, share], idx) => {
+      const amount = r1(sectorTotal * share);
+      return {
+        key: String.fromCharCode(67 + idx),
+        code,
+        label: INFF.meta.sectors[code] || code,
+        amount,
+        taxPart: r1(amount * (sectorTaxMix[code] || 0.65)),
+        nonPart: r1(amount * (1 - (sectorTaxMix[code] || 0.65))),
+        x: idx < 3 ? Math.round(width * 0.53) : Math.round(width * 0.81),
+        y: sectorYs[idx],
+        h: Math.round(height * 0.25)
+      };
+    });
+
+    nodes = [
+      {key:'TOTAL', x:xPos.left, y:Math.round(height * 0.11), w:nodeW, h:hPos.total, cls:'flow-node', label:'TOTAL', anchor:'start', dx:nodeW + 10},
+      {key:'A', x:xPos.col2, y:Math.round(height * 0.14), w:nodeW, h:hPos.typeA, cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-10},
+      {key:'B', x:xPos.col2, y:Math.round(height * 0.58), w:nodeW, h:hPos.typeB, cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-10},
+      ...sectorNodes.map(s => ({...s, w:nodeW, cls:'flow-node gold', anchor:'start', dx:nodeW + 10}))
+    ];
+
+    const taxDemand = sectorNodes.reduce((acc, s) => acc + s.taxPart, 0) || 1;
+    const nonDemand = sectorNodes.reduce((acc, s) => acc + s.nonPart, 0) || 1;
+    links = [
+      ['TOTAL','A', tax, 'flow-link-a'],
+      ['TOTAL','B', non, 'flow-link-b'],
+      ...sectorNodes.flatMap(s => [
+        ['A', s.key, r1(tax * (s.taxPart / taxDemand)), 'flow-link-a'],
+        ['B', s.key, r1(non * (s.nonPart / nonDemand)), 'flow-link-b']
+      ])
+    ];
+  } else {
+    const taxBranches = getRevenueBranches(tax, 'tax', filters);
+    const nonBranches = getRevenueBranches(non, 'nonTax', filters);
+    // Space all branch nodes from top to bottom so labels do not overlap.
+    // Tax branches use the upper section and Non-Tax branches continue below them.
+    const allBranches = [...taxBranches, ...nonBranches];
+    const branchStart = 0.035;
+    const branchEnd = 0.86;
+    const branchGap = allBranches.length > 1 ? (branchEnd - branchStart) / (allBranches.length - 1) : 0;
+    const branchYs = allBranches.map((_, i) => Math.round(height * (branchStart + i * branchGap)));
+    const branchH = Math.max(22, Math.round(height * 0.072));
+    const taxYs = taxBranches.map((_, i) => branchYs[i]);
+    const nonYs = nonBranches.map((_, i) => branchYs[taxBranches.length + i]);
+    const taxBranchNodes = taxBranches.map((b, idx) => ({
+      key:`T${idx}`,
+      label:b.label,
+      amount:b.value,
+      color:b.color,
+      x:Math.round(width * 0.69),
+      y:taxYs[idx],
+      h:branchH
+    }));
+    const nonBranchNodes = nonBranches.map((b, idx) => ({
+      key:`N${idx}`,
+      label:b.label,
+      amount:b.value,
+      color:b.color,
+      x:Math.round(width * 0.69),
+      y:nonYs[idx],
+      h:branchH
+    }));
+
+    const taxMidH = Math.round(height * 0.24);
+    const nonMidH = Math.round(height * 0.18);
+    const avg = arr => arr.reduce((a,b)=>a+b,0) / Math.max(1, arr.length);
+    const taxMidCenter = Math.round(avg(taxYs) + branchH / 2);
+    const nonMidCenter = Math.round(avg(nonYs) + branchH / 2);
+
+    nodes = [
+      {key:'TOTAL', x:xPos.left, y:Math.round(height * 0.08), w:nodeW, h:Math.round(height * 0.84), cls:'flow-node', label:'TOTAL', anchor:'start', dx:nodeW + 10},
+      {key:'A', x:xPos.col2, y:Math.max(12, taxMidCenter - Math.round(taxMidH / 2)), w:nodeW, h:taxMidH, cls:'flow-node', label:'Tax Revenue', anchor:'end', dx:-10},
+      {key:'B', x:xPos.col2, y:Math.max(12, nonMidCenter - Math.round(nonMidH / 2)), w:nodeW, h:nonMidH, cls:'flow-node', label:'Non-Tax Revenue', anchor:'end', dx:-10},
+      ...taxBranchNodes.map(s => ({...s, w:nodeW, cls:'flow-node gold', anchor:'start', dx:nodeW + 10})),
+      ...nonBranchNodes.map(s => ({...s, w:nodeW, cls:'flow-node gold', anchor:'start', dx:nodeW + 10}))
+    ];
+
+    links = [
+      ['TOTAL','A', tax, 'flow-link-a'],
+      ['TOTAL','B', non, 'flow-link-b'],
+      ...taxBranchNodes.map(s => ['A', s.key, s.amount, 'flow-link-a']),
+      ...nonBranchNodes.map(s => ['B', s.key, s.amount, 'flow-link-b'])
+    ];
+  }
+
+  const n = Object.fromEntries(nodes.map(o=>[o.key,o]));
+  const maxL = Math.max(...links.map(l=>l[2])) || 1;
+  function path(s,t){
+    const a=n[s], b=n[t];
+    const x1=a.x+a.w, y1=a.y+a.h/2, x2=b.x, y2=b.y+b.h/2;
+    const cx=(x2-x1)*0.40;
+    return `M ${x1} ${y1} C ${x1+cx} ${y1}, ${x2-cx} ${y2}, ${x2} ${y2}`;
+  }
+  document.getElementById('dp-flow-sub').textContent = flowMode === 'sector'
+    ? (filters.yr === 'ALL' ? 'Filter-aware view | Dummy sector allocation using sector filter names (total 2020–2025)' : `Filter-aware view | Dummy sector allocation using sector filter names for ${filters.yr}`)
+    : (filters.yr === 'ALL' ? 'Tax and Non-Tax revenue branches | Total 2020–2025 | Filter-aware' : `Tax and Non-Tax revenue branches | ${filters.yr} | Filter-aware`);
+  wrap.innerHTML = `<svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" preserveAspectRatio="none" aria-label="Revenue flow chart">
+    <defs>
+      <linearGradient id="flowGradA" x1="0" x2="1"><stop offset="0%" stop-color="${P[4] || '#B08AC9'}"/><stop offset="100%" stop-color="${P[1]}"/></linearGradient>
+      <linearGradient id="flowGradB" x1="0" x2="1"><stop offset="0%" stop-color="${P[0]}"/><stop offset="100%" stop-color="${P[1]}"/></linearGradient>
+    </defs>
+    ${links.map(([s,t,v,cls],i)=>`<path vector-effect="non-scaling-stroke" data-animate="link" class="${cls}" d="${path(s,t)}" stroke-width="${Math.max(8, v/maxL*Math.min(42, height*0.17))}" data-tip="${n[s].label} → ${n[t].label}<br>${fmt(v)}" style="animation-delay:${i*0.06}s"></path>`).join('')}
+    ${nodes.map((o,i)=>`<g data-animate="node" data-tip="${o.label}<br>${view.label}<br>${flowMode==='sector' ? 'Dummy sector-linked flow node' : 'Revenue branch node'}" style="animation-delay:${0.15 + i*0.05}s"><rect class="${o.cls}" x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}"></rect><text class="flow-label" x="${o.x + (o.dx ?? (o.key==='TOTAL'?o.w+10:-10))}" y="${o.y + o.h/2}" dominant-baseline="middle" text-anchor="${o.anchor || (o.key==='TOTAL'?'start':'end')}">${o.label}</text></g>`).join('')}
+  </svg>`;
+  bindTip(wrap);
+}
+
+function resetFilters() {
+  document.getElementById('f-year').value   = 'ALL';
+  document.getElementById('f-state').value  = 'ALL';
+  document.getElementById('f-sector').value = 'ALL';
+  render();
+}
+
+// Handle ?tab= URL param
+const urlTab = new URLSearchParams(window.location.search).get('tab');
+if (urlTab) {
+  const map = {'domestic-public':'dp','domestic-private':'dpr','intl-public':'ip','intl-private':'ipr'};
+  const t = map[urlTab];
+  if (t) {
+    const btn = [...document.querySelectorAll('.subnav-tab')]
+      .find(b => b.getAttribute('onclick').includes("'"+t+"'"));
+    if (btn) switchTab(t, btn);
+  }
+}
+
+window.addEventListener('resize', () => { clearTimeout(window.__p1ResizeTimer); window.__p1ResizeTimer = setTimeout(() => render(), 120); });
+
+render();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+(function(){
+  if(window.Chart){
+    Chart.defaults.animation = {duration: 1400, easing: 'easeOutQuart'};
+    if (Chart.defaults.transitions && Chart.defaults.transitions.active) {
+      Chart.defaults.transitions.active.animation = {duration: 300};
+    }
+  }
+})();
+</script>
+
+<script>
+
+// Global animation defaults for p1-landscape charts
+if (window.Chart) {
+  Chart.defaults.animation = {
+    duration: 1400,
+    easing: 'easeOutQuart'
+  };
+  Chart.defaults.animations = {
+    y: { from: 0, duration: 1400, easing: 'easeOutQuart' },
+    x: { duration: 700, easing: 'easeOutQuart' }
+  };
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="js/footer-component.js"></script>
+</body>
+</html>+v+'B'}
   ));
   mkChart('dpr-sector-donut', themedDonutCfg(sectorData.values, sectorData.colors, sectorData.labels, '66%'));
   updatePrivateDonutCenter('dpr-sector-total', 'dpr-sector-period', fmt(sourceTotal), yr === 'ALL' ? '2020–2025' : String(yr));

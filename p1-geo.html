@@ -244,10 +244,10 @@ width:auto;
     </div>
 
     <div class="closest-wrap">
-      <div class="ctitle" style="margin-bottom:3px;">Closest to Target &mdash; Source Breakdown (All States)</div>
-      <div class="csub" style="margin-bottom:12px;">All 37 states, sorted by % of need met. Scroll right to see all. Red = unmet gap.</div>
+      <div class="ctitle" style="margin-bottom:3px;">FINANCING SOURCE BY STATE</div>
+      <div class="csub" style="margin-bottom:12px;">All 36 states and FCT, sorted by % need met.</div>
       <div style="overflow-x:auto;overflow-y:hidden;width:100%;padding-bottom:6px;">
-        <div style="position:relative;height:180px;min-width:600px;">
+        <div style="position:relative;height:180px;min-width:1100px;">
           <canvas id="c-closest-bar" style="display:block;"></canvas>
         </div>
       </div>
@@ -678,7 +678,7 @@ function render() {
   document.getElementById('k-coverage-d').textContent   = yrLabel + ' | ' + secName;
   document.getElementById('k-avg-gap').textContent      = avgGap.toFixed(1) + '%';
   document.getElementById('k-avg-sub').textContent      = (avgGap > 50 ? 'Critical' : 'Moderate') + ' | ' + secName + ' | ' + yrLabel;
-  document.getElementById('k-avg-d').textContent        = avgGap > 50 ? 'Above 50% — critical' : 'Monitor closely';
+  document.getElementById('k-avg-d').textContent        = avgGap > 50 ? 'Above 50% — critical' : '25/36 states<50%';
   document.getElementById('k-top-sec').textContent      = topSec ? topSec.name : '—';
   document.getElementById('k-top-sub').textContent      = (topSec ? topSec.gapPct.toFixed(1) : '0') + '% unfunded | ' + yrLabel;
   document.getElementById('k-top-d').textContent        = fSec === 'ALL' ? 'Largest sector gap nationally' : 'Current selected sector';
@@ -719,8 +719,8 @@ function render() {
     return ((b.viewMob || 0)/(b.viewNeed || 1)) - ((a.viewMob || 0)/(a.viewNeed || 1));
   });
   var canvas = document.getElementById('c-closest-bar');
-  var barW   = 24;
-  var chartW = Math.max(600, allSorted.length * barW + 80);
+  var barW   = 34;
+  var chartW = Math.max(1100, allSorted.length * barW + 140);
   canvas.width  = chartW;
   canvas.height = 180;
   canvas.style.width  = chartW + 'px';

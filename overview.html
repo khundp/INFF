@@ -29513,7 +29513,7 @@ function render() {
   const prevYrNum = yr === 'ALL' ? 'Total 2020–2024' : Math.max(2020, parseInt(yr)-1);
   const d2 = yr === 'ALL' ? getPrev(yr, sec) : INFF.getNational(prevYrNum, secKey);
   const sourceColors = ['#5B9FA6','#74B7BC','#D4956A','#E2B18C'];
-  const sourcePrevColors = ['#5B9FA677','#74B7BC77','#D4956A77','#E2B18C77'];
+  const sourcePrevColors = ['#D9D9D9','#D9D9D9','#D9D9D9','#D9D9D9'];
   const sources = [
     {name:"Domestic Public",   cur:d.dp,    prev:d2.dp,    color:sourceColors[0], prevColor:sourcePrevColors[0]},
     {name:"Domestic Private",  cur:d.priv,  prev:d2.priv,  color:sourceColors[1], prevColor:sourcePrevColors[1]},
@@ -29533,10 +29533,7 @@ function render() {
       <div class="src-track" title="Prior year"><div class="src-bar" style="width:${s.prev/maxV*100}%;background:${s.prevColor};"></div></div>
       <div class="src-track" title="Selected year"><div class="src-bar" style="width:${s.cur/maxV*100}%;background:${s.color};"></div></div>
     </div>`).join('');
-  document.getElementById('src-year-legend').innerHTML = `
-    <div class="leg"><div class="leg-dot">${sources.map(s=>`<span style="background:${s.prevColor}"></span>`).join('')}</div>Prior year</div>
-    <div class="leg"><div class="leg-dot">${sources.map(s=>`<span style="background:${s.color}"></span>`).join('')}</div>Selected year</div>
-  `;
+  document.getElementById('src-year-legend').innerHTML = '';
   mkChart('c-source-donut', {
     ...donutCfg(sources.map(s=>s.cur), sources.map(s=>s.color), '64%'),
     data:{labels:sources.map(s=>s.name), datasets:[{data:sources.map(s=>s.cur), backgroundColor:sources.map(s=>s.color), borderWidth:0, hoverOffset:5}]}
