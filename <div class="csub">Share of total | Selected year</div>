@@ -428,7 +428,7 @@ width:auto;
     </div>
     <div class="card">
       <div class="ctitle">Private Investment by Sector</div>
-      <div class="csub">share of total | Selected year</div>
+      <div class="csub">Share of total | Selected year</div>
       <div class="private-donut-layout">
         <div class="private-donut-wrap" aria-label="Private Investment by Sector donut chart">
           <canvas id="dpr-sector-donut"></canvas>
