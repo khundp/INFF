@@ -106,12 +106,10 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-si
 .explorer-band{background:var(--surf);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:16px;}
 .explorer-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:3px;}
 .explorer-sub{font-size:11px;color:var(--ink-lt);margin-bottom:16px;}
-.explorer-selectors{display:grid;grid-template-columns:minmax(0,1fr) 180px minmax(0,1fr);gap:12px;align-items:end;margin-bottom:16px;}
+.explorer-selectors{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:end;margin-bottom:16px;}
 .explorer-selectors .selector-a{grid-column:1;}
-.explorer-selectors .selector-mid{grid-column:2;}
-.explorer-selectors .selector-b{grid-column:3;}
-.explorer-selectors .selector-a select,.explorer-selectors .selector-mid select,.explorer-selectors .selector-b select{width:100%;}
-.explorer-selectors .selector-mid{justify-self:center;width:100%;}
+.explorer-selectors .selector-b{grid-column:2;}
+.explorer-selectors .selector-a select,.explorer-selectors .selector-b select{width:100%;}
 .vs-badge{display:none;}
 .sel-label2{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:5px;}
 .vs-badge{display:flex;align-items:center;justify-content:center;height:32px;font-size:11px;font-weight:700;color:var(--ink-lt);}
@@ -147,7 +145,7 @@ body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);font-si
 .qual-score{font-weight:700;}
 .qs-high{color:#2e7d52;}.qs-med{color:#c4710a;}.qs-low{color:#8c1f1f;}
 
-@media (max-width:900px){.explorer-selectors{grid-template-columns:1fr;}.explorer-selectors .selector-a,.explorer-selectors .selector-mid,.explorer-selectors .selector-b{grid-column:auto;} .explorer-selectors .selector-mid{justify-self:stretch;}}
+@media (max-width:900px){.explorer-selectors{grid-template-columns:1fr;}.explorer-selectors .selector-a,.explorer-selectors .selector-b{grid-column:auto;}}
 
 /* Footer upgrade */
 .portal-footer{background:#1C1C2E;color:#fff;margin-top:60px}
@@ -279,14 +277,9 @@ width:auto;
   <div class="explorer-sub">Select one or two states to see their full financing profile, including flows, sector gaps, and active projects.</div>
   <div class="explorer-selectors">
     <div class="selector-a"><div class="sel-label2">State A</div><select id="sel-a" onchange="render()"></select></div>
-    <div class="selector-mid"><div class="sel-label2">Sector</div>
-      <select id="sel-sector" onchange="render()">
-        <option value="ALL">All sectors</option>
-        <option value="EDU">Education</option><option value="HEA">Health</option>
-        <option value="INF">Infrastructure</option><option value="AGR">Agriculture</option>
-        <option value="CLI">Climate</option><option value="DIG">Digital</option>
-      </select>
-    </div>
+    <select id="sel-sector" onchange="render()" style="display:none;" aria-hidden="true">
+      <option value="ALL" selected>All sectors</option>
+    </select>
     <div class="selector-b"><div class="sel-label2">State B (optional)</div><select id="sel-b" onchange="render()"></select></div>
   </div>
   <div class="state-cards" id="state-cards"></div>

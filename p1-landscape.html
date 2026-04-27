@@ -145,6 +145,9 @@ vector-effect:non-scaling-stroke;
 .page-landscape .ip-flow-card{
 min-height:0;
 }
+.page-landscape .subnational-revenue-card{grid-column:1 / -1;}
+.page-landscape .subnational-section-title{color:#7b7f86;border-bottom:1px solid #d8d5ce;padding-bottom:8px;margin-top:18px;}
+.page-landscape .subnational-revenue-card .ctitle{color:#5f666d;}
 @media (max-width:640px){
 .page-landscape .ch-md,
 .page-landscape .ch-lg,
@@ -167,20 +170,20 @@ min-height:0;
 
 /* Domestic borrowing full-width layout with donut */
 .borrow-wide-card{margin-bottom:16px}
-.borrow-layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:148px;align-items:center}
-.borrow-donut-wrap{position:relative;height:230px;display:flex;align-items:center;justify-content:center}
-.borrow-donut-wrap canvas{max-width:220px;max-height:220px}
-.borrow-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
-.borrow-donut-center .mini{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-lt)}
-.borrow-donut-center .big{font-family:"Literata",serif;font-size:24px;font-weight:800;color:var(--ink);line-height:1.05;margin-top:3px}
-.borrow-donut-center .yr{font-size:10px;color:var(--ink-lt);margin-top:4px}
-.borrow-chart-wrap{min-width:0;padding-left:12px}
+.borrow-layout,.subnat-layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:148px;align-items:center}
+.borrow-donut-wrap,.subnat-donut-wrap{position:relative;height:230px;display:flex;align-items:center;justify-content:center}
+.borrow-donut-wrap canvas,.subnat-donut-wrap canvas{max-width:220px;max-height:220px}
+.borrow-donut-center,.subnat-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.borrow-donut-center .mini,.subnat-donut-center .mini{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-lt)}
+.borrow-donut-center .big,.subnat-donut-center .big{font-family:"Literata",serif;font-size:24px;font-weight:800;color:var(--ink);line-height:1.05;margin-top:3px}
+.borrow-donut-center .yr,.subnat-donut-center .yr{font-size:10px;color:var(--ink-lt);margin-top:4px}
+.borrow-chart-wrap,.subnat-chart-wrap{min-width:0;padding-left:12px}
 @media (max-width:1100px){
   .rev-overview-grid{grid-template-columns:1fr}
   .rev-flow-card{min-height:auto}
   .rev-flow-card .flow-wrap,.rev-flow-card .flow-wrap svg{height:520px;min-height:520px}
-  .borrow-layout{grid-template-columns:1fr}
-  .borrow-donut-wrap{height:210px}
+  .borrow-layout,.subnat-layout{grid-template-columns:1fr}
+  .borrow-donut-wrap,.subnat-donut-wrap{height:210px}
 }
 
 
@@ -385,6 +388,32 @@ width:auto;
         <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Social</div>
         <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>SWF</div>
       </div>
+    </div>
+  </div>
+
+  <div class="sdiv subnational-section-title">Sub-National Government Revenues</div>
+  <div class="card subnational-revenue-card">
+    <div class="ctitle">Sub-National Revenue Composition by Source</div>
+    <div class="csub" id="dp-subnat-sub">USD Billions | 2020–2025 </div>
+    <div class="subnat-layout">
+      <div class="subnat-donut-wrap" aria-label="Sub-National Government Revenues donut chart">
+        <canvas id="dp-subnational-rev-donut"></canvas>
+        <div class="subnat-donut-center">
+          <div class="mini">Total</div>
+          <div class="big" id="dp-subnational-total">—</div>
+          <div class="yr" id="dp-subnational-period">All Years</div>
+        </div>
+      </div>
+      <div class="subnat-chart-wrap">
+        <div class="ch-lg"><canvas id="dp-subnational-rev"></canvas></div>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:#5B9FA6"></div>Internally Generated Revenue (IGR)</div>
+      <div class="leg"><div class="leg-dot" style="background:#D4956A"></div>State-Level Taxes And Levies</div>
+      <div class="leg"><div class="leg-dot" style="background:#7AAF8A"></div>Fees And Charges</div>
+      <div class="leg"><div class="leg-dot" style="background:#6B8CAE"></div>Property Rates</div>
+      <div class="leg"><div class="leg-dot" style="background:#B08AC9"></div>Local Government Revenues</div>
     </div>
   </div>
 </div>
@@ -823,6 +852,63 @@ function renderBorrowingInstrumentCharts(yr) {
 }
 
 
+function getSubnationalRevenueData(sc, sec) {
+  const labels = [
+    'Internally Generated Revenue (IGR)',
+    'State-Level Taxes And Levies',
+    'Fees And Charges',
+    'Property Rates',
+    'Local Government Revenues'
+  ];
+  const colors = [P[0], P[1], P[2], P[3], P[4]];
+  const keyMap = ['igr','stateTaxesLevies','feesCharges','propertyRates','localGovernmentRevenues'];
+  const secKey = sec === 'ALL' ? null : sec;
+  const stateScale = sc === 'ALL' ? 1 : 0.34 + ((codeHash(sc) % 17) / 100);
+  const sectorScale = sec === 'ALL' ? 1 : 0.72 + ((codeHash(sec) % 9) / 100);
+
+  const series = labels.map((label, i) => ({ label, color: colors[i], values: [] }));
+  YEARS.forEach(year => {
+    const national = INFF.byYear?.[String(year)]?.subnationalGovernmentRevenues || {};
+    const nationalTotal = keyMap.reduce((sum, key) => sum + Number(national[key] || 0), 0) || 1;
+    let scale = 1;
+    if (sc !== 'ALL' || sec !== 'ALL') {
+      const row = getYearRecord(year, sc, secKey) || {};
+      const dpBase = Number(row.dp || 0);
+      scale = nationalTotal ? Math.max(0.03, (dpBase * stateScale * sectorScale) / nationalTotal) : 1;
+    }
+    keyMap.forEach((key, i) => series[i].values.push(r1(Number(national[key] || 0) * scale)));
+  });
+  return { labels, colors, series };
+}
+
+function subnationalRevenueChartCfg(data) {
+  const datasets = data.series.map(item => ({
+    label: item.label,
+    data: item.values,
+    backgroundColor: YEARS.map((_, j) => yearTone(item.color, j)),
+    borderRadius: 3,
+    stack: 's'
+  }));
+  return barCfg(YLABELS, datasets, { stacked: true, yfmt: v => '$' + v + 'B' });
+}
+
+function renderSubnationalRevenueCharts(yr, sc, sec) {
+  const data = getSubnationalRevenueData(sc, sec);
+  const selectedIdx = yr === 'ALL' ? -1 : YEARS.indexOf(parseInt(yr));
+  const donutValues = data.series.map(item => selectedIdx >= 0 ? item.values[selectedIdx] : r1(item.values.reduce((a,b)=>a+b,0)));
+  const total = r1(donutValues.reduce((a,b)=>a+b,0));
+  mkChart('dp-subnational-rev', subnationalRevenueChartCfg(data));
+  mkChart('dp-subnational-rev-donut', themedDonutCfg(donutValues, data.colors, data.labels, '66%'));
+  const totalEl = document.getElementById('dp-subnational-total');
+  const periodEl = document.getElementById('dp-subnational-period');
+  const subEl = document.getElementById('dp-subnat-sub');
+  if (totalEl) totalEl.textContent = fmt(total);
+  if (periodEl) periodEl.textContent = yr === 'ALL' ? 'All Years' : yr;
+  if (subEl) subEl.textContent = yr === 'ALL'
+    ? 'USD Billions | 2020–2025 '
+    : `USD Billions | ${yr} Selected year highlighted | Connected to INFF data`;
+}
+
 function getOilResourceData(yr, sc, sec) {
   const snapshot = getRevenueTypeSnapshot(sc, sec, yr);
   const filtersLabel = `${sc === 'ALL' ? 'All Nigeria' : (INFF.states[sc]?.name || sc)} | ${sec === 'ALL' ? 'All Sectors' : (INFF.meta.sectors[sec] || sec)}`;
@@ -944,9 +1030,8 @@ function renderDP(d, dp, selIdx, hiBar, yrNum, sc, sec, yr, isAllYears) {
   renderOilResourceRevenue({ yr, state: sc, sector: sec });
   mkChart('dp-soe',    stacked(['Retained','Transfer','Surplus','Dividend'],  P, 5));
   mkChart('dp-earmark',stacked(['Infra','Education','Health','Social','SWF'], P, 7));
+  renderSubnationalRevenueCharts(yr, sc, sec);
 }
-
-
 function getPrivateSourceData(seed = 2) {
   const labels = ['Commercial Banks','MFIs','Insurance Companies','Pension Funds','Other'];
   const colors = [P[0], P[1], P[2], P[3], P[4]];
